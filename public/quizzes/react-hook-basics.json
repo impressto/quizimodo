@@ -1,0 +1,186 @@
+{
+  "title": "React Hooks Deep Dive Quiz",
+  "description": "A 20-question quiz to test your knowledge of React Hooks.",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the main purpose of React Hooks?",
+      "options": [
+        "To make websites load faster",
+        "To add state and lifecycle features to functional components",
+        "To style components",
+        "To connect to a database"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 2,
+      "question": "Which hook is used to create state in a functional component?",
+      "options": ["useState", "useEffect", "useContext", "useReducer"],
+      "answer": 0
+    },
+    {
+      "id": 3,
+      "question": "What does the useState hook return?",
+      "options": [
+        "Just the current state value",
+        "A function that changes the state",
+        "An array with the state value and a function to update it",
+        "An object with multiple state variables"
+      ],
+      "answer": 2
+    },
+    {
+      "id": 4,
+      "question": "In useState(0), what does 0 represent?",
+      "options": [
+        "The name of the state",
+        "The default/initial value of the state",
+        "The maximum value allowed",
+        "The ID of the component"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 5,
+      "question": "Which hook is used to handle side effects in a component?",
+      "options": ["useMemo", "useEffect", "useRef", "useState"],
+      "answer": 1
+    },
+    {
+      "id": 6,
+      "question": "When does useEffect run by default?",
+      "options": [
+        "Only once when the app starts",
+        "After every render",
+        "Before the component renders",
+        "Only when state updates"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 7,
+      "question": "What does the second argument in useEffect(() => { ... }, []) represent?",
+      "options": [
+        "It specifies dependencies",
+        "It prevents rendering",
+        "It changes the return type",
+        "It clears state"
+      ],
+      "answer": 0
+    },
+    {
+      "id": 8,
+      "question": "If the dependency array [] in useEffect is empty, when will the effect run?",
+      "options": [
+        "Never",
+        "Once, when the component mounts",
+        "On every state change",
+        "Every second"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 9,
+      "question": "Which hook can store a value that does not cause re-renders when updated?",
+      "options": ["useEffect", "useRef", "useState", "useMemo"],
+      "answer": 1
+    },
+    {
+      "id": 10,
+      "question": "Why must hooks always be called at the top level of a component?",
+      "options": [
+        "To save memory",
+        "To keep hooks called in the same order on every render",
+        "To shorten code",
+        "To prevent side effects"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 11,
+      "question": "Which hook provides context values to child components?",
+      "options": ["useContext", "useState", "useReducer", "useEffect"],
+      "answer": 0
+    },
+    {
+      "id": 12,
+      "question": "What hook is commonly used to optimize expensive calculations?",
+      "options": ["useMemo", "useEffect", "useLayoutEffect", "useReducer"],
+      "answer": 0
+    },
+    {
+      "id": 13,
+      "question": "What is the difference between useMemo and useCallback?",
+      "options": [
+        "useMemo memoizes values, useCallback memoizes functions",
+        "They are identical",
+        "useCallback is faster than useMemo",
+        "useMemo is used for state, useCallback for effects"
+      ],
+      "answer": 0
+    },
+    {
+      "id": 14,
+      "question": "Which hook allows you to manage more complex state logic using a reducer function?",
+      "options": ["useReducer", "useEffect", "useMemo", "useContext"],
+      "answer": 0
+    },
+    {
+      "id": 15,
+      "question": "What function is returned by useReducer?",
+      "options": [
+        "A function to update context",
+        "A function to dispatch actions",
+        "A function to re-render the component",
+        "A function to fetch data"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 16,
+      "question": "Which hook runs synchronously after all DOM mutations?",
+      "options": ["useEffect", "useLayoutEffect", "useRef", "useCallback"],
+      "answer": 1
+    },
+    {
+      "id": 17,
+      "question": "What is the main use case of useImperativeHandle?",
+      "options": [
+        "To directly modify DOM elements",
+        "To customize the instance value exposed by ref",
+        "To manage component lifecycle",
+        "To optimize rendering performance"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 18,
+      "question": "Which hook is useful for performance when passing callback functions to child components?",
+      "options": ["useCallback", "useEffect", "useReducer", "useRef"],
+      "answer": 0
+    },
+    {
+      "id": 19,
+      "question": "Which hook allows sharing state logic across multiple components?",
+      "options": [
+        "Custom Hooks",
+        "useReducer",
+        "useLayoutEffect",
+        "useContext"
+      ],
+      "answer": 0
+    },
+    {
+      "id": 20,
+      "question": "What is a rule of hooks?",
+      "options": [
+        "Hooks can only be called inside class components",
+        "Hooks can only be called inside function components or custom hooks",
+        "Hooks can be called conditionally inside loops",
+        "Hooks can be used anywhere in JavaScript"
+      ],
+      "answer": 1
+    }
+  ]
+}

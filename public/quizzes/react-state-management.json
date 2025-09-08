@@ -1,0 +1,206 @@
+{
+  "title": "React State Management Quiz",
+  "description": "A 20-question quiz to test your knowledge of React state management.",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the main purpose of state in React?",
+      "options": [
+        "To style components",
+        "To store dynamic data that changes over time",
+        "To define component layout",
+        "To import external libraries"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 2,
+      "question": "Which hook is primarily used to add state to a functional component?",
+      "options": ["useState", "useEffect", "useReducer", "useContext"],
+      "answer": 0
+    },
+    {
+      "id": 3,
+      "question": "What is the difference between props and state?",
+      "options": [
+        "Props are mutable, state is immutable",
+        "Props are passed from parent to child, state is managed within a component",
+        "State is read-only, props are writable",
+        "They are the same thing"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 4,
+      "question": "How do you update state created with useState?",
+      "options": [
+        "By directly modifying the variable",
+        "By using the setter function returned by useState",
+        "By using this.setState",
+        "By calling updateState()"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 5,
+      "question": "What happens if you directly modify a state variable without using its setter?",
+      "options": [
+        "The component still re-renders",
+        "React throws an error",
+        "The value changes, but the component does not re-render",
+        "It automatically updates everywhere"
+      ],
+      "answer": 2
+    },
+    {
+      "id": 6,
+      "question": "What is “lifting state up” in React?",
+      "options": [
+        "Moving state from a child component to a parent so it can be shared",
+        "Storing state in the global scope",
+        "Using external libraries for state",
+        "Converting props into state"
+      ],
+      "answer": 0
+    },
+    {
+      "id": 7,
+      "question": "What is a controlled component in React?",
+      "options": [
+        "A component where state is managed internally",
+        "A component whose form elements are controlled by React state",
+        "A component that never re-renders",
+        "A component wrapped in Context"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 8,
+      "question": "What is an uncontrolled component?",
+      "options": [
+        "A component that manages form data with refs instead of React state",
+        "A component with no props",
+        "A component with no logic",
+        "A component that doesn’t update"
+      ],
+      "answer": 0
+    },
+    {
+      "id": 9,
+      "question": "Which hook is useful for managing complex state with multiple actions?",
+      "options": ["useEffect", "useReducer", "useContext", "useMemo"],
+      "answer": 1
+    },
+    {
+      "id": 10,
+      "question": "What arguments does useReducer take?",
+      "options": [
+        "reducer function, initial state",
+        "state value, state updater",
+        "props, context",
+        "component, dependencies"
+      ],
+      "answer": 0
+    },
+    {
+      "id": 11,
+      "question": "What is the purpose of the reducer function in useReducer?",
+      "options": [
+        "To return the initial state",
+        "To define how state changes in response to actions",
+        "To fetch external data",
+        "To pass props"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 12,
+      "question": "What is the main difference between useState and useReducer?",
+      "options": [
+        "useState is for async state, useReducer is for sync state",
+        "useState is simpler, useReducer is better for complex logic",
+        "useState can’t be used in functional components",
+        "useReducer is only for context"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 13,
+      "question": "What is the Context API mainly used for?",
+      "options": [
+        "Sharing state across deeply nested components without prop drilling",
+        "Storing data in the database",
+        "Managing side effects",
+        "Handling API calls"
+      ],
+      "answer": 0
+    },
+    {
+      "id": 14,
+      "question": "Which hook is used to consume values from a Context?",
+      "options": ["useContext", "useReducer", "useMemo", "useRef"],
+      "answer": 0
+    },
+    {
+      "id": 15,
+      "question": "What is prop drilling?",
+      "options": [
+        "Passing props deeply through multiple levels of components",
+        "Using state inside props",
+        "Sharing state globally",
+        "Passing functions instead of values"
+      ],
+      "answer": 0
+    },
+    {
+      "id": 16,
+      "question": "How can you avoid prop drilling?",
+      "options": [
+        "By using Context API",
+        "By using only props",
+        "By rewriting state as global variables",
+        "By using uncontrolled components"
+      ],
+      "answer": 0
+    },
+    {
+      "id": 17,
+      "question": "What is derived state in React?",
+      "options": [
+        "State values calculated from props or other state",
+        "State that comes from localStorage",
+        "State managed outside React",
+        "State that never updates"
+      ],
+      "answer": 0
+    },
+    {
+      "id": 18,
+      "question": "Why should you avoid storing derived values directly in state?",
+      "options": [
+        "It makes code faster",
+        "It can cause bugs and duplication of data",
+        "It makes React crash",
+        "It prevents re-renders"
+      ],
+      "answer": 1
+    },
+    {
+      "id": 19,
+      "question": "Which external library is commonly used for global state management in React apps?",
+      "options": ["Bootstrap", "Redux", "Tailwind", "Axios"],
+      "answer": 1
+    },
+    {
+      "id": 20,
+      "question": "What is the key principle of Redux?",
+      "options": [
+        "Multiple sources of truth",
+        "A single source of truth",
+        "State only in local components",
+        "No reducers allowed"
+      ],
+      "answer": 1
+    }
+  ]
+}
