@@ -72,10 +72,59 @@
   font-size: 24px;
 }
 
+/* Style emoji differently based on the streak level */
 .emoji {
   font-size: 36px;
   animation: emoji-bounce 1s infinite alternate;
   display: inline-block;
+}
+
+/* Add additional styles for the streak levels */
+.celebration-container .emoji {
+  transform-origin: center center;
+}
+
+/* Amazing streak (10) - slightly bigger emoji with different animation */
+.celebration-container .emoji:nth-of-type(1):has(+ h3:contains('10 in a row')) {
+  font-size: 42px;
+  animation: emoji-spin 1.5s infinite alternate;
+}
+
+.celebration-container .emoji:nth-of-type(2):has(~ h3:contains('10 in a row')) {
+  font-size: 42px;
+  animation: emoji-spin 1.5s infinite alternate-reverse;
+}
+
+/* Mindblowing streak (20) - even bigger emoji with pulse animation */
+.celebration-container .emoji:nth-of-type(1):has(+ h3:contains('20 in a row')) {
+  font-size: 48px;
+  animation: emoji-pulse 1s infinite;
+}
+
+.celebration-container .emoji:nth-of-type(2):has(~ h3:contains('20 in a row')) {
+  font-size: 48px;
+  animation: emoji-pulse 1s infinite;
+}
+
+@keyframes emoji-spin {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  100% {
+    transform: rotate(25deg) translateY(-12px);
+  }
+}
+
+@keyframes emoji-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes emoji-bounce {

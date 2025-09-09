@@ -3,6 +3,10 @@
     {
       "id": "esp32-basics",
       "file": "esp32-basics.json"
+    },
+    {
+      "id": "espnow",
+      "file": "espnow.json"
     }
   ]
 }

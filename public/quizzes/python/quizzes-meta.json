@@ -3,6 +3,10 @@
     {
       "id": "python-basics",
       "file": "python-basics.json"
+    },
+    {
+      "id": "flask",
+      "file": "flask.json"
     }
   ]
 }

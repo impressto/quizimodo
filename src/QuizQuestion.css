@@ -3,7 +3,8 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  max-width: 800px;
+  width: 100%;
   margin: 0 auto;
   position: relative;
 }
@@ -77,6 +78,7 @@
   color: inherit;  /* Keep the text color the same */
   background-color: #f8f9fa;  /* Keep the background color the same */
   pointer-events: none;  /* Prevent any interaction */
+  color: #000;
 }
 
 .option:hover:not(:disabled) {
@@ -173,5 +175,31 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .quiz-question {
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .quiz-question h2 {
+    font-size: 18px;
+  }
+
+  .option {
+    padding: 12px 15px;
+    font-size: 15px;
+  }
+
+  .explanation-container {
+    padding: 12px;
+  }
+
+  .continue-button {
+    padding: 8px 20px;
+    font-size: 15px;
   }
 }

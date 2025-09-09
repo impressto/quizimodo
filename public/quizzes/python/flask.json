@@ -1,0 +1,247 @@
+{
+  "title": "Flask Web Development Quiz",
+  "description": "A 20-question quiz to test your knowledge of Flask, the Python web framework.",
+  "time": "25 minutes",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is Flask?",
+      "options": [
+        "A full-stack web framework for Python",
+        "A lightweight web framework for Python",
+        "A database management system",
+        "A Python package for data analysis"
+      ],
+      "answer": 1,
+      "explanation": "Flask is a lightweight web framework for Python, often called a micro-framework because it does not include built-in tools like form validation or database abstraction."
+    },
+    {
+      "id": 2,
+      "question": "Which company created Flask?",
+      "options": [
+        "Facebook",
+        "Google",
+        "Armin Ronacher / Pocoo Team",
+        "Python Software Foundation"
+      ],
+      "answer": 2,
+      "explanation": "Flask was created by Armin Ronacher as part of the Pocoo team."
+    },
+    {
+      "id": 3,
+      "question": "Which command is used to install Flask?",
+      "options": [
+        "pip install flask",
+        "python install flask",
+        "flask install",
+        "install flask"
+      ],
+      "answer": 0,
+      "explanation": "Flask is installed with pip, the Python package installer: `pip install flask`."
+    },
+    {
+      "id": 4,
+      "question": "What is the default port Flask runs on?",
+      "options": [
+        "3000",
+        "8000",
+        "8080",
+        "5000"
+      ],
+      "answer": 3,
+      "explanation": "By default, Flask runs on port 5000 when using the built-in development server."
+    },
+    {
+      "id": 5,
+      "question": "How do you start a Flask application?",
+      "options": [
+        "python app.py",
+        "flask run",
+        "run flask",
+        "Both A and B"
+      ],
+      "answer": 3,
+      "explanation": "You can start a Flask application by either using `python app.py` (if you have `app.run()` in the file) or `flask run` if the environment variable `FLASK_APP` is set."
+    },
+    {
+      "id": 6,
+      "question": "What is the purpose of the @app.route decorator?",
+      "options": [
+        "To define a database model",
+        "To specify a URL endpoint for a function",
+        "To import a package",
+        "To start the server"
+      ],
+      "answer": 1,
+      "explanation": "The `@app.route` decorator is used to bind a function to a specific URL endpoint in Flask."
+    },
+    {
+      "id": 7,
+      "question": "Which object is used to handle HTTP requests in Flask?",
+      "options": [
+        "response",
+        "session",
+        "request",
+        "app"
+      ],
+      "answer": 2,
+      "explanation": "Flask provides a global `request` object to access incoming request data such as form fields, JSON, headers, and query parameters."
+    },
+    {
+      "id": 8,
+      "question": "Which method is used to return HTML templates in Flask?",
+      "options": [
+        "render_template()",
+        "return_html()",
+        "show_template()",
+        "load_template()"
+      ],
+      "answer": 0,
+      "explanation": "The `render_template()` function is used to render HTML templates located in the 'templates' directory."
+    },
+    {
+      "id": 9,
+      "question": "Where should Flask HTML templates be stored by default?",
+      "options": [
+        "static/",
+        "views/",
+        "templates/",
+        "html/"
+      ],
+      "answer": 2,
+      "explanation": "Flask looks for HTML templates in the `templates/` directory by default."
+    },
+    {
+      "id": 10,
+      "question": "Where should static files like CSS and JavaScript be placed in a Flask project?",
+      "options": [
+        "templates/",
+        "assets/",
+        "static/",
+        "public/"
+      ],
+      "answer": 2,
+      "explanation": "Static files like CSS, JavaScript, and images should be placed in the `static/` directory by default."
+    },
+    {
+      "id": 11,
+      "question": "Which of the following is NOT a valid HTTP method in Flask routes?",
+      "options": [
+        "POST",
+        "GET",
+        "FETCH",
+        "DELETE"
+      ],
+      "answer": 2,
+      "explanation": "Flask supports HTTP methods like GET, POST, PUT, PATCH, and DELETE. FETCH is not a valid method."
+    },
+    {
+      "id": 12,
+      "question": "What does the `url_for()` function do in Flask?",
+      "options": [
+        "Generates a URL for a given view function",
+        "Returns the current URL",
+        "Loads a new page",
+        "Defines a new route"
+      ],
+      "answer": 0,
+      "explanation": "`url_for()` is used to dynamically generate URLs for a given view function, making routing more maintainable."
+    },
+    {
+      "id": 13,
+      "question": "What is the purpose of Flask's `session` object?",
+      "options": [
+        "To store temporary data on the client side",
+        "To store server configuration",
+        "To handle database queries",
+        "To manage background tasks"
+      ],
+      "answer": 0,
+      "explanation": "The `session` object in Flask allows you to store information specific to a user session, using secure cookies."
+    },
+    {
+      "id": 14,
+      "question": "Which of the following extensions is commonly used for database integration with Flask?",
+      "options": [
+        "Flask-SQLAlchemy",
+        "Flask-DB",
+        "Flask-MySQL",
+        "Flask-Database"
+      ],
+      "answer": 0,
+      "explanation": "Flask-SQLAlchemy is a popular extension that integrates SQLAlchemy ORM with Flask."
+    },
+    {
+      "id": 15,
+      "question": "What does the `debug=True` argument in `app.run()` do?",
+      "options": [
+        "Enables detailed error messages and auto-reloading",
+        "Increases server speed",
+        "Disables error logging",
+        "Enables HTTPS mode"
+      ],
+      "answer": 0,
+      "explanation": "Setting `debug=True` enables the Flask debugger and auto-reload, making development easier."
+    },
+    {
+      "id": 16,
+      "question": "Which command sets the Flask application environment variable?",
+      "options": [
+        "export FLASK_APP=app.py",
+        "set FLASK_APP=app.py",
+        "flask set app",
+        "Both A and B depending on the OS"
+      ],
+      "answer": 3,
+      "explanation": "On Linux/macOS you use `export FLASK_APP=app.py`, while on Windows you use `set FLASK_APP=app.py`."
+    },
+    {
+      "id": 17,
+      "question": "Which template engine does Flask use by default?",
+      "options": [
+        "Mako",
+        "Jinja2",
+        "Mustache",
+        "Handlebars"
+      ],
+      "answer": 1,
+      "explanation": "Flask uses Jinja2 as its default templating engine."
+    },
+    {
+      "id": 18,
+      "question": "How do you define a variable in a Jinja2 template?",
+      "options": [
+        "{{ variable }}",
+        "<% variable %>",
+        "(( variable ))",
+        "[[ variable ]]"
+      ],
+      "answer": 0,
+      "explanation": "In Jinja2 templates, variables are rendered using double curly braces: `{{ variable }}`."
+    },
+    {
+      "id": 19,
+      "question": "Which method is used to redirect users to a different route in Flask?",
+      "options": [
+        "redirect()",
+        "goto()",
+        "route_change()",
+        "navigate()"
+      ],
+      "answer": 0,
+      "explanation": "The `redirect()` function is used to send users to a different route or URL."
+    },
+    {
+      "id": 20,
+      "question": "Flask is often referred to as a 'micro-framework'. What does 'micro' mean in this context?",
+      "options": [
+        "Flask has very few features",
+        "Flask is only for small applications",
+        "Flask focuses on simplicity and gives developers freedom to choose extensions",
+        "Flask runs faster than other frameworks"
+      ],
+      "answer": 2,
+      "explanation": "Flask is called a micro-framework because it provides the essentials but leaves many decisions (like database choice, authentication, etc.) up to the developer."
+    }
+  ]
+}

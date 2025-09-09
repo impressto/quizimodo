@@ -25,6 +25,7 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
   const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
   const [correctStreak, setCorrectStreak] = useState<number>(0);
   const [showCelebration, setShowCelebration] = useState<boolean>(false);
+  const [celebrationType, setCelebrationType] = useState<'basic' | 'amazing' | 'mindblowing'>('basic');
 
   useEffect(() => {
     if (!selectedQuizId) return;
@@ -73,13 +74,28 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
       const newStreak = correctStreak + 1;
       setCorrectStreak(newStreak);
       
-      // Show celebration after 5 correct answers in a row
+      // Show different celebrations based on streak milestones
       if (newStreak === 5) {
+        setCelebrationType('basic');
         setShowCelebration(true);
         // Hide celebration after 2 seconds
         setTimeout(() => {
           setShowCelebration(false);
         }, 2000);
+      } else if (newStreak === 10) {
+        setCelebrationType('amazing');
+        setShowCelebration(true);
+        // Hide celebration after 2.5 seconds
+        setTimeout(() => {
+          setShowCelebration(false);
+        }, 2500);
+      } else if (newStreak === 20) {
+        setCelebrationType('mindblowing');
+        setShowCelebration(true);
+        // Hide celebration after 3 seconds
+        setTimeout(() => {
+          setShowCelebration(false);
+        }, 3000);
       }
     } else {
       // Reset streak on wrong answer
@@ -98,6 +114,7 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
     // Reset streak when restarting the quiz
     setCorrectStreak(0);
     setShowCelebration(false);
+    setCelebrationType('basic');
     
     setQuizState(prev => ({
       ...prev,
@@ -111,11 +128,12 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
     setSelectedQuizId(null);
     setCorrectStreak(0);
     setShowCelebration(false);
+    setCelebrationType('basic');
   };
 
   return (
     <div className="app">
-      {showCelebration && <Celebration />}
+      {showCelebration && <Celebration streakLevel={celebrationType} />}
       
       <header>
         {quizState.quizData && !quizState.quizCompleted && (
@@ -152,6 +170,8 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
           <QuizResult 
             score={quizState.score} 
             totalQuestions={quizState.quizData.questions.length}
+            quizTitle={quizState.quizData.title}
+            quizData={quizState.quizData}
             onRestart={restartQuiz}
             onChooseNewQuiz={chooseNewQuiz}
           />

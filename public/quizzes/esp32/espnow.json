@@ -1,0 +1,246 @@
+{
+  "title": "ESP-NOW Protocol Quiz",
+  "description": "A 20-question quiz to test your knowledge of ESP-NOW, Espressif's low-power, high-speed wireless communication protocol.",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is ESP-NOW?",
+      "options": [
+        "A low-power, connectionless Wi-Fi communication protocol developed by Espressif",
+        "A Bluetooth Low Energy protocol for IoT devices",
+        "A cellular communication protocol for ESP32 devices",
+        "A wired communication protocol for microcontrollers"
+      ],
+      "answer": 0,
+      "explanation": "ESP-NOW is a low-power, connectionless Wi-Fi communication protocol developed by Espressif. It enables direct, fast communication between ESP8266 and ESP32 devices without requiring a Wi-Fi router or internet connection, making it ideal for IoT applications where devices need to communicate with each other quickly and efficiently."
+    },
+    {
+      "id": 2,
+      "question": "Which Espressif devices support ESP-NOW?",
+      "options": [
+        "ESP8266 and ESP32 series",
+        "Only ESP32 series",
+        "Only ESP8266 series",
+        "ESP32 and ESP8285 series"
+      ],
+      "answer": 0,
+      "explanation": "ESP-NOW is supported by both the ESP8266 and ESP32 series of microcontrollers. This allows for communication between different Espressif devices, providing flexibility in choosing hardware for your IoT projects."
+    },
+    {
+      "id": 3,
+      "question": "What type of communication does ESP-NOW use?",
+      "options": [
+        "Connectionless",
+        "Connection-oriented",
+        "Mesh networking",
+        "Peer-to-peer with handshaking"
+      ],
+      "answer": 0,
+      "explanation": "ESP-NOW uses connectionless communication. This means devices can send data to each other without establishing or maintaining a persistent connection, which reduces overhead and latency compared to connection-oriented protocols."
+    },
+    {
+      "id": 4,
+      "question": "What wireless technology does ESP-NOW use as its foundation?",
+      "options": [
+        "Wi-Fi (IEEE 802.11)",
+        "Bluetooth Low Energy",
+        "Zigbee",
+        "LoRa"
+      ],
+      "answer": 0,
+      "explanation": "ESP-NOW is built on top of Wi-Fi (IEEE 802.11) technology. It uses the Wi-Fi protocol but implements a connectionless communication method, which differs from traditional Wi-Fi connections that require association with an access point."
+    },
+    {
+      "id": 5,
+      "question": "What is one of the main advantages of ESP-NOW over traditional Wi-Fi?",
+      "options": [
+        "Lower power consumption and faster connection setup",
+        "Higher data transfer rates",
+        "Longer range",
+        "Better security"
+      ],
+      "answer": 0,
+      "explanation": "One of the main advantages of ESP-NOW over traditional Wi-Fi is its lower power consumption and faster connection setup. Since ESP-NOW doesn't require the overhead of connecting to a Wi-Fi network or access point, devices can communicate more quickly and with less power, making it ideal for battery-powered IoT applications."
+    },
+    {
+      "id": 6,
+      "question": "How does ESP-NOW handle encryption?",
+      "options": [
+        "It uses AES encryption for secure communication",
+        "It doesn't support encryption",
+        "It uses WPA2 encryption like traditional Wi-Fi",
+        "It relies on the application layer for encryption"
+      ],
+      "answer": 0,
+      "explanation": "ESP-NOW uses AES (Advanced Encryption Standard) encryption for secure communication between devices. This provides a level of security comparable to other wireless protocols, ensuring that data transmitted between devices is protected from eavesdropping."
+    },
+    {
+      "id": 7,
+      "question": "What is the maximum payload size for ESP-NOW messages?",
+      "options": [
+        "250 bytes",
+        "512 bytes",
+        "1024 bytes",
+        "200 bytes"
+      ],
+      "answer": 0,
+      "explanation": "The maximum payload size for ESP-NOW messages is 250 bytes. This limitation is due to the underlying Wi-Fi protocol that ESP-NOW is built upon. For larger data transfers, applications typically need to implement their own protocol to split data into multiple packets."
+    },
+    {
+      "id": 8,
+      "question": "What is the typical range of ESP-NOW communication?",
+      "options": [
+        "Up to 200-300 meters in open space",
+        "Up to 10 meters indoors",
+        "Up to 1 kilometer with line of sight",
+        "Up to 50 meters in urban environments"
+      ],
+      "answer": 0,
+      "explanation": "The typical range of ESP-NOW communication is up to 200-300 meters in open space. This range can vary depending on environmental factors, obstacles, and the specific ESP32 or ESP8266 module being used. In indoor environments or areas with many obstacles, the range will typically be shorter."
+    },
+    {
+      "id": 9,
+      "question": "How does ESP-NOW handle packet loss?",
+      "options": [
+        "It relies on the application layer to implement retransmission logic",
+        "It automatically retransmits lost packets",
+        "It uses TCP-like acknowledgments",
+        "It guarantees delivery of all packets"
+      ],
+      "answer": 0,
+      "explanation": "ESP-NOW relies on the application layer to implement retransmission logic for handling packet loss. Unlike TCP, ESP-NOW does not have built-in mechanisms for guaranteeing packet delivery or automatic retransmission. If reliable communication is required, the application must implement its own acknowledgment and retransmission system."
+    },
+    {
+      "id": 10,
+      "question": "What is the role of the MAC address in ESP-NOW communication?",
+      "options": [
+        "It identifies the destination device for point-to-point communication",
+        "It's used for network routing",
+        "It determines the encryption key",
+        "It sets the communication channel"
+      ],
+      "answer": 0,
+      "explanation": "In ESP-NOW communication, the MAC address identifies the destination device for point-to-point communication. Each device has a unique MAC address, and ESP-NOW uses these addresses to route messages directly to specific devices without needing a central coordinator or access point."
+    },
+    {
+      "id": 11,
+      "question": "How do you add a peer device in ESP-NOW?",
+      "options": [
+        "By calling esp_now_add_peer() with the peer's MAC address",
+        "By broadcasting a discovery message",
+        "By connecting to the peer's Wi-Fi network",
+        "By exchanging encryption keys"
+      ],
+      "answer": 0,
+      "explanation": "In ESP-NOW, you add a peer device by calling `esp_now_add_peer()` with the peer's MAC address. This function registers the peer device and allows you to send data directly to it. You typically need to know the MAC address of the peer device beforehand."
+    },
+    {
+      "id": 12,
+      "question": "What function is used to send data in ESP-NOW?",
+      "options": [
+        "esp_now_send()",
+        "esp_now_transmit()",
+        "esp_now_broadcast()",
+        "esp_now_write()"
+      ],
+      "answer": 0,
+      "explanation": "The function used to send data in ESP-NOW is `esp_now_send()`. This function takes the MAC address of the peer device and a pointer to the data to be sent. It returns a status indicating whether the send operation was successful."
+    },
+    {
+      "id": 13,
+      "question": "What callback function is used to handle received messages in ESP-NOW?",
+      "options": [
+        "esp_now_recv_cb()",
+        "esp_now_rx_cb()",
+        "on_receive()",
+        "handle_message()"
+      ],
+      "answer": 0,
+      "explanation": "The callback function used to handle received messages in ESP-NOW is typically named `esp_now_recv_cb()` (or a custom name you define). This function is registered with the ESP-NOW API and is called automatically whenever a message is received. The callback receives information about the sender and the received data."
+    },
+    {
+      "id": 14,
+      "question": "What is the role of the Wi-Fi channel in ESP-NOW communication?",
+      "options": [
+        "All devices must be on the same Wi-Fi channel to communicate",
+        "It determines the encryption method",
+        "It affects only the range of communication",
+        "It's used to identify different networks"
+      ],
+      "answer": 0,
+      "explanation": "In ESP-NOW communication, all devices must be on the same Wi-Fi channel to communicate with each other. This is because ESP-NOW operates at the Wi-Fi MAC layer and doesn't use the higher-level networking protocols that would handle channel switching. You typically set the channel when initializing ESP-NOW."
+    },
+    {
+      "id": 15,
+      "question": "Can ESP-NOW devices communicate with regular Wi-Fi devices?",
+      "options": [
+        "No, ESP-NOW is a separate protocol that only works between Espressif devices",
+        "Yes, but only if they use the same encryption",
+        "Yes, but with limited functionality",
+        "Yes, if they're on the same network"
+      ],
+      "answer": 0,
+      "explanation": "No, ESP-NOW devices cannot communicate with regular Wi-Fi devices. ESP-NOW is a proprietary protocol developed by Espressif that only works between Espressif devices (like ESP8266 and ESP32). It operates at a different layer than standard Wi-Fi communication and uses different protocols."
+    },
+    {
+      "id": 16,
+      "question": "What is the typical data transfer rate for ESP-NOW?",
+      "options": [
+        "1-2 Mbps",
+        "10-20 Mbps",
+        "50-100 Mbps",
+        "200-300 Mbps"
+      ],
+      "answer": 0,
+      "explanation": "The typical data transfer rate for ESP-NOW is around 1-2 Mbps (megabits per second). This is lower than traditional Wi-Fi speeds because ESP-NOW is optimized for low-power, low-latency communication rather than high bandwidth. The actual throughput can vary depending on environmental factors and distance between devices."
+    },
+    {
+      "id": 17,
+      "question": "How does ESP-NOW handle multiple peer devices?",
+      "options": [
+        "You can add up to 20 peer devices (ESP32) or 10 peer devices (ESP8266)",
+        "It supports unlimited peer devices",
+        "It can only communicate with one peer at a time",
+        "It uses a mesh network to handle multiple peers"
+      ],
+      "answer": 0,
+      "explanation": "In ESP-NOW, you can add up to 20 peer devices on ESP32 or up to 10 peer devices on ESP8266. This limit is due to memory constraints on the devices. Each peer device must be added individually using its MAC address before you can send data to it."
+    },
+    {
+      "id": 18,
+      "question": "What is the purpose of the PMK (Pairwise Master Key) in ESP-NOW?",
+      "options": [
+        "It's used for encrypting communication between paired devices",
+        "It identifies the network",
+        "It determines the communication channel",
+        "It sets the power level for transmission"
+      ],
+      "answer": 0,
+      "explanation": "The PMK (Pairwise Master Key) in ESP-NOW is used for encrypting communication between paired devices. When you add a peer device, you can specify a PMK to secure the communication. If no PMK is specified, ESP-NOW will use a default key, but this is less secure."
+    },
+    {
+      "id": 19,
+      "question": "What is one common use case for ESP-NOW?",
+      "options": [
+        "Wireless sensor networks",
+        "High-speed file transfers",
+        "Video streaming",
+        "Web browsing"
+      ],
+      "answer": 0,
+      "explanation": "A common use case for ESP-NOW is wireless sensor networks. Its low-power consumption, fast connection setup, and ability to communicate directly between devices make it ideal for IoT applications where sensors need to send data to a central device or to each other without the overhead of a traditional Wi-Fi network."
+    },
+    {
+      "id": 20,
+      "question": "What is a potential disadvantage of using ESP-NOW?",
+      "options": [
+        "No built-in packet retransmission or delivery guarantees",
+        "High power consumption",
+        "Limited to short-range communication only",
+        "Requires an internet connection"
+      ],
+      "answer": 0,
+      "explanation": "A potential disadvantage of using ESP-NOW is that it has no built-in packet retransmission or delivery guarantees. Since ESP-NOW is a connectionless protocol, it doesn't have mechanisms like TCP to ensure packets are delivered or to automatically retransmit lost packets. Applications that require reliable communication must implement their own acknowledgment and retransmission logic."
+    }
+  ]
+}
