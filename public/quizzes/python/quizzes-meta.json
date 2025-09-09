@@ -1,0 +1,8 @@
+{
+  "quizzes": [
+    {
+      "id": "python-basics",
+      "file": "python-basics.json"
+    }
+  ]
+}

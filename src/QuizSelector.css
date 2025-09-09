@@ -42,9 +42,12 @@
 .quiz-info {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: #777;
   font-size: 14px;
   margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .quiz-id {
@@ -53,6 +56,16 @@
   border-radius: 4px;
   font-size: 12px;
   color: #666;
+}
+
+.quiz-time {
+  display: flex;
+  align-items: center;
+  background-color: #f0f9ff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #3a86ff;
 }
 
 .no-quizzes {

@@ -1,0 +1,39 @@
+{
+  "quizzes": [
+    {
+      "id": "react-hook-basics",
+      "file": "react-hook-basics.json"
+    },
+    {
+      "id": "react-state-management",
+      "file": "react-state-management.json"
+    },
+    {
+      "id": "react-usestate-hook",
+      "file": "react-usestate-hook.json"
+    },
+    {
+      "id": "react-useeffect-hook",
+      "file": "react-useeffect-hook.json"
+    },
+    {
+      "id": "react-usereducer-hook",
+      "file": "react-usereducer-hook.json"
+    },
+    {
+      "id": "react-useref-hook",
+      "file": "react-useref-hook.json"
+    },
+
+    {
+      "id": "react-usememo-hook",
+      "file": "react-usememo-hook.json"
+    },
+
+    {
+      "id": "react-usecontext-hook",
+      "file": "react-usecontext-hook.json"
+    }
+
+  ]
+}

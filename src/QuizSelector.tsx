@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import './QuizSelector.css';
 import type { QuizMetadata } from './types';
+import { getQuizzesBaseUrl, DEFAULT_TOPIC } from './config';
 
 interface QuizSelectorProps {
   onSelectQuiz: (quizId: string) => void;
+  topic?: string;
 }
 
-const QuizSelector = ({ onSelectQuiz }: QuizSelectorProps) => {
+const QuizSelector = ({ onSelectQuiz, topic = DEFAULT_TOPIC }: QuizSelectorProps) => {
   const [availableQuizzes, setAvailableQuizzes] = useState<QuizMetadata[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -14,10 +16,14 @@ const QuizSelector = ({ onSelectQuiz }: QuizSelectorProps) => {
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
+        const baseUrl = getQuizzesBaseUrl(topic);
+        console.log('Fetching quizzes from URL:', `${baseUrl}/quizzes-meta.json`);
+        
         // First, fetch the quizzes-meta.json that lists all available quizzes
-        const metaResponse = await fetch('/quizzes/quizzes-meta.json');
+        const metaResponse = await fetch(`${baseUrl}/quizzes-meta.json`);
         
         if (!metaResponse.ok) {
+          console.error('Failed to fetch quiz list:', metaResponse.status, metaResponse.statusText);
           throw new Error('Failed to fetch quiz list');
         }
         
@@ -26,7 +32,7 @@ const QuizSelector = ({ onSelectQuiz }: QuizSelectorProps) => {
         // Now, fetch each quiz to get its title and description
         const quizPromises = metaData.quizzes.map(async (quiz: { id: string, file: string }) => {
           try {
-            const response = await fetch(`/quizzes/${quiz.file}`);
+            const response = await fetch(`${baseUrl}/${quiz.file}`);
             
             if (!response.ok) {
               throw new Error(`Failed to load quiz: ${quiz.id}`);
@@ -38,7 +44,8 @@ const QuizSelector = ({ onSelectQuiz }: QuizSelectorProps) => {
               id: quiz.id,
               title: quizData.title || `Quiz ${quiz.id}`,
               description: quizData.description || 'No description available.',
-              questionCount: quizData.questions?.length || 0
+              questionCount: quizData.questions?.length || 0,
+              time: quizData.time
             };
           } catch (error) {
             console.error(`Error loading quiz ${quiz.id}:`, error);
@@ -47,7 +54,8 @@ const QuizSelector = ({ onSelectQuiz }: QuizSelectorProps) => {
               title: `Quiz ${quiz.id}`,
               description: 'Error loading quiz details.',
               questionCount: 0,
-              error: true
+              error: true,
+              time: undefined
             };
           }
         });
@@ -63,7 +71,7 @@ const QuizSelector = ({ onSelectQuiz }: QuizSelectorProps) => {
     };
 
     fetchQuizzes();
-  }, []);
+  }, [topic]);
 
   if (isLoading) {
     return <div className="loading">Loading available quizzes...</div>;
@@ -86,6 +94,7 @@ const QuizSelector = ({ onSelectQuiz }: QuizSelectorProps) => {
               <p>{quiz.description}</p>
               <div className="quiz-info">
                 <span>{quiz.questionCount} question{quiz.questionCount !== 1 ? 's' : ''}</span>
+                {quiz.time && <span className="quiz-time">⏱️ {quiz.time}</span>}
                 <span className="quiz-id">{quiz.id}</span>
               </div>
             </div>

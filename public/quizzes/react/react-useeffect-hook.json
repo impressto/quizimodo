@@ -1,0 +1,127 @@
+{
+  "title": "useEffect",
+  "description": "A 10-question quiz to test your knowledge of the React useEffect hook.",
+  "time": "10 minutes",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the main purpose of the useEffect hook?",
+      "options": [
+        "To manage state in a component",
+        "To handle side effects in functional components",
+        "To share state globally",
+        "To render JSX elements"
+      ],
+      "answer": 1,
+      "explanation": "The main purpose of the `useEffect` hook is to handle side effects in functional components. Side effects are operations that interact with the outside world, such as data fetching, subscriptions, manually changing the DOM, or setting up timers. `useEffect` serves the same purpose as lifecycle methods like `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` in class components."
+    },
+    {
+      "id": 2,
+      "question": "When does useEffect run by default?",
+      "options": [
+        "Only once when the app starts",
+        "After every render",
+        "Before the component renders",
+        "Only when props change"
+      ],
+      "answer": 1,
+      "explanation": "By default, `useEffect` runs after every render of the component. This includes the initial render and all subsequent updates. This behavior allows the effect to access the most recent props and state. You can control when the effect runs by specifying dependencies in the dependency array."
+    },
+    {
+      "id": 3,
+      "question": "What does the second argument of useEffect control?",
+      "options": [
+        "The return type of the effect",
+        "The dependencies that trigger the effect",
+        "The cleanup function",
+        "The component name"
+      ],
+      "answer": 1,
+      "explanation": "The second argument of `useEffect` is the dependency array, which controls when the effect should run. If any of the values in this array change between renders, the effect will run again. If the array is empty, the effect runs only once after the initial render. If you omit the dependency array, the effect runs after every render."
+    },
+    {
+      "id": 4,
+      "question": "What happens if you pass an empty dependency array [] to useEffect?",
+      "options": [
+        "The effect never runs",
+        "The effect runs only once when the component mounts",
+        "The effect runs on every render",
+        "The effect runs only when state updates"
+      ],
+      "answer": 1,
+      "explanation": "If you pass an empty dependency array `[]` to `useEffect`, the effect will run only once when the component mounts. This mimics the behavior of the `componentDidMount` lifecycle method in class components. It's useful for one-time setup operations like subscriptions or initial data fetching."
+    },
+    {
+      "id": 5,
+      "question": "What happens if you don't provide a dependency array to useEffect?",
+      "options": [
+        "The effect runs only once",
+        "The effect runs after every render",
+        "The effect doesn't run at all",
+        "The effect throws an error"
+      ],
+      "answer": 1,
+      "explanation": "If you don't provide a dependency array to `useEffect`, the effect will run after every render of the component. This is the default behavior and is useful when you want the effect to run in response to any change in the component, including changes to props or state."
+    },
+    {
+      "id": 6,
+      "question": "How do you prevent memory leaks when using useEffect?",
+      "options": [
+        "By using the cleanup function returned inside useEffect",
+        "By setting dependencies to null",
+        "By calling useState inside useEffect",
+        "By using multiple useEffect hooks"
+      ],
+      "answer": 0,
+      "explanation": "You prevent memory leaks when using `useEffect` by returning a cleanup function from the effect. This cleanup function runs before the component unmounts or before the effect runs again. It's used to cancel subscriptions, clear timers, or remove event listeners to avoid memory leaks. For example, if you set up a subscription in the effect, you should unsubscribe in the cleanup function."
+    },
+    {
+      "id": 7,
+      "question": "Which of the following is a common use case for useEffect?",
+      "options": [
+        "Fetching data from an API",
+        "Styling components",
+        "Defining initial state",
+        "Rendering JSX"
+      ],
+      "answer": 0,
+      "explanation": "A common use case for `useEffect` is fetching data from an API. Since data fetching is a side effect (it interacts with the outside world), it's a perfect fit for `useEffect`. You can fetch data when the component mounts and update the state with the response, triggering a re-render with the new data."
+    },
+    {
+      "id": 8,
+      "question": "Can you use multiple useEffect hooks in a single component?",
+      "options": [
+        "No, only one per component is allowed",
+        "Yes, you can use as many as needed",
+        "Yes, but only if they don't overlap",
+        "Yes, but they must all share the same dependencies"
+      ],
+      "answer": 1,
+      "explanation": "Yes, you can use multiple `useEffect` hooks in a single component. React allows you to use as many effects as you need, and they will run in the order they are defined. This allows you to separate different side effects into different effects, making your code more organized and easier to maintain."
+    },
+    {
+      "id": 9,
+      "question": "What happens if you include a state variable in the dependency array of useEffect?",
+      "options": [
+        "The effect runs only once",
+        "The effect runs whenever that state variable changes",
+        "The effect never runs",
+        "The effect crashes the app"
+      ],
+      "answer": 1,
+      "explanation": "If you include a state variable in the dependency array of `useEffect`, the effect will run whenever that state variable changes. This allows you to run the effect in response to specific state changes. For example, if you have a state variable `count`, including it in the dependency array will cause the effect to run whenever `count` changes."
+    },
+    {
+      "id": 10,
+      "question": "What is the difference between useEffect and useLayoutEffect?",
+      "options": [
+        "useEffect runs after painting, useLayoutEffect runs before the browser repaints",
+        "They are exactly the same",
+        "useEffect is for class components, useLayoutEffect is for functional components",
+        "useLayoutEffect is faster but less safe"
+      ],
+      "answer": 0,
+      "explanation": "The key difference between `useEffect` and `useLayoutEffect` is when they run relative to the browser's painting phase. `useEffect` runs asynchronously after the browser has painted the screen, making it suitable for most side effects. `useLayoutEffect`, on the other hand, runs synchronously before the browser repaints the screen, making it suitable for measuring DOM elements or making DOM mutations that need to be visible before the next paint. However, because `useLayoutEffect` runs before painting, it can block the browser's rendering, so it should be used sparingly."
+    }
+  ]
+}

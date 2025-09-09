@@ -1,9 +1,11 @@
 import type { QuizData } from './types';
+import { getQuizzesBaseUrl } from './config';
 
 // Helper function to get a list of all available quizzes
-export async function fetchAvailableQuizzes(): Promise<string[]> {
+export async function fetchAvailableQuizzes(topic?: string): Promise<string[]> {
   try {
-    const metaResponse = await fetch('/quizzes/quizzes-meta.json');
+    const baseUrl = getQuizzesBaseUrl(topic);
+    const metaResponse = await fetch(`${baseUrl}/quizzes-meta.json`);
     
     if (!metaResponse.ok) {
       throw new Error('Failed to fetch quiz list');
@@ -18,10 +20,12 @@ export async function fetchAvailableQuizzes(): Promise<string[]> {
 }
 
 // Helper function to load a quiz by ID
-export async function loadQuiz(quizId: string): Promise<QuizData> {
+export async function loadQuiz(quizId: string, topic?: string): Promise<QuizData> {
   try {
+    const baseUrl = getQuizzesBaseUrl(topic);
+    
     // First, get the file name from meta data
-    const metaResponse = await fetch('/quizzes/quizzes-meta.json');
+    const metaResponse = await fetch(`${baseUrl}/quizzes-meta.json`);
     
     if (!metaResponse.ok) {
       throw new Error(`Failed to load quiz metadata: ${metaResponse.statusText}`);
@@ -35,7 +39,7 @@ export async function loadQuiz(quizId: string): Promise<QuizData> {
     }
     
     // Now load the actual quiz file
-    const response = await fetch(`/quizzes/${quizMeta.file}`);
+    const response = await fetch(`${baseUrl}/${quizMeta.file}`);
     
     if (!response.ok) {
       throw new Error(`Failed to load quiz: ${response.statusText}`);

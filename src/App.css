@@ -3,15 +3,10 @@
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-header {
-  margin-bottom: 30px;
-  text-align: center;
-}
 
 header h1 {
   color: #3a86ff;
@@ -28,15 +23,38 @@ header h2 {
 
 .quiz-header {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
+  gap: 10px;
   margin-top: 10px;
 }
 
 .quiz-header h2 {
   margin: 0;
+}
+
+.quiz-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.quiz-time {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #555;
+  font-size: 14px;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+.time-icon {
+  margin-right: 2px;
 }
 main {
   flex: 1;

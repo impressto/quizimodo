@@ -1,0 +1,8 @@
+{
+  "quizzes": [
+    {
+      "id": "esp32-basics",
+      "file": "esp32-basics.json"
+    }
+  ]
+}

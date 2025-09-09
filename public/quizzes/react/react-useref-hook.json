@@ -1,0 +1,127 @@
+{
+  "title": "useRef",
+  "description": "A 10-question quiz to test your knowledge of the React useRef hook.",
+  "time": "10 minutes",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the main purpose of the useRef hook?",
+      "options": [
+        "To store values that persist across renders without causing re-renders",
+        "To manage side effects",
+        "To share state globally",
+        "To replace useState completely"
+      ],
+      "answer": 0,
+      "explanation": "The main purpose of the `useRef` hook is to store mutable values that persist across renders without causing re-renders when updated. This is particularly useful for storing values that need to be accessed across multiple renders but shouldn't trigger component updates, such as DOM element references, timer IDs, or previous state values. Unlike `useState`, changing a ref's value doesn't cause the component to re-render."
+    },
+    {
+      "id": 2,
+      "question": "What property does a ref object created by useRef have?",
+      "options": [
+        "value",
+        "ref",
+        "current",
+        "state"
+      ],
+      "answer": 2,
+      "explanation": "A ref object created by `useRef` has a `current` property. This property holds the mutable value that persists across renders. You can access the current value using `ref.current` and update it by assigning a new value to this property. For example, if you have `const myRef = useRef()`, you would access and update its value using `myRef.current`."
+    },
+    {
+      "id": 3,
+      "question": "Does changing a ref's current value cause a component re-render?",
+      "options": [
+        "Yes, always",
+        "No, refs do not trigger re-renders",
+        "Only on the first change",
+        "Only if used with useEffect"
+      ],
+      "answer": 1,
+      "explanation": "No, changing a ref's current value does not cause a component to re-render. This is one of the key differences between `useRef` and `useState`. When you update a state variable using `useState`, React schedules a re-render of the component. However, when you update a ref's current value, React does not trigger a re-render. This makes `useRef` ideal for storing values that need to persist across renders but shouldn't cause the component to update."
+    },
+    {
+      "id": 4,
+      "question": "Which is a common use case for useRef?",
+      "options": [
+        "Accessing and modifying DOM elements directly",
+        "Fetching API data",
+        "Managing global state",
+        "Memoizing values"
+      ],
+      "answer": 0,
+      "explanation": "A common use case for `useRef` is accessing and modifying DOM elements directly. You can attach a ref to a DOM element using the `ref` attribute, and then use that ref to access the DOM element's properties and methods. This is useful for managing focus, text selection, or media playback, or for integrating with third-party DOM libraries. For example, you might use a ref to focus an input field when a button is clicked."
+    },
+    {
+      "id": 5,
+      "question": "What will useRef return if no initial value is provided?",
+      "options": [
+        "null",
+        "undefined",
+        "0",
+        "An empty object"
+      ],
+      "answer": 0,
+      "explanation": "If no initial value is provided to `useRef`, it will return a ref object with the `current` property set to `null`. For example, `const myRef = useRef()` will create a ref where `myRef.current` is initially `null`. This is why when using refs with DOM elements, it's common to initialize them with `null` (e.g., `const inputRef = useRef(null)`), as the ref will initially be null until it's attached to a DOM element."
+    },
+    {
+      "id": 6,
+      "question": "Can you use useRef to store a mutable value that doesn't reset on re-renders?",
+      "options": [
+        "Yes, that is one of its main purposes",
+        "No, values reset every render",
+        "Yes, but only with numbers",
+        "No, only useState can do this"
+      ],
+      "answer": 0,
+      "explanation": "Yes, one of the main purposes of `useRef` is to store mutable values that persist across re-renders without resetting. The value stored in a ref's `current` property will remain the same between renders unless explicitly changed. This makes `useRef` useful for storing values like previous props or state, timer IDs, or any other value that needs to persist across renders but shouldn't trigger a re-render when updated."
+    },
+    {
+      "id": 7,
+      "question": "What is the difference between useRef and useState?",
+      "options": [
+        "useRef values persist without causing re-renders, useState causes re-renders",
+        "useState is faster than useRef",
+        "useRef can only store DOM nodes, useState stores data",
+        "They are identical"
+      ],
+      "answer": 0,
+      "explanation": "The key difference between `useRef` and `useState` is that updating a ref's value does not cause a component to re-render, while updating a state variable does. Both hooks allow you to store values that persist across renders, but `useState` is designed for values that, when changed, should trigger a re-render to update the UI. `useRef` is better suited for values that need to persist but shouldn't cause re-renders, such as DOM references or previous values."
+    },
+    {
+      "id": 8,
+      "question": "How do you attach a useRef to a DOM element?",
+      "options": [
+        "By passing it to the element's id attribute",
+        "By passing it to the element's ref attribute",
+        "By passing it to the element's key attribute",
+        "By using document.querySelector"
+      ],
+      "answer": 1,
+      "explanation": "You attach a `useRef` to a DOM element by passing it to the element's `ref` attribute. For example, if you have a ref created with `const myRef = useRef()`, you would attach it to a DOM element like this: `<div ref={myRef}>`. Once attached, you can access the DOM element through `myRef.current`. This allows you to directly interact with the DOM element, such as focusing an input, measuring its dimensions, or modifying its properties."
+    },
+    {
+      "id": 9,
+      "question": "When would you use useRef instead of useState?",
+      "options": [
+        "When you want a value to persist without causing a re-render",
+        "When you need the component to re-render on updates",
+        "When managing global app state",
+        "When passing props to children"
+      ],
+      "answer": 0,
+      "explanation": "You would use `useRef` instead of `useState` when you want a value to persist across renders without causing a re-render when it changes. This is useful for storing values like DOM element references, timer IDs, or previous state/prop values that you need to access across renders but don't need to trigger UI updates. For example, you might use `useRef` to store a reference to a DOM element that you need to manipulate directly, or to store the previous value of a prop to detect changes."
+    },
+    {
+      "id": 10,
+      "question": "Which of the following is NOT a good use case for useRef?",
+      "options": [
+        "Storing a DOM element reference",
+        "Storing the previous state value",
+        "Triggering component re-renders when data changes",
+        "Holding a timer ID"
+      ],
+      "answer": 2,
+      "explanation": "Triggering component re-renders when data changes is NOT a good use case for `useRef`. In fact, it's the opposite of what `useRef` is designed for. `useRef` is specifically used to store values that should persist across renders without causing re-renders. If you need to trigger a re-render when data changes, you should use `useState` instead. The other options are valid use cases for `useRef`: storing DOM element references, storing previous state values, and holding timer IDs."
+    }
+  ]
+}

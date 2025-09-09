@@ -3,11 +3,13 @@ export interface Question {
   question: string;
   options: string[];
   answer: number; // index of the correct option
+  explanation?: string; // Optional explanation to show after answering
 }
 
 export interface QuizData {
   title: string;
   description: string;
+  time?: string; // Estimated time to complete the quiz
   questions: Question[];
 }
 
@@ -25,4 +27,5 @@ export interface QuizMetadata {
   title: string;
   description: string;
   questionCount: number;
+  time?: string; // Estimated time to complete the quiz
 }

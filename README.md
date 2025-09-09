@@ -1,23 +1,106 @@
-# React + TypeScript + Vite
+# React Quiz App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A customizable quiz application built with React, TypeScript, and Vite that allows users to take quizzes on various topics.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Load quizzes from different topic folders
+- Randomized answer options for better replayability
+- Visual feedback for correct/incorrect answers
+- Celebration animations for answer streaks
+- Responsive design for mobile and desktop
 
-## Expanding the ESLint configuration
+## How to Use
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Running Locally
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start the development server: `npm run dev`
+
+### Building for Production
+
+```bash
+npm run build
+```
+
+This will create a `dist` folder with the production build.
+
+### Hosting Multiple Quiz Topics
+
+The app supports loading quizzes from different topic folders. You can specify the topic in one of two ways:
+
+#### 1. Using the HTML data attribute
+
+```html
+<!-- In your HTML file -->
+<div id="root" data-topic="javascript"></div>
+```
+
+#### 2. Using URL parameters
+
+```
+https://your-site.com/quiz?topic=javascript
+```
+
+### Quiz File Structure
+
+For each topic, you should have a directory structure like this:
+
+```
+/public/quizzes/[topic]/
+  └── quizzes-meta.json
+  └── quiz1.json
+  └── quiz2.json
+  └── ...
+```
+
+The `quizzes-meta.json` file should have this structure:
+
+```json
+{
+  "quizzes": [
+    {
+      "id": "quiz1",
+      "file": "quiz1.json"
+    },
+    {
+      "id": "quiz2",
+      "file": "quiz2.json"
+    }
+  ]
+}
+```
+
+Each quiz file should have this structure:
+
+```json
+{
+  "title": "Quiz Title",
+  "description": "Quiz description",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Question text?",
+      "options": [
+        "Option 1",
+        "Option 2",
+        "Option 3",
+        "Option 4"
+      ],
+      "answer": 2 // Index of the correct option (0-based)
+    },
+    // More questions...
+  ]
+}
+```
+
+## Production Deployment
+
+When deployed in production, the app automatically detects the environment and uses the correct URL structure:
+
+- Development: `/quizzes/[topic]/...`
+- Production: `https://impressto.ca/quizzes/public/quizzes/[topic]/...`
 
       // Remove tseslint.configs.recommended and replace with this
       ...tseslint.configs.recommendedTypeChecked,

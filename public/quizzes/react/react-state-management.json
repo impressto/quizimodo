@@ -1,0 +1,227 @@
+{
+  "title": "State Management",
+  "description": "A 20-question quiz to test your knowledge of React state management.",
+  "time": "15 minutes",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the main purpose of state in React?",
+      "options": [
+        "To style components",
+        "To store dynamic data that changes over time",
+        "To define component layout",
+        "To import external libraries"
+      ],
+      "answer": 1,
+      "explanation": "State in React is used to store dynamic data that can change over time. When state changes, React automatically re-renders the component to reflect those changes in the UI. This allows components to be interactive and responsive to user actions."
+    },
+    {
+      "id": 2,
+      "question": "Which hook is primarily used to add state to a functional component?",
+      "options": ["useState", "useEffect", "useReducer", "useContext"],
+      "answer": 0,
+      "explanation": "`useState` is the fundamental hook for adding state to functional components. It allows you to declare state variables that can be updated and will trigger a re-render of the component when changed."
+    },
+    {
+      "id": 3,
+      "question": "What is the difference between props and state?",
+      "options": [
+        "Props are mutable, state is immutable",
+        "Props are passed from parent to child, state is managed within a component",
+        "State is read-only, props are writable",
+        "They are the same thing"
+      ],
+      "answer": 1,
+      "explanation": "Props are data passed from a parent component to a child component and are read-only within the child. State, on the other hand, is managed within a component and can be updated using the component's setter functions. Props allow data to flow down the component tree, while state is internal to a component."
+    },
+    {
+      "id": 4,
+      "question": "How do you update state created with useState?",
+      "options": [
+        "By directly modifying the variable",
+        "By using the setter function returned by useState",
+        "By using this.setState",
+        "By calling updateState()"
+      ],
+      "answer": 1,
+      "explanation": "State created with `useState` should only be updated using the setter function returned by the hook. Directly modifying the state variable will not trigger a re-render. The setter function ensures React knows the state has changed and needs to update the component."
+    },
+    {
+      "id": 5,
+      "question": "What happens if you directly modify a state variable without using its setter?",
+      "options": [
+        "The component still re-renders",
+        "React throws an error",
+        "The value changes, but the component does not re-render",
+        "It automatically updates everywhere"
+      ],
+      "answer": 2,
+      "explanation": "If you directly modify a state variable without using its setter function, the value will change, but React won't be aware of the change and therefore won't re-render the component. This can lead to inconsistencies between the actual state and what's displayed in the UI."
+    },
+    {
+      "id": 6,
+      "question": "What is 'lifting state up' in React?",
+      "options": [
+        "Moving state from a child component to a parent so it can be shared",
+        "Storing state in the global scope",
+        "Using external libraries for state",
+        "Converting props into state"
+      ],
+      "answer": 0,
+      "explanation": "'Lifting state up' is a pattern where you move state from a child component to a parent component so that it can be shared among multiple child components. This is often necessary when multiple components need to access or update the same state."
+    },
+    {
+      "id": 7,
+      "question": "What is a controlled component in React?",
+      "options": [
+        "A component where state is managed internally",
+        "A component whose form elements are controlled by React state",
+        "A component that never re-renders",
+        "A component wrapped in Context"
+      ],
+      "answer": 1,
+      "explanation": "A controlled component is one where form elements like inputs, selects, and textareas are controlled by React state. The component maintains the form data in its state and updates it via event handlers, ensuring that the displayed value always matches the state."
+    },
+    {
+      "id": 8,
+      "question": "What is an uncontrolled component?",
+      "options": [
+        "A component that manages form data with refs instead of React state",
+        "A component with no props",
+        "A component with no logic",
+        "A component that doesn't update"
+      ],
+      "answer": 0,
+      "explanation": "An uncontrolled component is one where form data is handled by the DOM itself rather than React state. You typically use refs to access the current value of form elements when needed, rather than keeping the values in state and updating them on every change."
+    },
+    {
+      "id": 9,
+      "question": "Which hook is useful for managing complex state with multiple actions?",
+      "options": ["useEffect", "useReducer", "useContext", "useMemo"],
+      "answer": 1,
+      "explanation": "`useReducer` is ideal for managing complex state that involves multiple actions or when the next state depends on the previous one. It follows the reducer pattern similar to Redux, where a reducer function determines how state changes in response to actions."
+    },
+    {
+      "id": 10,
+      "question": "What arguments does useReducer take?",
+      "options": [
+        "reducer function, initial state",
+        "state value, state updater",
+        "props, context",
+        "component, dependencies"
+      ],
+      "answer": 0,
+      "explanation": "`useReducer` takes two arguments: a reducer function that defines how state should update in response to actions, and an initial state. Optionally, it can take a third argument, an init function, for lazy initialization of the state."
+    },
+    {
+      "id": 11,
+      "question": "What is the purpose of the reducer function in useReducer?",
+      "options": [
+        "To return the initial state",
+        "To define how state changes in response to actions",
+        "To fetch external data",
+        "To pass props"
+      ],
+      "answer": 1,
+      "explanation": "The reducer function in `useReducer` defines how the state should change in response to different actions. It takes the current state and an action as arguments and returns the new state. This pattern makes state updates more predictable and easier to debug."
+    },
+    {
+      "id": 12,
+      "question": "What is the main difference between useState and useReducer?",
+      "options": [
+        "useState is for async state, useReducer is for sync state",
+        "useState is simpler, useReducer is better for complex logic",
+        "useState can't be used in functional components",
+        "useReducer is only for context"
+      ],
+      "answer": 1,
+      "explanation": "`useState` is simpler and suitable for basic state management, while `useReducer` is better for complex state logic that involves multiple sub-values or when the next state depends on the previous one. `useReducer` also makes it easier to test state updates in isolation."
+    },
+    {
+      "id": 13,
+      "question": "What is the Context API mainly used for?",
+      "options": [
+        "Sharing state across deeply nested components without prop drilling",
+        "Storing data in the database",
+        "Managing side effects",
+        "Handling API calls"
+      ],
+      "answer": 0,
+      "explanation": "The Context API is primarily used to share state across deeply nested components without having to pass props down manually at every level (prop drilling). It provides a way to pass data through the component tree without having to pass props down manually at every level."
+    },
+    {
+      "id": 14,
+      "question": "Which hook is used to consume values from a Context?",
+      "options": ["useContext", "useReducer", "useMemo", "useRef"],
+      "answer": 0,
+      "explanation": "`useContext` is the hook used to consume values from a React context. It allows you to access the current context value directly in a functional component, simplifying the process of consuming context values."
+    },
+    {
+      "id": 15,
+      "question": "What is prop drilling?",
+      "options": [
+        "Passing props deeply through multiple levels of components",
+        "Using state inside props",
+        "Sharing state globally",
+        "Passing functions instead of values"
+      ],
+      "answer": 0,
+      "explanation": "Prop drilling is the process of passing props from a parent component down through multiple levels of child components to reach a deeply nested component that needs the data. This can make the code harder to maintain and is often solved by using Context or state management libraries."
+    },
+    {
+      "id": 16,
+      "question": "How can you avoid prop drilling?",
+      "options": [
+        "By using Context API",
+        "By using only props",
+        "By rewriting state as global variables",
+        "By using uncontrolled components"
+      ],
+      "answer": 0,
+      "explanation": "You can avoid prop drilling by using the Context API, which allows you to share values between components without having to explicitly pass a prop through every level of the component tree. Other solutions include using state management libraries like Redux."
+    },
+    {
+      "id": 17,
+      "question": "What is derived state in React?",
+      "options": [
+        "State values calculated from props or other state",
+        "State that comes from localStorage",
+        "State managed outside React",
+        "State that never updates"
+      ],
+      "answer": 0,
+      "explanation": "Derived state refers to state values that are calculated from props or other state variables. Instead of storing these values in state, you compute them when needed, which helps keep your state minimal and avoids duplication of data."
+    },
+    {
+      "id": 18,
+      "question": "Why should you avoid storing derived values directly in state?",
+      "options": [
+        "It makes code faster",
+        "It can cause bugs and duplication of data",
+        "It makes React crash",
+        "It prevents re-renders"
+      ],
+      "answer": 1,
+      "explanation": "Storing derived values directly in state can lead to bugs and data duplication because the derived value might get out of sync with the source data it's based on. Instead, it's better to compute these values on the fly using functions or memoization techniques like `useMemo`."
+    },
+    {
+      "id": 19,
+      "question": "Which external library is commonly used for global state management in React apps?",
+      "options": ["Bootstrap", "Redux", "Tailwind", "Axios"],
+      "answer": 1,
+      "explanation": "Redux is a popular external library for global state management in React applications. It provides a centralized store for state that can be accessed by any component, along with actions and reducers to manage state updates in a predictable way."
+    },
+    {
+      "id": 20,
+      "question": "What is the key principle of Redux?",
+      "options": [
+        "Multiple sources of truth",
+        "A single source of truth",
+        "State only in local components",
+        "No reducers allowed"
+      ],
+      "answer": 1,
+      "explanation": "The key principle of Redux is having a single source of truth, meaning all the application's state is stored in a single store. This makes state management more predictable and easier to debug, as changes are made through pure reducer functions in response to actions."
+    }
+  ]
+}

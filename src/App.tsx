@@ -6,8 +6,13 @@ import QuizSelector from './QuizSelector';
 import { loadQuiz } from './quizService';
 import type { QuizState } from './types';
 import Celebration from './Celebration';
+import { DEFAULT_TOPIC } from './config';
 
-function App() {
+interface AppProps {
+  topic?: string;
+}
+
+function App({ topic = DEFAULT_TOPIC }: AppProps) {
   const [quizState, setQuizState] = useState<QuizState>({
     quizData: null,
     currentQuestionIndex: 0,
@@ -32,7 +37,7 @@ function App() {
       }));
       
       try {
-        const data = await loadQuiz(selectedQuizId);
+        const data = await loadQuiz(selectedQuizId, topic);
         setQuizState(prev => ({
           ...prev,
           quizData: data,
@@ -51,7 +56,7 @@ function App() {
     };
     
     fetchQuiz();
-  }, [selectedQuizId]);
+  }, [selectedQuizId, topic]);
 
   const handleSelectQuiz = (quizId: string) => {
     setSelectedQuizId(quizId);
@@ -113,22 +118,29 @@ function App() {
       {showCelebration && <Celebration />}
       
       <header>
-        <h1>React Quiz App</h1>
         {quizState.quizData && !quizState.quizCompleted && (
           <div className="quiz-header">
             <h2>{quizState.quizData.title}</h2>
-            {selectedQuizId && !quizState.isLoading && !quizState.error && (
-              <button onClick={chooseNewQuiz} className="choose-new-button">
-                Choose a different quiz
-              </button>
-            )}
+            <div className="quiz-info">
+              {quizState.quizData.time && (
+                <div className="quiz-time">
+                  <span className="time-icon">⏱️</span>
+                  <span>Estimated time: {quizState.quizData.time}</span>
+                </div>
+              )}
+              {selectedQuizId && !quizState.isLoading && !quizState.error && (
+                <button onClick={chooseNewQuiz} className="choose-new-button">
+                  Choose a different quiz
+                </button>
+              )}
+            </div>
           </div>
         )}
       </header>
       
       <main>
         {!selectedQuizId ? (
-          <QuizSelector onSelectQuiz={handleSelectQuiz} />
+          <QuizSelector onSelectQuiz={handleSelectQuiz} topic={topic} />
         ) : quizState.isLoading ? (
           <div className="loading">Loading quiz...</div>
         ) : quizState.error ? (
