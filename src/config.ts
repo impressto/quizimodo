@@ -21,7 +21,9 @@ export const getQuizzesBaseUrl = (topic?: string): string => {
   const quizTopic = topic || getTopicFromUrl();
   
   if (isProduction()) {
-    return `https://impressto.ca/quizzes/public/quizzes/${quizTopic}`;
+    // Use VITE_IMAGE_BASE_URL from environment variables if available
+    const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL || 'https://impressto.ca/quizzes/public/quizzes';
+    return `${baseUrl}/${quizTopic}`;
   }
   
   // In development, always include the topic in the path

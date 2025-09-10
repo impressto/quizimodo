@@ -65,43 +65,41 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
 
   const handleAnswer = (selectedIndex: number) => {
     if (!quizState.quizData) return;
-    
+
     const currentQuestion = quizState.quizData.questions[quizState.currentQuestionIndex];
     const isCorrect = selectedIndex === currentQuestion.answer;
-    
+
     if (isCorrect) {
       // Update streak count
       const newStreak = correctStreak + 1;
       setCorrectStreak(newStreak);
-      
+
       // Show different celebrations based on streak milestones
+      let celebrationTimeout = 4000;
       if (newStreak === 5) {
         setCelebrationType('basic');
         setShowCelebration(true);
-        // Hide celebration after 2 seconds
         setTimeout(() => {
           setShowCelebration(false);
-        }, 2000);
+        }, celebrationTimeout);
       } else if (newStreak === 10) {
         setCelebrationType('amazing');
         setShowCelebration(true);
-        // Hide celebration after 2.5 seconds
         setTimeout(() => {
           setShowCelebration(false);
-        }, 2500);
+        }, celebrationTimeout);
       } else if (newStreak === 20) {
         setCelebrationType('mindblowing');
         setShowCelebration(true);
-        // Hide celebration after 3 seconds
         setTimeout(() => {
           setShowCelebration(false);
-        }, 3000);
+        }, celebrationTimeout);
       }
     } else {
       // Reset streak on wrong answer
       setCorrectStreak(0);
     }
-    
+
     setQuizState(prev => ({
       ...prev,
       score: isCorrect ? prev.score + 1 : prev.score,
@@ -131,13 +129,54 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
     setCelebrationType('basic');
   };
 
+  // Use headerimage from quizData if present, prepending base path from .env if needed
+  let quizImagePath: string | null = null;
+  if (quizState.quizData && quizState.quizData.headerimage) {
+    const img = quizState.quizData.headerimage;
+    // If path is relative, prepend base URL from .env
+    if (img.startsWith('http://') || img.startsWith('https://')) {
+      quizImagePath = img;
+    } else {
+      const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL || '';
+      quizImagePath = baseUrl.replace(/\/$/, '') + img;
+    }
+  }
+
+  // Show celebration if all answers are correct when quiz is completed
+  const allCorrect = quizState.quizCompleted && quizState.quizData && quizState.score === quizState.quizData.questions.length;
+  const [allCorrectCelebration, setAllCorrectCelebration] = useState(false);
+
+  // Show celebration for 4 seconds if all answers are correct
+  useEffect(() => {
+    if (allCorrect) {
+      setAllCorrectCelebration(true);
+      const timer = setTimeout(() => setAllCorrectCelebration(false), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [allCorrect]);
+
+  const shouldShowCelebration = showCelebration || allCorrectCelebration;
+  const congratsImage = quizState.quizData && quizState.quizData.congratsimage ? quizState.quizData.congratsimage : undefined;
+
   return (
     <div className="app">
-      {showCelebration && <Celebration streakLevel={celebrationType} />}
-      
+      {shouldShowCelebration && (
+        <Celebration streakLevel={celebrationType} congratsImage={congratsImage} />
+      )}
+
       <header>
         {quizState.quizData && !quizState.quizCompleted && (
           <div className="quiz-header">
+            {/* Show quiz theme image if available */}
+            {quizImagePath && (
+              <img
+                src={quizImagePath}
+                alt="Quiz Theme"
+                className="quiz-theme-image"
+                style={{ maxWidth: '200px', marginBottom: '1rem' }}
+                onError={e => (e.currentTarget.style.display = 'none')}
+              />
+            )}
             <h2>{quizState.quizData.title}</h2>
             <div className="quiz-info">
               {quizState.quizData.time && (
@@ -155,7 +194,7 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
           </div>
         )}
       </header>
-      
+
       <main>
         {!selectedQuizId ? (
           <QuizSelector onSelectQuiz={handleSelectQuiz} topic={topic} />

@@ -2,6 +2,8 @@
   "title": "useContext",
   "description": "A 10-question quiz to test your knowledge of the React useContext hook.",
   "time": "10 minutes",
+  "congratsimage": "/quizzes/teamfortress/congrats.gif",
+
   "questions": [
     {
       "id": 1,

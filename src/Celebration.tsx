@@ -4,9 +4,10 @@ import './Celebration.css';
 
 interface CelebrationProps {
   streakLevel: 'basic' | 'amazing' | 'mindblowing';
+  congratsImage?: string;
 }
 
-const Celebration = ({ streakLevel = 'basic' }: CelebrationProps) => {
+const Celebration = ({ streakLevel = 'basic', congratsImage }: CelebrationProps) => {
   const [particles, setParticles] = useState<ReactElement[]>([]);
 
   useEffect(() => {
@@ -84,7 +85,26 @@ const Celebration = ({ streakLevel = 'basic' }: CelebrationProps) => {
       <div className="confetti-container">
         {particles}
       </div>
-      <div className="celebration-message">
+      <div
+        className="celebration-message"
+        style={
+          congratsImage
+            ? {
+                backgroundImage: `url(${congratsImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                borderRadius: '1em',
+                padding: '2em',
+                minHeight: '220px',
+                color: '#fff',
+                boxShadow: '0 0 20px rgba(0,0,0,0.3)',
+                position: 'relative',
+                zIndex: 2,
+              }
+            : undefined
+        }
+      >
         {renderContent()}
       </div>
     </div>

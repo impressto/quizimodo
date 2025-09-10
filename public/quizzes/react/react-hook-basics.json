@@ -2,6 +2,8 @@
   "title": "React Hooks Basics",
   "description": "A 20-question quiz to test your knowledge of React Hooks.",
   "time": "15 minutes",
+  "congratsimage": "/quizzes/react/congrats.gif",
+
   "questions": [
     {
       "id": 1,
