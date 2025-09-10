@@ -73,7 +73,7 @@ const Celebration = ({ streakLevel = 'basic', congratsImage }: CelebrationProps)
         return (
           <>
             <div className="emoji">🎉</div>
-            <h3>Wow! 5 in a row!</h3>
+            <h3>Wow! 5 in a row! Keep it up!</h3>
             <div className="emoji">😄</div>
           </>
         );
@@ -96,7 +96,7 @@ const Celebration = ({ streakLevel = 'basic', congratsImage }: CelebrationProps)
                 backgroundRepeat: 'no-repeat',
                 borderRadius: '1em',
                 padding: '2em',
-                minHeight: '220px',
+                minHeight: '340px',
                 color: '#fff',
                 boxShadow: '0 0 20px rgba(0,0,0,0.3)',
                 position: 'relative',

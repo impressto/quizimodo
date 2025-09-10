@@ -232,7 +232,7 @@
         "By adding console logs inside the create function",
         "By using React DevTools to inspect the memoized values",
         "By checking if the component re-renders unnecessarily",
-        "All of the above"
+        "All answers"
       ],
       "answer": 3,
       "explanation": "You can debug `useMemo` by adding console logs inside the create function, using React DevTools, and checking if the component re-renders unnecessarily."

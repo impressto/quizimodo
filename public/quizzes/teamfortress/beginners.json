@@ -2,7 +2,6 @@
   "title": "Team Fortress 2 Comprehensive Quiz",
   "description": "A 30-question quiz testing your knowledge of Team Fortress 2 game mechanics and lore from the official comics.",
   "headerimage": "/quizzes/teamfortress/head.png",
-  "congratsimage": "/quizzes/teamfortress/congrats.gif",
   "questions": [
     {
       "id": 1,
@@ -98,7 +97,7 @@
     {
       "id": 14,
       "question": "Which class can double jump in TF2?",
-      "options": ["Scout", "Soldier", "Demoman", "All of the above"],
+      "options": ["Scout", "Soldier", "Demoman", "All answers"],
       "answer": 0,
       "explanation": "The Scout is the only class in TF2 that can naturally double jump. Soldier and Demoman can rocket or sticky jump, but these are not true double jumps."
     },

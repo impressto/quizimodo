@@ -167,7 +167,7 @@
         "By adding console logs in the reducer function",
         "By using the React DevTools",
         "By using Redux DevTools with a custom middleware",
-        "All of the above"
+        "All answers"
       ],
       "answer": 3,
       "explanation": "You can debug state updates with `useReducer` by adding console logs in the reducer function, using React DevTools, or using Redux DevTools with a custom middleware."
@@ -219,7 +219,7 @@
         "`useReducer` is built into React, while Redux is a separate library",
         "`useReducer` can only manage local state, while Redux can manage global state",
         "Redux has middleware and DevTools support, while `useReducer` does not",
-        "All of the above"
+        "All answers"
       ],
       "answer": 3,
       "explanation": "`useReducer` is built into React and typically used for local state management, while Redux is a separate library with middleware and DevTools support for global state management."

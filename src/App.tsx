@@ -75,7 +75,7 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
       setCorrectStreak(newStreak);
 
       // Show different celebrations based on streak milestones
-      let celebrationTimeout = 4000;
+  let celebrationTimeout = 80000;
       if (newStreak === 5) {
         setCelebrationType('basic');
         setShowCelebration(true);
@@ -146,20 +146,66 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
   const allCorrect = quizState.quizCompleted && quizState.quizData && quizState.score === quizState.quizData.questions.length;
   const [allCorrectCelebration, setAllCorrectCelebration] = useState(false);
 
-  // Show celebration for 4 seconds if all answers are correct
+  // Show celebration for 20 seconds if all answers are correct
   useEffect(() => {
     if (allCorrect) {
       setAllCorrectCelebration(true);
-      const timer = setTimeout(() => setAllCorrectCelebration(false), 4000);
+      const timer = setTimeout(() => setAllCorrectCelebration(false), 80000);
       return () => clearTimeout(timer);
     }
   }, [allCorrect]);
 
   const shouldShowCelebration = showCelebration || allCorrectCelebration;
-  const congratsImage = quizState.quizData && quizState.quizData.congratsimage ? quizState.quizData.congratsimage : undefined;
+  // Load celebration gifs config
+  const [celebrationGifs, setCelebrationGifs] = useState<{ [key: string]: string }>({});
+  useEffect(() => {
+    const fetchConfig = async () => {
+      if (!topic) return;
+      // Use VITE_IMAGE_BASE_URL for config path
+      const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL || '';
+      const configPath = baseUrl + `/${topic}/config.json`;
+      try {
+        const res = await fetch(configPath);
+        if (res.ok) {
+          const config = await res.json();
+          setCelebrationGifs(config.celebrationGifs || {});
+          // Preload gifs
+          const gifs = config.celebrationGifs || {};
+          Object.values(gifs).forEach(filename => {
+            const img = new window.Image();
+            img.src = baseUrl + `/${topic}/${filename}`;
+          });
+        }
+      } catch (e) {
+        // fallback: no config
+        setCelebrationGifs({});
+      }
+    };
+    fetchConfig();
+  }, [topic]);
+
+  // Select appropriate gif from config
+  let congratsImage: string | undefined = undefined;
+  const baseGifUrl = (import.meta.env.VITE_IMAGE_BASE_URL || '');
+  if (allCorrect && celebrationGifs['all']) {
+    congratsImage = baseGifUrl + `/${topic}/${celebrationGifs['all']}`;
+  } else if (celebrationType === 'mindblowing' && celebrationGifs['20']) {
+    congratsImage = baseGifUrl + `/${topic}/${celebrationGifs['20']}`;
+  } else if (celebrationType === 'amazing' && celebrationGifs['10']) {
+    congratsImage = baseGifUrl + `/${topic}/${celebrationGifs['10']}`;
+  } else if (celebrationType === 'basic' && celebrationGifs['5']) {
+    congratsImage = baseGifUrl + `/${topic}/${celebrationGifs['5']}`;
+  }
+
+  if (shouldShowCelebration) {
+    // Debug log for congratsImage path
+    // eslint-disable-next-line no-console
+    console.log('Celebration gif path:', congratsImage);
+  }
 
   return (
     <div className="app">
+
       {shouldShowCelebration && (
         <Celebration streakLevel={celebrationType} congratsImage={congratsImage} />
       )}

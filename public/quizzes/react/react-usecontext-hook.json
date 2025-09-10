@@ -2,8 +2,6 @@
   "title": "useContext",
   "description": "A 10-question quiz to test your knowledge of the React useContext hook.",
   "time": "10 minutes",
-  "congratsimage": "/quizzes/teamfortress/congrats.gif",
-
   "questions": [
     {
       "id": 1,
@@ -156,7 +154,7 @@
         "By memoizing the context value",
         "By avoiding the use of objects or arrays in the context value",
         "By using multiple contexts for unrelated data",
-        "All of the above"
+        "All answers"
       ],
       "answer": 3,
       "explanation": "You can optimize performance when using `useContext` by Memoizing the context value using `useMemo` to prevent unnecessary changes, avoiding the use of objects or arrays in the context value, as creating new objects or arrays will trigger re-renders even if the actual data hasn't changed, and using multiple contexts for unrelated data, so that changes to one context don't cause components that depend on another context to re-render. These techniques help minimize the number of re-renders and improve the overall performance of your application."
