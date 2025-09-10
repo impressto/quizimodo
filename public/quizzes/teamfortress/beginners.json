@@ -1,7 +1,7 @@
 {
   "title": "Team Fortress 2 Comprehensive Quiz",
   "description": "A 30-question quiz testing your knowledge of Team Fortress 2 game mechanics and lore from the official comics.",
-  "headerimage": "/quizzes/teamfortress/head.png",
+  "headerimage": "/teamfortress/head.png",
   "questions": [
     {
       "id": 1,
