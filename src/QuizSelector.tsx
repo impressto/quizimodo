@@ -61,7 +61,14 @@ const QuizSelector = ({ onSelectQuiz, topic = DEFAULT_TOPIC }: QuizSelectorProps
         });
         
         const quizzes = await Promise.all(quizPromises);
-        setAvailableQuizzes(quizzes.filter(quiz => !quiz.error));
+        const validQuizzes = quizzes.filter(quiz => !quiz.error);
+        setAvailableQuizzes(validQuizzes);
+        
+        // If there's only one quiz, automatically select it
+        if (validQuizzes.length === 1) {
+          onSelectQuiz(validQuizzes[0].id);
+        }
+        
         setIsLoading(false);
       } catch (err) {
         console.error('Error loading quiz list:', err);
@@ -71,7 +78,7 @@ const QuizSelector = ({ onSelectQuiz, topic = DEFAULT_TOPIC }: QuizSelectorProps
     };
 
     fetchQuizzes();
-  }, [topic]);
+  }, [topic, onSelectQuiz]);
 
   if (isLoading) {
     return <div className="loading">Loading available quizzes...</div>;
@@ -79,6 +86,12 @@ const QuizSelector = ({ onSelectQuiz, topic = DEFAULT_TOPIC }: QuizSelectorProps
 
   if (error) {
     return <div className="error">{error}</div>;
+  }
+  
+  // If there's only one quiz, it will be auto-selected in the useEffect,
+  // but we still need to render something until loading completes
+  if (availableQuizzes.length === 1) {
+    return <div className="loading">Loading quiz...</div>;
   }
 
   return (

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import QuizQuestion from './QuizQuestion';
 import QuizResult from './QuizResult';
@@ -59,9 +59,9 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
     fetchQuiz();
   }, [selectedQuizId, topic]);
 
-  const handleSelectQuiz = (quizId: string) => {
+  const handleSelectQuiz = useCallback((quizId: string) => {
     setSelectedQuizId(quizId);
-  };
+  }, []);
 
   const CELEBRATION_TIMEOUT = Number(import.meta.env.VITE_CELEBRATION_TIMEOUT) || 4000;
   const handleAnswer = (selectedIndex: number) => {
