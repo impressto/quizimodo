@@ -6,6 +6,8 @@ Quizzimoto is a **React-based quiz application** designed to make building and p
 
 It includes interactive features such as **answer streaks, animations, and automatically generated cheat sheets** to enhance both the learning experience and long-term retention.  
 
+<img width="738" height="604" alt="quiz_example" src="https://github.com/user-attachments/assets/59d0d1a2-194b-4c2a-a522-16962cc49bc2" />
+
 ---
 
 ## Features  
