@@ -191,6 +191,10 @@
     font-size: 18px;
   }
 
+  .streak-counter {
+    top: -25px; /* Moved up by 10 pixels from -15px for mobile view */
+  }
+
   .option {
     padding: 12px 15px;
     font-size: 15px;

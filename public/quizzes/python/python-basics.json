@@ -2,6 +2,8 @@
   "title": "Python Programming Basics",
   "description": "A 25-question quiz to test your knowledge of Python programming fundamentals.",
   "time": "20 minutes",
+  "headerimage": "/python/head.png",
+
   "questions": [
     {
       "id": 1,

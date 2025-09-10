@@ -1,7 +1,7 @@
 .app {
   max-width: 800px;
   width: 100%;
-  margin: 0 auto;
+  margin: 0;  /* Changed from "0 auto" to "0" to align left */
   padding: 20px;
   font-family: Arial, sans-serif;
   display: flex;
@@ -30,6 +30,7 @@ header h2 {
   justify-content: center;
   gap: 10px;
   margin-top: 10px;
+  width: 100%; /* Added width to ensure full width */
 }
 
 .quiz-header h2 {
@@ -39,9 +40,10 @@ header h2 {
 .quiz-info {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Changed from center to flex-start to align left */
   flex-wrap: wrap;
   gap: 15px;
+  width: 100%; /* Added width to ensure it takes full width */
 }
 
 .quiz-time {
@@ -53,6 +55,7 @@ header h2 {
   background-color: #f0f0f0;
   border-radius: 20px;
   padding: 5px 10px;
+  margin-left: 20px; /* Added margin to move it right from the left edge */
 }
 
 .time-icon {
@@ -68,6 +71,9 @@ main {
 footer {
   margin-top: 30px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .progress {
@@ -76,6 +82,12 @@ footer {
   border-radius: 5px;
   font-size: 16px;
   color: #555;
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .loading {
@@ -96,8 +108,8 @@ footer {
 }
 
 .back-button, .choose-new-button {
-  display: block;
-  margin: 20px auto;
+  display: inline-block;
+  margin: 5px auto;
   padding: 10px 15px;
   background-color: #3a86ff;
   color: white;
@@ -179,5 +191,33 @@ footer {
   .choose-new-button {
     font-size: 14px;
     padding: 8px 12px;
+  }
+}
+
+/* GitHub link styling */
+.github-link {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+  border-top: 1px solid #eee;
+}
+
+.github-link a {
+  color: #3a86ff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.github-link a:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .github-link {
+    font-size: 13px;
+    margin-top: 20px;
+    padding: 8px;
   }
 }

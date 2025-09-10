@@ -236,11 +236,6 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
                   <span>Estimated time: {quizState.quizData.time}</span>
                 </div>
               )}
-              {selectedQuizId && !quizState.isLoading && !quizState.error && (
-                <button onClick={chooseNewQuiz} className="choose-new-button">
-                  Choose a different quiz
-                </button>
-              )}
             </div>
           </div>
         )}
@@ -280,6 +275,18 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
             Question {quizState.currentQuestionIndex + 1} of {quizState.quizData.questions.length}
           </div>
         )}
+        {selectedQuizId && !quizState.isLoading && !quizState.error && (
+          <div className="footer-actions">
+            <button onClick={chooseNewQuiz} className="choose-new-button">
+              Choose a different quiz
+            </button>
+          </div>
+        )}
+        <div className="github-link">
+          <a href="https://github.com/impressto/quizzimoto" target="_blank" rel="noopener noreferrer">
+            Want quizzes like this on your own website? Grab the code here.
+          </a>
+        </div>
       </footer>
     </div>
   );
