@@ -9,9 +9,20 @@ interface QuizResultProps {
   quizData?: QuizData; // Full quiz data for cheat sheet
   onRestart: () => void;
   onChooseNewQuiz?: () => void; // Optional callback to choose a new quiz
+  onNextQuiz?: () => void; // Optional callback to go to next quiz
+  nextQuizTitle?: string; // Optional title for next quiz
 }
 
-const QuizResult = ({ score, totalQuestions, quizTitle = 'Quiz', quizData, onRestart, onChooseNewQuiz }: QuizResultProps) => {
+const QuizResult = ({
+  score,
+  totalQuestions,
+  quizTitle = 'Quiz',
+  quizData,
+  onRestart,
+  onChooseNewQuiz,
+  onNextQuiz,
+  nextQuizTitle
+}: QuizResultProps) => {
   const percentage = Math.round((score / totalQuestions) * 100);
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
   
@@ -83,6 +94,11 @@ const QuizResult = ({ score, totalQuestions, quizTitle = 'Quiz', quizData, onRes
         {onChooseNewQuiz && (
           <button className="new-quiz-button" onClick={onChooseNewQuiz}>
             Choose New Quiz
+          </button>
+        )}
+        {onNextQuiz && (
+          <button className="next-quiz-button" onClick={onNextQuiz}>
+            {nextQuizTitle ? `Next Quiz: ${nextQuizTitle}` : 'Next Quiz'}
           </button>
         )}
       </div>

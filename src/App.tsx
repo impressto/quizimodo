@@ -63,6 +63,7 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
     setSelectedQuizId(quizId);
   };
 
+  const CELEBRATION_TIMEOUT = Number(import.meta.env.VITE_CELEBRATION_TIMEOUT) || 4000;
   const handleAnswer = (selectedIndex: number) => {
     if (!quizState.quizData) return;
 
@@ -75,25 +76,24 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
       setCorrectStreak(newStreak);
 
       // Show different celebrations based on streak milestones
-  let celebrationTimeout = 80000;
       if (newStreak === 5) {
         setCelebrationType('basic');
         setShowCelebration(true);
         setTimeout(() => {
           setShowCelebration(false);
-        }, celebrationTimeout);
+        }, CELEBRATION_TIMEOUT);
       } else if (newStreak === 10) {
         setCelebrationType('amazing');
         setShowCelebration(true);
         setTimeout(() => {
           setShowCelebration(false);
-        }, celebrationTimeout);
+        }, CELEBRATION_TIMEOUT);
       } else if (newStreak === 20) {
         setCelebrationType('mindblowing');
         setShowCelebration(true);
         setTimeout(() => {
           setShowCelebration(false);
-        }, celebrationTimeout);
+        }, CELEBRATION_TIMEOUT);
       }
     } else {
       // Reset streak on wrong answer
@@ -146,14 +146,14 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
   const allCorrect = quizState.quizCompleted && quizState.quizData && quizState.score === quizState.quizData.questions.length;
   const [allCorrectCelebration, setAllCorrectCelebration] = useState(false);
 
-  // Show celebration for 20 seconds if all answers are correct
+  // Show celebration for CELEBRATION_TIMEOUT if all answers are correct
   useEffect(() => {
     if (allCorrect) {
       setAllCorrectCelebration(true);
-      const timer = setTimeout(() => setAllCorrectCelebration(false), 80000);
+      const timer = setTimeout(() => setAllCorrectCelebration(false), CELEBRATION_TIMEOUT);
       return () => clearTimeout(timer);
     }
-  }, [allCorrect]);
+  }, [allCorrect, CELEBRATION_TIMEOUT]);
 
   const shouldShowCelebration = showCelebration || allCorrectCelebration;
   // Load celebration gifs config
@@ -162,8 +162,13 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
     const fetchConfig = async () => {
       if (!topic) return;
       // Use VITE_IMAGE_BASE_URL for config path
+      let configPath = '';
       const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL || '';
-      const configPath = baseUrl + `/${topic}/config.json`;
+      if (import.meta.env.MODE === 'development') {
+        configPath = `/quizzes/${topic}/config.json`;
+      } else {
+        configPath = baseUrl + `/${topic}/config.json`;
+      }
       try {
         const res = await fetch(configPath);
         if (res.ok) {

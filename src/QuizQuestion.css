@@ -7,6 +7,7 @@
   width: 100%;
   margin: 0 auto;
   position: relative;
+  color: #222; /* Ensure readable text color on all browsers */
 }
 
 .streak-counter {
@@ -63,6 +64,7 @@
 
 .option {
   padding: 15px 20px;
+  color: #333;
   background-color: #f8f9fa;
   border: 1px solid #ddd;
   border-radius: 5px;

@@ -40,7 +40,6 @@
   }
 }
 
-.celebration-message {
   background-color: rgba(255, 255, 255, 0.95);
   padding: 20px 40px;
   border-radius: 15px;
@@ -49,7 +48,11 @@
   animation: message-pop 0.5s ease-out forwards;
   display: flex;
   align-items: center;
+  height: 300px;
   z-index: 1001;
+  background-size: auto 300px !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
 }
 
 @keyframes message-pop {
