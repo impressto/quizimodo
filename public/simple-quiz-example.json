@@ -1,0 +1,33 @@
+{
+  "title": "Python Programming Basics",
+  "description": "A 25-question quiz to test your knowledge of Python programming fundamentals.",
+  "time": "20 minutes",
+  "headerimage": "/python/head.png",
+
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the correct way to declare a variable in Python?",
+      "options": [
+        "var x = 5",
+        "x = 5",
+        "let x = 5",
+        "int x = 5"
+      ],
+      "answer": 1,
+      "explanation": "In Python, you declare a variable by simply assigning a value to a name using the equals sign (=). No keywords like 'var' or 'let' are needed. For example: `x = 5` creates a variable named x with the value 5."
+    },
+    {
+      "id": 2,
+      "question": "Which of these is NOT a valid Python data type?",
+      "options": [
+        "list",
+        "dictionary",
+        "array",
+        "tuple"
+      ],
+      "answer": 2,
+      "explanation": "'array' is not a built-in Python data type. Python has lists, dictionaries, tuples, and sets as its main built-in collection types. While arrays can be used in Python through the array module or libraries like NumPy, they are not a fundamental built-in type like the others."
+    }
+  ]
+}

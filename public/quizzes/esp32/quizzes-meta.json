@@ -7,6 +7,10 @@
     {
       "id": "espnow",
       "file": "espnow.json"
+    },
+    {
+      "id": "esp32-lora",
+      "file": "esp32-lora.json"
     }
   ]
 }
