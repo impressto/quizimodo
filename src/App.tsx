@@ -149,12 +149,25 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
     }));
   };
   
-  const confirmLeaveQuiz = () => {
-    // Proceed with resetting the quiz state
+  const resetQuizState = () => {
+    // Reset all quiz-related state
     setSelectedQuizId(null);
     setCorrectStreak(0);
     setShowCelebration(false);
     setCelebrationType('basic');
+    // Also reset quizState to clear any data that might be displayed
+    setQuizState({
+      quizData: null,
+      currentQuestionIndex: 0,
+      score: 0,
+      quizCompleted: false,
+      isLoading: false,
+      error: null
+    });
+  };
+
+  const confirmLeaveQuiz = () => {
+    resetQuizState();
     setShowLeaveQuizModal(false); // Close the modal
   };
 
@@ -175,10 +188,7 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
     }
     
     // If quiz is not in progress, directly proceed with resetting the quiz state
-    setSelectedQuizId(null);
-    setCorrectStreak(0);
-    setShowCelebration(false);
-    setCelebrationType('basic');
+    resetQuizState();
   };
 
   // Use headerimage from quizData if present, prepending base path from .env if needed
