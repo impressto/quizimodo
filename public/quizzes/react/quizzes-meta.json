@@ -33,6 +33,10 @@
     {
       "id": "react-usecontext-hook",
       "file": "react-usecontext-hook.json"
+    },
+    {
+      "id": "react-use-hook",
+      "file": "react-use-hook.json"
     }
 
   ]

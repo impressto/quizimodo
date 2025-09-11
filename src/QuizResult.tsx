@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './QuizResult.css';
+import './QuizStats.css';
 import type { QuizData } from './types';
+import { saveQuizScore, fetchQuizStats, type QuizStats } from './scoreService';
+import { getTopicFromUrl } from './config';
 
 interface QuizResultProps {
   score: number;
@@ -25,9 +28,53 @@ const QuizResult = ({
 }: QuizResultProps) => {
   const percentage = Math.round((score / totalQuestions) * 100);
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
+  const [quizStats, setQuizStats] = useState<QuizStats | null>(null);
+  const [loadingStats, setLoadingStats] = useState(false);
+  const [scoreSaved, setScoreSaved] = useState(false);
   
   // Generate share message
   const shareMessage = `I scored ${score}/${totalQuestions} (${percentage}%) on the "${quizTitle}" quiz!`;
+  
+  // Get the quiz ID from the URL hash
+  const quizId = window.location.hash.replace('#', '') || '';
+  
+  // Submit the score to the backend and fetch stats
+  useEffect(() => {
+    if (!quizData || !quizId) return;
+    
+    // Get topic from URL or use default
+    const topic = getTopicFromUrl();
+    
+    // Submit score to backend
+    const submitScore = async () => {
+      if (scoreSaved) return;
+      
+      const success = await saveQuizScore(
+        quizId,
+        score,
+        totalQuestions,
+        topic,
+        quizTitle
+      );
+      
+      if (success) {
+        setScoreSaved(true);
+      }
+    };
+    
+    // Fetch quiz stats
+    const getStats = async () => {
+      setLoadingStats(true);
+      const stats = await fetchQuizStats(quizId);
+      if (stats) {
+        setQuizStats(stats);
+      }
+      setLoadingStats(false);
+    };
+    
+    submitScore();
+    getStats();
+  }, [quizId, quizData, score, totalQuestions, quizTitle, scoreSaved]);
   
   // Generate cheat sheet
   const generateCheatSheet = () => {
@@ -71,6 +118,64 @@ const QuizResult = ({
           <p>Keep practicing! You'll get better.</p>
         )}
       </div>
+      
+      {/* Quiz Statistics */}
+      {quizStats && (
+        <div className="quiz-stats">
+          <h3>How You Compare</h3>
+          {loadingStats ? (
+            <p>Loading statistics...</p>
+          ) : (
+            <>
+              <div className="stats-grid">
+                <div className="stat-item">
+                  <div className="stat-value">{quizStats.totalAttempts}</div>
+                  <div className="stat-label">Total Attempts</div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-value">{quizStats.averageScore}%</div>
+                  <div className="stat-label">Average Score</div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-value">{quizStats.highScore}%</div>
+                  <div className="stat-label">High Score</div>
+                </div>
+              </div>
+              
+              {quizStats.totalAttempts > 10 && (
+                <div className="score-distribution">
+                  <h4>Score Distribution</h4>
+                  <div className="distribution-bar">
+                    {Object.entries(quizStats.distribution).map(([range, count]) => {
+                      const percentage = (count / quizStats.totalAttempts) * 100;
+                      return (
+                        <div 
+                          key={range} 
+                          className="distribution-segment"
+                          style={{
+                            width: `${percentage}%`,
+                            backgroundColor: 
+                              range === '81-100' ? '#4caf50' :
+                              range === '61-80' ? '#8bc34a' :
+                              range === '41-60' ? '#ffeb3b' :
+                              range === '21-40' ? '#ff9800' :
+                                                '#f44336'
+                          }}
+                          title={`${range}%: ${count} attempts (${Math.round(percentage)}%)`}
+                        />
+                      );
+                    })}
+                  </div>
+                  <div className="distribution-labels">
+                    <span>0%</span>
+                    <span>100%</span>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
       
       <div className="share-container">
         <div className="share-buttons">

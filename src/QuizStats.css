@@ -1,0 +1,69 @@
+/* Quiz statistics styles */
+.quiz-stats {
+  margin: 25px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.quiz-stats h3 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 18px;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  padding: 10px;
+  width: 33%;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #3a86ff;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.score-distribution {
+  margin-top: 15px;
+}
+
+.score-distribution h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #444;
+}
+
+.distribution-bar {
+  height: 20px;
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.distribution-segment {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.distribution-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #777;
+}

@@ -32,26 +32,27 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
 
   // Fetch the number of available quizzes from the metadata
   useEffect(() => {
-    const fetchQuizCount = async () => {
+    const fetchQuizMeta = async () => {
       try {
         const baseUrl = getQuizzesBaseUrl(topic);
         const metaResponse = await fetch(`${baseUrl}/quizzes-meta.json`);
-        
         if (metaResponse.ok) {
           const metaData = await metaResponse.json();
-          const quizCount = metaData.quizzes ? metaData.quizzes.length : 0;
-          setAvailableQuizCount(quizCount);
+          const quizIds = metaData.quizzes ? metaData.quizzes.map((q: any) => q.id) : [];
+          setAvailableQuizCount(quizIds.length);
+          // Hash-based selection
+          const hash = window.location.hash.replace('#', '');
+          if (hash && quizIds.includes(hash)) {
+            setSelectedQuizId(hash);
+          }
         } else {
-          console.error('Failed to fetch quiz metadata:', metaResponse.statusText);
           setAvailableQuizCount(0);
         }
       } catch (error) {
-        console.error('Error fetching quiz count:', error);
         setAvailableQuizCount(0);
       }
     };
-
-    fetchQuizCount();
+    fetchQuizMeta();
   }, [topic]);
 
   useEffect(() => {
@@ -87,10 +88,11 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
   }, [selectedQuizId, topic]);
 
   const handleSelectQuiz = useCallback((quizId: string) => {
-    setSelectedQuizId(quizId);
+  setSelectedQuizId(quizId);
+  window.location.hash = quizId;
   }, []);
 
-  const CELEBRATION_TIMEOUT = Number(import.meta.env.VITE_CELEBRATION_TIMEOUT) || 4000;
+  const CELEBRATION_TIMEOUT = Number(import.meta.env.VITE_CELEBRATION_TIMEOUT) || 3000;
   const handleAnswer = (selectedIndex: number) => {
     if (!quizState.quizData) return;
 
@@ -155,7 +157,6 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
     setCorrectStreak(0);
     setShowCelebration(false);
     setCelebrationType('basic');
-    // Also reset quizState to clear any data that might be displayed
     setQuizState({
       quizData: null,
       currentQuestionIndex: 0,
@@ -164,6 +165,10 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
       isLoading: false,
       error: null
     });
+    // Remove hash from URL
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
   };
 
   const confirmLeaveQuiz = () => {

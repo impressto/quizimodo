@@ -9,13 +9,6 @@
   box-sizing: border-box;
 }
 
-
-header h1 {
-  color: #3a86ff;
-  font-size: 32px;
-  margin: 0;
-}
-
 header h2 {
   color: #555;
   font-size: 22px;
@@ -135,10 +128,7 @@ footer {
     padding: 15px;
   }
   
-  header h1 {
-    font-size: 24px;
-  }
-  
+
   header h2 {
     font-size: 18px;
   }
