@@ -6,7 +6,8 @@ import QuizSelector from './QuizSelector';
 import { loadQuiz } from './quizService';
 import type { QuizState } from './types';
 import Celebration from './Celebration';
-import { DEFAULT_TOPIC } from './config';
+import Modal from './Modal';
+import { DEFAULT_TOPIC, getQuizzesBaseUrl } from './config';
 
 interface AppProps {
   topic?: string;
@@ -26,6 +27,32 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
   const [correctStreak, setCorrectStreak] = useState<number>(0);
   const [showCelebration, setShowCelebration] = useState<boolean>(false);
   const [celebrationType, setCelebrationType] = useState<'basic' | 'amazing' | 'mindblowing'>('basic');
+  const [showLeaveQuizModal, setShowLeaveQuizModal] = useState<boolean>(false);
+  const [availableQuizCount, setAvailableQuizCount] = useState<number>(0);
+
+  // Fetch the number of available quizzes from the metadata
+  useEffect(() => {
+    const fetchQuizCount = async () => {
+      try {
+        const baseUrl = getQuizzesBaseUrl(topic);
+        const metaResponse = await fetch(`${baseUrl}/quizzes-meta.json`);
+        
+        if (metaResponse.ok) {
+          const metaData = await metaResponse.json();
+          const quizCount = metaData.quizzes ? metaData.quizzes.length : 0;
+          setAvailableQuizCount(quizCount);
+        } else {
+          console.error('Failed to fetch quiz metadata:', metaResponse.statusText);
+          setAvailableQuizCount(0);
+        }
+      } catch (error) {
+        console.error('Error fetching quiz count:', error);
+        setAvailableQuizCount(0);
+      }
+    };
+
+    fetchQuizCount();
+  }, [topic]);
 
   useEffect(() => {
     if (!selectedQuizId) return;
@@ -122,7 +149,32 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
     }));
   };
   
+  const confirmLeaveQuiz = () => {
+    // Proceed with resetting the quiz state
+    setSelectedQuizId(null);
+    setCorrectStreak(0);
+    setShowCelebration(false);
+    setCelebrationType('basic');
+    setShowLeaveQuizModal(false); // Close the modal
+  };
+
+  const cancelLeaveQuiz = () => {
+    setShowLeaveQuizModal(false); // Just close the modal
+  };
+  
   const chooseNewQuiz = () => {
+    // If the quiz is in progress (not completed and not on the first question with no score),
+    // show a confirmation dialog
+    const quizInProgress = !quizState.quizCompleted && 
+                          (quizState.currentQuestionIndex > 0 || quizState.score > 0);
+    
+    if (quizInProgress) {
+      // Show custom modal instead of window.confirm
+      setShowLeaveQuizModal(true);
+      return;
+    }
+    
+    // If quiz is not in progress, directly proceed with resetting the quiz state
     setSelectedQuizId(null);
     setCorrectStreak(0);
     setShowCelebration(false);
@@ -210,6 +262,14 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
 
   return (
     <div className="app">
+      {/* Custom Modal for quiz leaving confirmation */}
+      <Modal 
+        isOpen={showLeaveQuizModal}
+        title="Leave Quiz?"
+        message="Are you sure you want to leave this quiz? Your progress will be lost."
+        onConfirm={confirmLeaveQuiz}
+        onCancel={cancelLeaveQuiz}
+      />
 
       {shouldShowCelebration && (
         <Celebration streakLevel={celebrationType} congratsImage={congratsImage} />
@@ -258,7 +318,7 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
             quizTitle={quizState.quizData.title}
             quizData={quizState.quizData}
             onRestart={restartQuiz}
-            onChooseNewQuiz={chooseNewQuiz}
+            onChooseNewQuiz={availableQuizCount > 1 ? chooseNewQuiz : undefined}
           />
         ) : quizState.quizData ? (
           <QuizQuestion 
@@ -275,7 +335,7 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
             Question {quizState.currentQuestionIndex + 1} of {quizState.quizData.questions.length}
           </div>
         )}
-        {selectedQuizId && !quizState.isLoading && !quizState.error && (
+        {selectedQuizId && !quizState.isLoading && !quizState.error && availableQuizCount > 1 && (
           <div className="footer-actions">
             <button onClick={chooseNewQuiz} className="choose-new-button">
               Choose a different quiz
