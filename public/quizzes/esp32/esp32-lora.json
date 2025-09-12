@@ -3,7 +3,7 @@
   "description": "A 20-question quiz to test your knowledge of using ESP32 with LoRa communication.",
   "time": "10 minutes",
   "headerimage": "/esp32/lora_head.png",
-  "headerimageWidth": 300,
+  "headerimageWidth": 480,
   "questions": [
     {
       "id": 1,
