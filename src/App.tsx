@@ -299,7 +299,10 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
                 src={quizImagePath}
                 alt="Quiz Theme"
                 className="quiz-theme-image"
-                style={{ maxWidth: '200px', marginBottom: '1rem' }}
+                style={{ 
+                  maxWidth: quizState.quizData?.headerimageWidth ? `${quizState.quizData.headerimageWidth}px` : '200px', 
+                  marginBottom: '1rem' 
+                }}
                 onError={e => (e.currentTarget.style.display = 'none')}
               />
             )}

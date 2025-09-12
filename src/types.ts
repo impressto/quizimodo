@@ -10,6 +10,7 @@ export interface QuizData {
   title: string;
   description: string;
   headerimage?: string; // Optional header image for quiz theme
+  headerimageWidth?: number; // Optional width for header image (in px)
   time?: string; // Estimated time to complete the quiz
   questions: Question[];
 }
