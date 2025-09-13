@@ -1,13 +1,13 @@
 
-# Quizzimoto
+# Quizzimodo
 
   
 
-[Live Demo](https://impressto.ca/teamfortress_quizzes.php) | [Repository](https://github.com/impressto/quizzimoto)
+[Live Demo](https://impressto.ca/teamfortress_quizzes.php) | [Repository](https://github.com/impressto/quizzimodo)
 
   
 
-Quizzimoto is a **React-based quiz application** designed to make building and playing quizzes straightforward, engaging, and effective.
+Quizzimodo is a **React-based quiz application** designed to make building and playing quizzes straightforward, engaging, and effective.
 
   
 
@@ -23,21 +23,13 @@ It includes interactive features such as **answer streaks, animations, and autom
 
   
   
+## ✨ Features
 
-## 🚀 Features
-
-  
-
--  **Dynamic Quiz Experience** – clean UI for answering multiple-choice questions
-
--  **Streaks & Animations** – visual feedback when users answer multiple questions correctly in a row
-
--  **Cheat Sheet Export** – automatically generate and save a summary of all questions and correct answers at the end of each quiz
-
--  **Reusable Components** – quizzes can be easily customized for different subjects
-
--  **Modern Front-End Stack** – designed with maintainability and scalability in mind
-
+- 🎯 **Dynamic Quizzes** – Questions with multiple-choice answers.  
+- 🔥 **Streaks** – Encourages focus and motivation by rewarding consecutive correct answers.  
+- 📄 **Cheat Sheets** – Auto-generated review sheets based on user performance.  
+- 🎨 **Polished UI** – Animations and feedback for a more engaging learning experience.  
+- 🌐 **Extensible Back End** – Optional score-tracking API with examples in Node, PHP, and Python.  
   
 
 ---
@@ -72,8 +64,8 @@ Clone the repository:
 
 ```bash
 
-git clone  https://github.com/impressto/quizzimoto.git
-cd quizzimoto
+git clone  https://github.com/impressto/quizzimodo.git
+cd quizzimodo
 ``````bash
 
 Install dependencies:
@@ -101,7 +93,7 @@ npm run build
 
 ## 📊 Setting Up Score Tracking API
 
-Quizzimoto supports optional score tracking to allow users to compare their performance with others. You can implement the backend API using PHP, Node.js, or Python (or whatever works for you).
+Quizzimodo supports optional score tracking to allow users to compare their performance with others. You can implement the backend API using PHP, Node.js, or Python (or whatever works for you).
 
 ### Environment Configuration
 
