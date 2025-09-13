@@ -1,13 +1,13 @@
 
-# Quizzimodo
+# Quizimodo
 
   
 
-[Live Demo](https://impressto.ca/teamfortress_quizzes.php) | [Repository](https://github.com/impressto/quizzimodo)
+[Live Demo](https://impressto.ca/teamfortress_quizzes.php) | [Repository](https://github.com/impressto/quizimodo)
 
   
 
-Quizzimodo is a **React-based quiz application** designed to make building and playing quizzes straightforward, engaging, and effective.
+Quizimodo is a **React-based quiz application** designed to make building and playing quizzes straightforward, engaging, and effective.
 
   
 
@@ -64,8 +64,8 @@ Clone the repository:
 
 ```bash
 
-git clone  https://github.com/impressto/quizzimodo.git
-cd quizzimodo
+git clone  https://github.com/impressto/quizimodo.git
+cd quizimodo
 ``````bash
 
 Install dependencies:
@@ -93,7 +93,7 @@ npm run build
 
 ## 📊 Setting Up Score Tracking API
 
-Quizzimodo supports optional score tracking to allow users to compare their performance with others. You can implement the backend API using PHP, Node.js, or Python (or whatever works for you).
+Quizimodo supports optional score tracking to allow users to compare their performance with others. You can implement the backend API using PHP, Node.js, or Python (or whatever works for you).
 
 ### Environment Configuration
 

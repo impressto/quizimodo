@@ -361,7 +361,7 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
           </div>
         )}
         <div className="github-link">
-          <a href="https://github.com/impressto/quizzimodo" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/impressto/quizimodo" target="_blank" rel="noopener noreferrer">
             Want quizzes like this on your own website? Grab the code here.
           </a>
         </div>
