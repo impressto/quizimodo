@@ -1,9 +1,11 @@
 export interface Question {
   id: number;
   question: string;
+  example?: string; // Optional HTML example to show between question and options
   options: string[];
   answer: number; // index of the correct option
   explanation?: string; // Optional explanation to show after answering
+  exampleExplanation?: string; // Optional HTML example for the explanation
 }
 
 export interface QuizData {

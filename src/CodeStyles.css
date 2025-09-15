@@ -1,0 +1,149 @@
+/* Styles for code blocks inside quiz questions and answers */
+.quiz-code {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 1em;
+  margin: 1em 0;
+  overflow-x: auto;
+  white-space: pre;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+/* Dark theme code block */
+.quiz-code-dark {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border: 1px solid #333;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 1em;
+  margin: 1em 0;
+  overflow-x: auto;
+  white-space: pre;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+/* Inline code styling */
+code {
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 0.2em 0.4em;
+  margin: 0 0.2em;
+  font-size: 0.9em;
+}
+
+/* Special styling for inline code in quiz options */
+.quiz-inline-code {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 0.9em;
+  display: inline-block;
+}
+
+/* Styling for code blocks representing HTML in options */
+pre code.quiz-code-block {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  display: block;
+  padding: 0.5em;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  white-space: pre;
+  overflow-x: auto;
+  line-height: 1.4;
+}
+
+/* Container styling for pre tags */
+.option pre {
+  margin: 0.5em 0;
+  background-color: #1e1e1e;
+  border-radius: 4px;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Options with code should have proper padding */
+.option .quiz-inline-code {
+  margin: 0.2em 0;
+}
+
+/* Syntax highlighting - basic styles */
+.keyword {
+  color: #0000ff;
+  font-weight: bold;
+}
+
+.string {
+  color: #a31515;
+}
+
+.comment {
+  color: #008000;
+  font-style: italic;
+}
+
+.function {
+  color: #795e26;
+}
+
+.variable {
+  color: #1a1a1a;
+}
+
+.operator {
+  color: #000000;
+}
+
+/* Syntax highlighting for dark theme */
+.quiz-code-dark .keyword {
+  color: #569cd6;
+  font-weight: bold;
+}
+
+.quiz-code-dark .string {
+  color: #ce9178;
+}
+
+.quiz-code-dark .comment {
+  color: #6a9955;
+  font-style: italic;
+}
+
+.quiz-code-dark .function {
+  color: #dcdcaa;
+}
+
+.quiz-code-dark .variable {
+  color: #9cdcfe;
+}
+
+.quiz-code-dark .operator {
+  color: #d4d4d4;
+}
+
+.quiz-code-dark .number {
+  color: #b5cea8;
+}
+
+/* JSX syntax for dark theme */
+.quiz-code-dark .jsx-tag {
+  color: #808080;
+}
+
+.quiz-code-dark .jsx-attribute {
+  color: #9cdcfe;
+}
+
+.quiz-code-dark .jsx-expression {
+  color: #569cd6;
+}

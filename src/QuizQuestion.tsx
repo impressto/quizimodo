@@ -1,6 +1,9 @@
 import { useState, useMemo } from 'react';
 import type { Question } from './types';
 import './QuizQuestion.css';
+import './CodeStyles.css';
+import './ExampleStyles.css';
+import { renderHTML } from './utils';
 
 // Shuffle function using Fisher-Yates algorithm with index tracking
 function shuffleArray<T>(array: T[]): { shuffled: T[], originalIndices: number[] } {
@@ -83,7 +86,12 @@ const QuizQuestion = ({ question, onAnswer, correctStreak = 0 }: QuizQuestionPro
           {correctStreak >= 3 && <span className="streak-fire">🔥</span>}
         </div>
       )}
-      <h2>{question.question}</h2>
+      <h2 dangerouslySetInnerHTML={renderHTML(question.question)} />
+      
+      {question.example && (
+        <div className="question-example" dangerouslySetInnerHTML={renderHTML(question.example)} />
+      )}
+      
       <div className="options">
         {shuffledOptions.map((option, index) => (
           <button
@@ -97,7 +105,7 @@ const QuizQuestion = ({ question, onAnswer, correctStreak = 0 }: QuizQuestionPro
             onClick={() => handleOptionClick(index)}
             disabled={selectedOption !== null}
           >
-            {option}
+            <span dangerouslySetInnerHTML={renderHTML(option)} />
             {showCorrectAnswer && index === shuffledAnswerIndex && (
               <span className="correct-answer-indicator">✓ Correct Answer</span>
             )}
@@ -107,7 +115,11 @@ const QuizQuestion = ({ question, onAnswer, correctStreak = 0 }: QuizQuestionPro
       {showExplanation && question.explanation && (
         <div className="explanation-container">
           <h3>Explanation:</h3>
-          <p>{question.explanation}</p>
+          <div dangerouslySetInnerHTML={renderHTML(question.explanation)} />
+          
+          {question.exampleExplanation && (
+            <div className="explanation-example" dangerouslySetInnerHTML={renderHTML(question.exampleExplanation)} />
+          )}
         </div>
       )}
       {answered && (

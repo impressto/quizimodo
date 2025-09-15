@@ -1,7 +1,7 @@
 .app {
-  max-width: 800px;
-  width: 100%;
-  margin: 0;  /* Changed from "0 auto" to "0" to align left */
+  width: 800px;
+  max-width: 100%;
+  margin: 0; /* Changed to "0" to left-align the app */
   padding: 20px;
   font-family: Arial, sans-serif;
   display: flex;
@@ -99,6 +99,16 @@ footer {
   margin: 20px auto;
   max-width: 600px;
 }
+
+/* Media queries for responsive design */
+@media (max-width: 840px) {
+  .app {
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+/* Dark mode support */
 
 .back-button, .choose-new-button {
   display: inline-block;

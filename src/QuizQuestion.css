@@ -3,11 +3,11 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
   width: 100%;
   margin: 0 auto;
   position: relative;
   color: #222; /* Ensure readable text color on all browsers */
+  box-sizing: border-box;
 }
 
 .streak-counter {

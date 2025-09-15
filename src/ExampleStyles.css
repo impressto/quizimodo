@@ -1,0 +1,38 @@
+.question-example {
+  margin: 1rem 0 2rem 0;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #5c7cfa;
+}
+
+.explanation-example {
+  margin: 1.5rem 0 0.5rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #37b24d;
+}
+
+/* Make examples stand out by adding a subtle header */
+.question-example::before {
+  content: "Example:";
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #5c7cfa;
+}
+
+.explanation-example::before {
+  content: "Solution Example:";
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #37b24d;
+}
+
+/* Ensure code blocks inside examples have proper spacing */
+.question-example .quiz-code-dark,
+.explanation-example .quiz-code-dark {
+  margin: 0.5rem 0;
+}

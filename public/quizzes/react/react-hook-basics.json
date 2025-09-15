@@ -4,6 +4,20 @@
   "time": "15 minutes",
   "questions": [
     {
+      "id": 21,
+      "question": "When the button is clicked once, what will be displayed in the &lt;p&gt; element?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>import</span> React, { useState } <span class='keyword'>from</span> <span class='string'>\"react\"</span>;\n\n<span class='keyword'>function</span> <span class='function'>Counter</span>() {\n  <span class='keyword'>const</span> [count, setCount] = <span class='function'>useState</span>(<span class='number'>0</span>);\n\n  <span class='keyword'>function</span> <span class='function'>handleClick</span>() {\n    <span class='function'>setCount</span>(count + <span class='number'>1</span>);\n    <span class='function'>setCount</span>(count + <span class='number'>1</span>);\n  }\n\n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      <span class='jsx-tag'>&lt;p&gt;</span>Clicked: {count}<span class='jsx-tag'>&lt;/p&gt;</span>\n      <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{handleClick}</span><span class='jsx-tag'>&gt;</span>Click me<span class='jsx-tag'>&lt;/button&gt;</span>\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}\n\n<span class='keyword'>export</span> <span class='keyword'>default</span> Counter;</pre></div>",
+      "options": [
+        "Clicked: 1",
+        "Clicked: 2",
+        "Clicked: 0",
+        "An error will occur"
+      ],
+      "answer": 0,
+      "explanation": "When the button is clicked, the displayed text will be <code>Clicked: 1</code>. This is because React's state updates are <strong>asynchronous</strong> and <strong>batched</strong>. Both calls to <code>setCount(count + 1)</code> are using the same value of <code>count</code> (which is 0 at the time of the click). So both calls effectively become <code>setCount(0 + 1)</code>, and React batches these into a single update.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>handleClick</span>() {\n  <span class='function'>setCount</span>(<span class='variable'>prevCount</span> => <span class='variable'>prevCount</span> + <span class='number'>1</span>);\n  <span class='function'>setCount</span>(<span class='variable'>prevCount</span> => <span class='variable'>prevCount</span> + <span class='number'>1</span>);\n}</pre></div>This functional update form guarantees that you're working with the most current state value, rather than a potentially stale closure value."
+    },
+    {
       "id": 1,
       "question": "What is the main purpose of React Hooks?",
       "options": [
@@ -24,7 +38,7 @@
     },
     {
       "id": 3,
-      "question": "What does the useState hook return?",
+      "question": "What does the <code>useState</code> hook return?",
       "options": [
         "Just the current state value",
         "A function that changes the state",
@@ -36,7 +50,8 @@
     },
     {
       "id": 4,
-      "question": "In useState(0), what does 0 represent?",
+      "question": "What does the <code>0</code> represent in this hook call?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>const</span> [count, setCount] = <span class='function'>useState</span>(<span class='number'>0</span>);</pre></div>",
       "options": [
         "The name of the state",
         "The default/initial value of the state",
@@ -48,14 +63,22 @@
     },
     {
       "id": 5,
-      "question": "Which hook is used to handle side effects in a component?",
-      "options": ["useMemo", "useEffect", "useRef", "useState"],
-      "answer": 1,
-      "explanation": "`useEffect` is used to handle side effects in functional components. Side effects include data fetching, subscriptions, manually changing the DOM, and more. It serves the same purpose as `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` in class components."
+      "question": "What problem does this code have?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>Timer</span>() {\n  <span class='keyword'>const</span> [seconds, setSeconds] = <span class='function'>useState</span>(<span class='number'>0</span>);\n\n  <span class='function'>setInterval</span>(() => {\n    <span class='function'>setSeconds</span>(seconds + <span class='number'>1</span>);\n  }, <span class='number'>1000</span>);\n\n  <span class='keyword'>return</span> <span class='jsx-tag'>&lt;div&gt;</span>Seconds: {seconds}<span class='jsx-tag'>&lt;/div&gt;</span>;\n}</pre></div>",
+      "options": [
+        "It updates the state too frequently",
+        "The timer isn't being cleaned up properly",
+        "It creates a new interval on every render, causing memory leaks",
+        "The seconds variable isn't declared properly"
+      ],
+      "answer": 2,
+      "explanation": "This code creates a new interval on every render. Since the component re-renders when state changes, and the interval changes the state, this creates an infinite loop of new intervals. Additionally, none of these intervals are ever cleaned up, causing serious memory leaks.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>Timer</span>() {\n  <span class='keyword'>const</span> [seconds, setSeconds] = <span class='function'>useState</span>(<span class='number'>0</span>);\n\n  <span class='keyword'>useEffect</span>(() => {\n    <span class='keyword'>const</span> interval = <span class='function'>setInterval</span>(() => {\n      <span class='function'>setSeconds</span>(prevSeconds => prevSeconds + <span class='number'>1</span>);\n    }, <span class='number'>1000</span>);\n    \n    <span class='keyword'>return</span> () => <span class='function'>clearInterval</span>(interval);\n  }, []);\n\n  <span class='keyword'>return</span> <span class='jsx-tag'>&lt;div&gt;</span>Seconds: {seconds}<span class='jsx-tag'>&lt;/div&gt;</span>;\n}</pre></div>"
     },
     {
       "id": 6,
       "question": "When does useEffect run by default?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>MyComponent</span>() {\n  <span class='keyword'>const</span> [count, setCount] = <span class='function'>useState</span>(<span class='number'>0</span>);\n\n  <span class='keyword'>useEffect</span>(() => {\n    <span class='function'>console</span>.<span class='function'>log</span>(<span class='string'>'Effect ran!'</span>);\n  });\n\n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      <span class='jsx-tag'>&lt;p&gt;</span>Count: {count}<span class='jsx-tag'>&lt;/p&gt;</span>\n      <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{() => <span class='function'>setCount</span>(count + <span class='number'>1</span>)}</span><span class='jsx-tag'>&gt;</span>\n        Increment\n      <span class='jsx-tag'>&lt;/button&gt;</span>\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}</pre></div>",
       "options": [
         "Only once when the app starts",
         "After every render",
@@ -63,11 +86,12 @@
         "Only when state updates"
       ],
       "answer": 1,
-      "explanation": "By default, `useEffect` runs after every render of the component. This includes the initial render and all subsequent updates. You can control when it runs by specifying dependencies in the dependency array."
+      "explanation": "By default, `useEffect` runs after every render of the component. This includes the initial render and all subsequent updates. You can control when it runs by specifying dependencies in the dependency array.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>useEffect</span>(() => {\n  <span class='comment'>// This runs after every render</span>\n  <span class='function'>console</span>.<span class='function'>log</span>(<span class='string'>'After every render'</span>);\n});\n\n<span class='keyword'>useEffect</span>(() => {\n  <span class='comment'>// This runs only after the initial render</span>\n  <span class='function'>console</span>.<span class='function'>log</span>(<span class='string'>'Only once on mount'</span>);\n}, []);\n\n<span class='keyword'>useEffect</span>(() => {\n  <span class='comment'>// This runs when count changes</span>\n  <span class='function'>console</span>.<span class='function'>log</span>(<span class='string'>'Count changed to: '</span> + count);\n}, [count]);</pre></div>"
     },
     {
       "id": 7,
-      "question": "What does the second argument in useEffect(() => { ... }, []) represent?",
+      "question": "What does the second argument in <code>useEffect(() => { ... }, [])</code> represent?",
       "options": [
         "It specifies dependencies",
         "It prevents rendering",
@@ -124,12 +148,12 @@
     },
     {
       "id": 13,
-      "question": "What is the difference between useMemo and useCallback?",
+      "question": "What is the difference between <code>useMemo</code> and <code>useCallback</code>?",
       "options": [
-        "useMemo memoizes values, useCallback memoizes functions",
+        "<code>useMemo</code> memoizes values, <code>useCallback</code> memoizes functions",
         "They are identical",
-        "useCallback is faster than useMemo",
-        "useMemo is used for state, useCallback for effects"
+        "<code>useCallback</code> is faster than <code>useMemo</code>",
+        "<code>useMemo</code> is used for state, <code>useCallback</code> for effects"
       ],
       "answer": 0,
       "explanation": "`useMemo` memoizes values, while `useCallback` memoizes functions. Both hooks are used for performance optimization, but they serve different purposes: `useMemo` caches the result of a function call, while `useCallback` caches the function itself."
@@ -177,7 +201,7 @@
       "question": "Which hook is useful for performance when passing callback functions to child components?",
       "options": ["useCallback", "useEffect", "useReducer", "useRef"],
       "answer": 0,
-      "explanation": "`useCallback` is useful for optimizing performance when passing callback functions to child components. It memoizes the function so that it does not change on every render, preventing unnecessary re-renders of child components that rely on reference equality to prevent unnecessary updates."
+      "explanation": "<code>useCallback</code> is useful for optimizing performance when passing callback functions to child components. It memoizes the function so that it does not change on every render, preventing unnecessary re-renders of child components that rely on reference equality.<br><br>Example:<pre><code>// This function is recreated on every render without useCallback\nconst handleClick = () => {\n  console.log('Clicked!');\n};\n\n// This function is only recreated when dependencies change\nconst memoizedHandleClick = useCallback(() => {\n  console.log('Clicked!');\n}, []);</code></pre>"
     },
     {
       "id": 19,

@@ -37,6 +37,10 @@
     {
       "id": "react-use-hook",
       "file": "react-use-hook.json"
+    },
+    {
+      "id": "react-coding-quiz",
+      "file": "react-coding-quiz.json"
     }
 
   ]

@@ -1,0 +1,278 @@
+{
+  "title": "React Coding Challenge",
+  "description": "Test your React coding knowledge with practical examples and coding patterns.",
+  "time": "30 minutes",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What would happen when clicking the button in this component?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>import</span> React, { useState, useEffect } <span class='keyword'>from</span> <span class='string'>\"react\"</span>;\n\n<span class='keyword'>function</span> <span class='function'>Counter</span>() {\n  <span class='keyword'>const</span> [count, setCount] = <span class='function'>useState</span>(<span class='number'>0</span>);\n  <span class='keyword'>const</span> [message, setMessage] = <span class='function'>useState</span>(<span class='string'>\"\"</span>);\n\n  <span class='keyword'>useEffect</span>(() => {\n    <span class='function'>setMessage</span>(<span class='string'>`Count is ${count}`</span>);\n  }, [count]);\n\n  <span class='keyword'>function</span> <span class='function'>handleClick</span>() {\n    <span class='function'>setCount</span>(count + <span class='number'>1</span>);\n    <span class='function'>console</span>.<span class='function'>log</span>(<span class='string'>`Clicked! Count: ${count}`</span>);\n  }\n\n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      <span class='jsx-tag'>&lt;p&gt;</span>{message}<span class='jsx-tag'>&lt;/p&gt;</span>\n      <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{handleClick}</span><span class='jsx-tag'>&gt;</span>Increment<span class='jsx-tag'>&lt;/button&gt;</span>\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}</pre></div>",
+      "options": [
+        "The console log will show the updated count, and the message will update accordingly",
+        "The console log will show the previous count, but the message will update correctly",
+        "Both the console log and message will show the previous count",
+        "An error will occur because useEffect can't depend on count"
+      ],
+      "answer": 1,
+      "explanation": "Due to React's state updates being asynchronous, the console.log will display the previous count value (the value at the time the function was called). However, the useEffect hook will properly update the message after the component re-renders with the new count value.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>handleClick</span>() {\n  <span class='function'>setCount</span>(prevCount => {\n    <span class='keyword'>const</span> newCount = prevCount + <span class='number'>1</span>;\n    <span class='function'>console</span>.<span class='function'>log</span>(<span class='string'>`Clicked! Count: ${newCount}`</span>);\n    <span class='keyword'>return</span> newCount;\n  });\n}</pre></div>If you want to log the updated value immediately, you can use the functional form of setState and log inside the updater function where you have access to the new value."
+    },
+    {
+      "id": 3,
+      "question": "What will be rendered by this component?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>RenderExample</span>() {\n  <span class='keyword'>const</span> [items, setItems] = <span class='function'>useState</span>([<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>]);\n  <span class='keyword'>const</span> renderedItems = [];\n  \n  <span class='keyword'>for</span> (<span class='keyword'>let</span> i = <span class='number'>0</span>; i < items.length; i++) {\n    <span class='keyword'>if</span> (items[i] % <span class='number'>2</span> === <span class='number'>0</span>) {\n      renderedItems.<span class='function'>push</span>(<span class='jsx-tag'>&lt;span</span> <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{i}</span><span class='jsx-tag'>&gt;</span>Even: {items[i]}<span class='jsx-tag'>&lt;/span&gt;</span>);\n    } <span class='keyword'>else</span> <span class='keyword'>if</span> (items[i] % <span class='number'>2</span> === <span class='number'>1</span>) {\n      <span class='keyword'>continue</span>;\n    }\n  }\n  \n  <span class='keyword'>return</span> <span class='jsx-tag'>&lt;div&gt;</span>{renderedItems}<span class='jsx-tag'>&lt;/div&gt;</span>;\n}</pre></div>",
+      "options": [
+        "<div>Even: 2</div>",
+        "An error because you can't use loops in React components",
+        "An empty <div></div>",
+        "<div><span>Even: 1</span><span>Even: 2</span><span>Even: 3</span></div>"
+      ],
+      "answer": 0,
+      "explanation": "The component will render <code>&lt;div&gt;Even: 2&lt;/div&gt;</code>. The loop checks if each number is even (divisible by 2), and only pushes even numbers to the renderedItems array. For odd numbers, the continue statement skips to the next iteration. Since only 2 is even in the array [1, 2, 3], only 'Even: 2' will be rendered.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='comment'>// A more React-idiomatic approach would be:</span>\n<span class='keyword'>function</span> <span class='function'>RenderExample</span>() {\n  <span class='keyword'>const</span> [items, setItems] = <span class='function'>useState</span>([<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>]);\n  \n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      {items\n        .<span class='function'>filter</span>(item => item % <span class='number'>2</span> === <span class='number'>0</span>)\n        .<span class='function'>map</span>((item, index) => (\n          <span class='jsx-tag'>&lt;span</span> <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{index}</span><span class='jsx-tag'>&gt;</span>Even: {item}<span class='jsx-tag'>&lt;/span&gt;</span>\n        ))}\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}</pre></div>"
+    },
+    {
+      "id": 4,
+      "question": "What's the issue with this custom hook?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>useWindowSize</span>() {\n  <span class='keyword'>const</span> [windowSize, setWindowSize] = <span class='function'>useState</span>({\n    width: window.innerWidth,\n    height: window.innerHeight,\n  });\n\n  <span class='keyword'>useEffect</span>(() => {\n    <span class='keyword'>function</span> <span class='function'>handleResize</span>() {\n      <span class='function'>setWindowSize</span>({\n        width: window.innerWidth,\n        height: window.innerHeight,\n      });\n    }\n\n    window.<span class='function'>addEventListener</span>(<span class='string'>'resize'</span>, handleResize);\n    <span class='keyword'>return</span> () => {\n      window.<span class='function'>removeEventListener</span>(<span class='string'>'resize'</span>, handleResize);\n    };\n  }, []);\n\n  <span class='keyword'>return</span> windowSize;\n}</pre></div>",
+      "options": [
+        "The useState hook doesn't have a proper default value",
+        "The event listener isn't properly removed in the cleanup function",
+        "The hook doesn't account for server-side rendering (window is undefined)",
+        "The useEffect dependency array should include windowSize"
+      ],
+      "answer": 2,
+      "explanation": "The hook doesn't account for server-side rendering, where <code>window</code> is undefined. When this hook is used in a component that's rendered on the server (e.g., in Next.js or Gatsby), it will throw an error because <code>window</code> doesn't exist in the Node.js environment.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>useWindowSize</span>() {\n  <span class='keyword'>const</span> [windowSize, setWindowSize] = <span class='function'>useState</span>({\n    width: <span class='keyword'>typeof</span> window !== <span class='string'>'undefined'</span> ? window.innerWidth : <span class='number'>0</span>,\n    height: <span class='keyword'>typeof</span> window !== <span class='string'>'undefined'</span> ? window.innerHeight : <span class='number'>0</span>,\n  });\n\n  <span class='keyword'>useEffect</span>(() => {\n    <span class='comment'>// Skip effect on server</span>\n    <span class='keyword'>if</span> (<span class='keyword'>typeof</span> window === <span class='string'>'undefined'</span>) <span class='keyword'>return</span>;\n    \n    <span class='keyword'>function</span> <span class='function'>handleResize</span>() {\n      <span class='function'>setWindowSize</span>({\n        width: window.innerWidth,\n        height: window.innerHeight,\n      });\n    }\n\n    window.<span class='function'>addEventListener</span>(<span class='string'>'resize'</span>, handleResize);\n    <span class='keyword'>return</span> () => {\n      window.<span class='function'>removeEventListener</span>(<span class='string'>'resize'</span>, handleResize);\n    };\n  }, []);\n\n  <span class='keyword'>return</span> windowSize;\n}</pre></div>"
+    },
+    {
+      "id": 2,
+      "question": "What's wrong with this component?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>SearchResults</span>() {\n  <span class='keyword'>const</span> [query, setQuery] = <span class='function'>useState</span>(<span class='string'>\"\"</span>);\n  <span class='keyword'>const</span> [results, setResults] = <span class='function'>useState</span>([]);\n\n  <span class='keyword'>useEffect</span>(() => {\n    <span class='keyword'>const</span> fetchData = <span class='keyword'>async</span> () => {\n      <span class='keyword'>const</span> response = <span class='keyword'>await</span> <span class='function'>fetch</span>(\n        <span class='string'>`https://api.example.com/search?q=${query}`</span>\n      );\n      <span class='keyword'>const</span> data = <span class='keyword'>await</span> response.<span class='function'>json</span>();\n      <span class='function'>setResults</span>(data.results);\n    };\n\n    <span class='function'>fetchData</span>();\n  }, []);\n\n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      <span class='jsx-tag'>&lt;input</span>\n        <span class='jsx-attribute'>value</span>=<span class='jsx-expression'>{query}</span>\n        <span class='jsx-attribute'>onChange</span>=<span class='jsx-expression'>{e => <span class='function'>setQuery</span>(e.target.value)}</span>\n      <span class='jsx-tag'>/&gt;</span>\n      <span class='jsx-tag'>&lt;ul&gt;</span>\n        {results.<span class='function'>map</span>(item => (\n          <span class='jsx-tag'>&lt;li</span> <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{item.id}</span><span class='jsx-tag'>&gt;</span>{item.name}<span class='jsx-tag'>&lt;/li&gt;</span>\n        ))}\n      <span class='jsx-tag'>&lt;/ul&gt;</span>\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}</pre></div>",
+      "options": [
+        "The fetch API call is missing error handling",
+        "The component doesn't wait for the API response before rendering",
+        "The dependency array in useEffect is missing the query variable",
+        "The state initialization for results should be null, not an empty array"
+      ],
+      "answer": 2,
+      "explanation": "The dependency array in useEffect is missing the query variable. As a result, the effect only runs once when the component mounts, and doesn't re-run when the query state changes. This means that typing in the input field won't trigger new API calls.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>useEffect</span>(() => {\n  <span class='comment'>// Add a check for empty query to prevent unnecessary API calls</span>\n  <span class='keyword'>if</span> (!query.trim()) <span class='keyword'>return</span>;\n  \n  <span class='keyword'>const</span> fetchData = <span class='keyword'>async</span> () => {\n    <span class='keyword'>try</span> {\n      <span class='keyword'>const</span> response = <span class='keyword'>await</span> <span class='function'>fetch</span>(\n        <span class='string'>`https://api.example.com/search?q=${query}`</span>\n      );\n      <span class='keyword'>const</span> data = <span class='keyword'>await</span> response.<span class='function'>json</span>();\n      <span class='function'>setResults</span>(data.results);\n    } <span class='keyword'>catch</span> (error) {\n      <span class='function'>console</span>.<span class='function'>error</span>(<span class='string'>'Error fetching data:'</span>, error);\n    }\n  };\n\n  <span class='function'>fetchData</span>();\n}, [query]); <span class='comment'>// Add query to the dependency array</span></pre></div>"
+    },
+    {
+      "id": 5,
+      "question": "What will happen when clicking the button in this component?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>ParentComponent</span>() {\n  <span class='keyword'>const</span> [count, setCount] = <span class='function'>useState</span>(<span class='number'>0</span>);\n  \n  <span class='keyword'>const</span> handleClick = <span class='function'>useCallback</span>(() => {\n    <span class='function'>setCount</span>(count + <span class='number'>1</span>);\n  }, []);\n  \n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      <span class='jsx-tag'>&lt;p&gt;</span>Count: {count}<span class='jsx-tag'>&lt;/p&gt;</span>\n      <span class='jsx-tag'>&lt;ChildComponent</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{handleClick}</span> <span class='jsx-tag'>/&gt;</span>\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}\n\n<span class='keyword'>function</span> <span class='function'>ChildComponent</span>({ onClick }) {\n  <span class='keyword'>return</span> <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{onClick}</span><span class='jsx-tag'>&gt;</span>Increment<span class='jsx-tag'>&lt;/button&gt;</span>;\n}</pre></div>",
+      "options": [
+        "The count will increase normally on each click",
+        "The count will only increase to 1 and never go higher",
+        "The count will not change at all",
+        "The component will throw an error"
+      ],
+      "answer": 1,
+      "explanation": "The count will only increase to 1 and never go higher. The issue is in the <code>useCallback</code> hook's dependency array. Since it's empty, the <code>handleClick</code> function is memoized with the initial value of <code>count</code> (which is 0). So every time the button is clicked, it's always doing <code>setCount(0 + 1)</code>, which results in the count being stuck at 1.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='comment'>// Correct implementation:</span>\n<span class='keyword'>const</span> handleClick = <span class='function'>useCallback</span>(() => {\n  <span class='function'>setCount</span>(prevCount => prevCount + <span class='number'>1</span>);\n}, []); <span class='comment'>// Empty dependency array is fine with functional updates</span>\n\n<span class='comment'>// OR include count in the dependency array:</span>\n<span class='keyword'>const</span> handleClick = <span class='function'>useCallback</span>(() => {\n  <span class='function'>setCount</span>(count + <span class='number'>1</span>);\n}, [count]); <span class='comment'>// This will recreate the callback when count changes</span></pre></div>"
+    },
+    {
+      "id": 6,
+      "question": "What's wrong with this form submission handler?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>LoginForm</span>() {\n  <span class='keyword'>const</span> [username, setUsername] = <span class='function'>useState</span>(<span class='string'>''</span>);\n  <span class='keyword'>const</span> [password, setPassword] = <span class='function'>useState</span>(<span class='string'>''</span>);\n  <span class='keyword'>const</span> [isLoading, setIsLoading] = <span class='function'>useState</span>(<span class='keyword'>false</span>);\n  <span class='keyword'>const</span> [error, setError] = <span class='function'>useState</span>(<span class='keyword'>null</span>);\n\n  <span class='keyword'>const</span> handleSubmit = <span class='keyword'>async</span> (event) => {\n    event.preventDefault();\n    setIsLoading(<span class='keyword'>true</span>);\n    \n    <span class='keyword'>try</span> {\n      <span class='keyword'>const</span> response = <span class='keyword'>await</span> <span class='function'>fetch</span>(<span class='string'>'/api/login'</span>, {\n        method: <span class='string'>'POST'</span>,\n        headers: { <span class='string'>'Content-Type'</span>: <span class='string'>'application/json'</span> },\n        body: <span class='function'>JSON</span>.<span class='function'>stringify</span>({ username, password }),\n      });\n      \n      <span class='keyword'>if</span> (!response.ok) <span class='keyword'>throw</span> <span class='keyword'>new</span> <span class='function'>Error</span>(<span class='string'>'Login failed'</span>);\n      \n      <span class='keyword'>const</span> data = <span class='keyword'>await</span> response.<span class='function'>json</span>();\n      <span class='function'>console</span>.<span class='function'>log</span>(<span class='string'>'Login successful'</span>, data);\n    } <span class='keyword'>catch</span> (err) {\n      <span class='function'>setError</span>(err.message);\n    }\n  };\n  \n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;form</span> <span class='jsx-attribute'>onSubmit</span>=<span class='jsx-expression'>{handleSubmit}</span><span class='jsx-tag'>&gt;</span>\n      {<span class='comment'>/* Form inputs */</span>}\n      <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>type</span>=<span class='string'>\"submit\"</span> <span class='jsx-attribute'>disabled</span>=<span class='jsx-expression'>{isLoading}</span><span class='jsx-tag'>&gt;</span>\n        {isLoading ? <span class='string'>'Logging in...'</span> : <span class='string'>'Log in'</span>}\n      <span class='jsx-tag'>&lt;/button&gt;</span>\n      {error && <span class='jsx-tag'>&lt;p</span> <span class='jsx-attribute'>className</span>=<span class='string'>\"error\"</span><span class='jsx-tag'>&gt;</span>{error}<span class='jsx-tag'>&lt;/p&gt;</span>}\n    <span class='jsx-tag'>&lt;/form&gt;</span>\n  );\n}</pre></div>",
+      "options": [
+        "The form doesn't validate username and password before submission",
+        "The isLoading state is never set back to false after the request",
+        "The error message isn't properly displayed in the UI",
+        "The fetch request is missing error handling for network failures"
+      ],
+      "answer": 1,
+      "explanation": "The isLoading state is never set back to false after the request completes (either successfully or with an error). This means the loading state will remain active and the button will stay disabled even after the login attempt finishes.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>const</span> handleSubmit = <span class='keyword'>async</span> (event) => {\n  event.preventDefault();\n  setIsLoading(<span class='keyword'>true</span>);\n  \n  <span class='keyword'>try</span> {\n    <span class='keyword'>const</span> response = <span class='keyword'>await</span> <span class='function'>fetch</span>(<span class='string'>'/api/login'</span>, {\n      method: <span class='string'>'POST'</span>,\n      headers: { <span class='string'>'Content-Type'</span>: <span class='string'>'application/json'</span> },\n      body: <span class='function'>JSON</span>.<span class='function'>stringify</span>({ username, password }),\n    });\n    \n    <span class='keyword'>if</span> (!response.ok) <span class='keyword'>throw</span> <span class='keyword'>new</span> <span class='function'>Error</span>(<span class='string'>'Login failed'</span>);\n    \n    <span class='keyword'>const</span> data = <span class='keyword'>await</span> response.<span class='function'>json</span>();\n    <span class='function'>console</span>.<span class='function'>log</span>(<span class='string'>'Login successful'</span>, data);\n  } <span class='keyword'>catch</span> (err) {\n    <span class='function'>setError</span>(err.message);\n  } <span class='keyword'>finally</span> {\n    <span class='function'>setIsLoading</span>(<span class='keyword'>false</span>); <span class='comment'>// Always reset loading state</span>\n  }\n};</pre></div>"
+    },
+    {
+      "id": 7,
+      "question": "What is the problem with this conditional rendering?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>UserProfile</span>({ user }) {\n  <span class='keyword'>if</span> (!user) {\n    <span class='keyword'>return</span> <span class='jsx-tag'>&lt;div&gt;</span>Loading...<span class='jsx-tag'>&lt;/div&gt;</span>;\n  }\n  \n  <span class='keyword'>if</span> (user.error) {\n    <span class='keyword'>return</span> <span class='jsx-tag'>&lt;div&gt;</span>Error: {user.error}<span class='jsx-tag'>&lt;/div&gt;</span>;\n  }\n  \n  <span class='keyword'>let</span> userRole;\n  \n  <span class='keyword'>if</span> (user.roles.includes(<span class='string'>'admin'</span>)) {\n    userRole = <span class='jsx-tag'>&lt;span</span> <span class='jsx-attribute'>className</span>=<span class='string'>\"admin-badge\"</span><span class='jsx-tag'>&gt;</span>Admin<span class='jsx-tag'>&lt;/span&gt;</span>;\n  } <span class='keyword'>else if</span> (user.roles.includes(<span class='string'>'moderator'</span>)) {\n    userRole = <span class='jsx-tag'>&lt;span</span> <span class='jsx-attribute'>className</span>=<span class='string'>\"mod-badge\"</span><span class='jsx-tag'>&gt;</span>Moderator<span class='jsx-tag'>&lt;/span&gt;</span>;\n  } <span class='keyword'>else</span> {\n    userRole = <span class='jsx-tag'>&lt;span</span> <span class='jsx-attribute'>className</span>=<span class='string'>\"user-badge\"</span><span class='jsx-tag'>&gt;</span>User<span class='jsx-tag'>&lt;/span&gt;</span>;\n  }\n\n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div</span> <span class='jsx-attribute'>className</span>=<span class='string'>\"profile\"</span><span class='jsx-tag'>&gt;</span>\n      <span class='jsx-tag'>&lt;h2&gt;</span>{user.name} {userRole}<span class='jsx-tag'>&lt;/h2&gt;</span>\n      <span class='jsx-tag'>&lt;img</span> <span class='jsx-attribute'>src</span>=<span class='jsx-expression'>{user.avatar}</span> <span class='jsx-attribute'>alt</span>=<span class='string'>\"User avatar\"</span> <span class='jsx-tag'>/&gt;</span>\n      <span class='jsx-tag'>&lt;p&gt;</span>{user.bio}<span class='jsx-tag'>&lt;/p&gt;</span>\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}</pre></div>",
+      "options": [
+        "Using let instead of const for userRole is bad practice",
+        "The component doesn't validate the user prop type",
+        "There's potential for a runtime error if user.roles is undefined",
+        "The early return pattern breaks React's rendering rules"
+      ],
+      "answer": 2,
+      "explanation": "There's potential for a runtime error if user.roles is undefined. When checking <code>user.roles.includes()</code>, the code assumes that user.roles is always an array. If the user object doesn't have a roles property or if it's null/undefined, this will cause a TypeError when trying to call the includes method.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='comment'>// Safe access with optional chaining and default empty array:</span>\n<span class='keyword'>if</span> (user.roles?.includes(<span class='string'>'admin'</span>)) { ... }\n\n<span class='comment'>// Or with a more explicit check:</span>\n<span class='keyword'>if</span> (user.roles && user.roles.includes(<span class='string'>'admin'</span>)) { ... }\n\n<span class='comment'>// Or using default values with destructuring:</span>\n<span class='keyword'>const</span> { roles = [] } = user;\n<span class='keyword'>if</span> (roles.includes(<span class='string'>'admin'</span>)) { ... }</pre></div>"
+    },
+    {
+      "id": 8,
+      "question": "What will this component render initially?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>DataDisplay</span>() {\n  <span class='keyword'>const</span> [data, setData] = <span class='function'>useState</span>(<span class='keyword'>null</span>);\n  <span class='keyword'>const</span> [isLoading, setIsLoading] = <span class='function'>useState</span>(<span class='keyword'>true</span>);\n  \n  <span class='keyword'>useEffect</span>(() => {\n    <span class='keyword'>let</span> isMounted = <span class='keyword'>true</span>;\n    \n    <span class='keyword'>const</span> fetchData = <span class='keyword'>async</span> () => {\n      <span class='keyword'>try</span> {\n        <span class='keyword'>const</span> response = <span class='keyword'>await</span> <span class='function'>fetch</span>(<span class='string'>'https://api.example.com/data'</span>);\n        <span class='keyword'>const</span> result = <span class='keyword'>await</span> response.<span class='function'>json</span>();\n        \n        <span class='keyword'>if</span> (isMounted) {\n          <span class='function'>setData</span>(result);\n          <span class='function'>setIsLoading</span>(<span class='keyword'>false</span>);\n        }\n      } <span class='keyword'>catch</span> (error) {\n        <span class='keyword'>if</span> (isMounted) {\n          <span class='function'>console</span>.<span class='function'>error</span>(<span class='string'>'Error fetching data:'</span>, error);\n          <span class='function'>setIsLoading</span>(<span class='keyword'>false</span>);\n        }\n      }\n    };\n    \n    <span class='function'>fetchData</span>();\n    \n    <span class='keyword'>return</span> () => {\n      isMounted = <span class='keyword'>false</span>;\n    };\n  }, []);\n  \n  <span class='keyword'>if</span> (isLoading) {\n    <span class='keyword'>return</span> <span class='jsx-tag'>&lt;div&gt;</span>Loading...<span class='jsx-tag'>&lt;/div&gt;</span>;\n  }\n  \n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      <span class='jsx-tag'>&lt;h2&gt;</span>Data<span class='jsx-tag'>&lt;/h2&gt;</span>\n      <span class='jsx-tag'>&lt;pre&gt;</span>{<span class='function'>JSON</span>.<span class='function'>stringify</span>(data, <span class='keyword'>null</span>, <span class='number'>2</span>)}<span class='jsx-tag'>&lt;/pre&gt;</span>\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}</pre></div>",
+      "options": [
+        "`<div><h2>Data</h2><pre>null</pre></div>`",
+        "`<div>Loading...</div>`",
+        "`Nothing, because there's an error in the code`",
+        "`<div><h2>Data</h2><pre>{}</pre></div>`"
+      ],
+      "answer": 1,
+      "explanation": "The component will initially render <code>&lt;div&gt;Loading...&lt;/div&gt;</code>. When the component first mounts, <code>isLoading</code> is set to <code>true</code> by default. The conditional rendering logic at the end of the component will return the loading message before the fetch request completes.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='comment'>// This component follows good practices for data fetching:</span>\n<span class='comment'>// 1. Shows a loading state</span>\n<span class='comment'>// 2. Handles unmounting with the isMounted flag</span>\n<span class='comment'>// 3. Uses useEffect with an empty dependency array for a one-time fetch</span>\n<span class='comment'>// 4. Has error handling in the try/catch block</span>\n\n<span class='comment'>// Modern React might use this pattern instead:</span>\n<span class='keyword'>function</span> <span class='function'>DataDisplay</span>() {\n  <span class='keyword'>const</span> [state, setState] = <span class='function'>useState</span>({\n    data: <span class='keyword'>null</span>,\n    isLoading: <span class='keyword'>true</span>,\n    error: <span class='keyword'>null</span>\n  });\n  \n  <span class='keyword'>useEffect</span>(() => {\n    <span class='keyword'>let</span> isMounted = <span class='keyword'>true</span>;\n    \n    <span class='function'>fetch</span>(<span class='string'>'https://api.example.com/data'</span>)\n      .<span class='function'>then</span>(response => response.<span class='function'>json</span>())\n      .<span class='function'>then</span>(data => {\n        <span class='keyword'>if</span> (isMounted) <span class='function'>setState</span>({ data, isLoading: <span class='keyword'>false</span>, error: <span class='keyword'>null</span> });\n      })\n      .<span class='function'>catch</span>(error => {\n        <span class='keyword'>if</span> (isMounted) <span class='function'>setState</span>({ data: <span class='keyword'>null</span>, isLoading: <span class='keyword'>false</span>, error });\n      });\n    \n    <span class='keyword'>return</span> () => { isMounted = <span class='keyword'>false</span>; };\n  }, []);</pre></div>"
+    },
+    {
+      "id": 9,
+      "question": "What's the problem with this component?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>ThemeToggle</span>() {\n  <span class='keyword'>const</span> [isDarkTheme, setIsDarkTheme] = <span class='function'>useState</span>(<span class='keyword'>false</span>);\n  \n  <span class='keyword'>function</span> <span class='function'>toggleTheme</span>() {\n    <span class='function'>setIsDarkTheme</span>(!isDarkTheme);\n    \n    <span class='comment'>// Apply theme to the document</span>\n    <span class='keyword'>if</span> (isDarkTheme) {\n      document.body.classList.add(<span class='string'>'dark-theme'</span>);\n      document.body.classList.remove(<span class='string'>'light-theme'</span>);\n    } <span class='keyword'>else</span> {\n      document.body.classList.add(<span class='string'>'light-theme'</span>);\n      document.body.classList.remove(<span class='string'>'dark-theme'</span>);\n    }\n  }\n  \n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{toggleTheme}</span><span class='jsx-tag'>&gt;</span>\n      Switch to {isDarkTheme ? <span class='string'>'Light'</span> : <span class='string'>'Dark'</span>} Theme\n    <span class='jsx-tag'>&lt;/button&gt;</span>\n  );\n}</pre></div>",
+      "options": [
+        "The document.body API doesn't exist in React",
+        "The state update and DOM manipulation are in the wrong order",
+        "The classList.add and classList.remove calls should be swapped",
+        "Direct DOM manipulation should be in a useEffect hook"
+      ],
+      "answer": 1,
+      "explanation": "The state update and DOM manipulation are in the wrong order. The <code>setIsDarkTheme</code> function is asynchronous, meaning the state won't be updated immediately. Therefore, the code that follows which checks <code>isDarkTheme</code> is still using the previous value, not the updated one.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>ThemeToggle</span>() {\n  <span class='keyword'>const</span> [isDarkTheme, setIsDarkTheme] = <span class='function'>useState</span>(<span class='keyword'>false</span>);\n  \n  <span class='comment'>// Use useEffect to handle side effects after state changes</span>\n  <span class='keyword'>useEffect</span>(() => {\n    <span class='keyword'>if</span> (isDarkTheme) {\n      document.body.classList.add(<span class='string'>'dark-theme'</span>);\n      document.body.classList.remove(<span class='string'>'light-theme'</span>);\n    } <span class='keyword'>else</span> {\n      document.body.classList.add(<span class='string'>'light-theme'</span>);\n      document.body.classList.remove(<span class='string'>'dark-theme'</span>);\n    }\n  }, [isDarkTheme]); <span class='comment'>// Run effect when isDarkTheme changes</span>\n  \n  <span class='keyword'>function</span> <span class='function'>toggleTheme</span>() {\n    <span class='function'>setIsDarkTheme</span>(prevTheme => !prevTheme);\n  }\n  \n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{toggleTheme}</span><span class='jsx-tag'>&gt;</span>\n      Switch to {isDarkTheme ? <span class='string'>'Light'</span> : <span class='string'>'Dark'</span>} Theme\n    <span class='jsx-tag'>&lt;/button&gt;</span>\n  );\n}</pre></div>"
+    },
+    {
+      "id": 10,
+      "question": "What's wrong with this event handling in React?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>ItemList</span>({ items }) {\n  <span class='keyword'>function</span> <span class='function'>handleItemClick</span>(item) {\n    <span class='function'>console</span>.<span class='function'>log</span>(<span class='string'>'Clicked item:'</span>, item.id);\n  }\n  \n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;ul</span> <span class='jsx-attribute'>className</span>=<span class='string'>\"item-list\"</span><span class='jsx-tag'>&gt;</span>\n      {items.<span class='function'>map</span>(item => (\n        <span class='jsx-tag'>&lt;li</span> \n          <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{item.id}</span>\n          <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{handleItemClick(item)}</span>\n        <span class='jsx-tag'>&gt;</span>\n          {item.name}\n        <span class='jsx-tag'>&lt;/li&gt;</span>\n      ))}\n    <span class='jsx-tag'>&lt;/ul&gt;</span>\n  );\n}</pre></div>",
+      "options": [
+        "The event handler should be wrapped in a useCallback hook",
+        "The function is being called during render instead of on click",
+        "Event handlers cannot accept parameters in React",
+        "The key prop should be part of the onClick handler"
+      ],
+      "answer": 1,
+      "explanation": "The function is being called during render instead of on click. By writing <code>onClick={handleItemClick(item)}</code>, the function is immediately executed during rendering, not when the user clicks. This is because it's a function call, not a function reference. The console log will run for each item when the component renders, not when items are clicked.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='comment'>// Correct implementation with an inline arrow function:</span>\n<span class='jsx-tag'>&lt;li</span> \n  <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{item.id}</span>\n  <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{() => handleItemClick(item)}</span>\n<span class='jsx-tag'>&gt;</span>\n  {item.name}\n<span class='jsx-tag'>&lt;/li&gt;</span>\n\n<span class='comment'>// Alternative approach with a function that returns a function:</span>\n<span class='keyword'>function</span> <span class='function'>createClickHandler</span>(item) {\n  <span class='keyword'>return</span> () => {\n    <span class='function'>console</span>.<span class='function'>log</span>(<span class='string'>'Clicked item:'</span>, item.id);\n  };\n}\n\n<span class='jsx-tag'>&lt;li</span> \n  <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{item.id}</span>\n  <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{createClickHandler(item)}</span>\n<span class='jsx-tag'>&gt;</span>\n  {item.name}\n<span class='jsx-tag'>&lt;/li&gt;</span></pre></div>"
+    },
+    {
+      "id": 11,
+      "question": "When the button is clicked once, what will be displayed in the <p> element?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>import</span> React, { useState } <span class='keyword'>from</span> <span class='string'>\"react\"</span>;\n\n<span class='keyword'>function</span> <span class='function'>Counter</span>() {\n  <span class='keyword'>const</span> [count, setCount] = <span class='function'>useState</span>(<span class='number'>0</span>);\n\n  <span class='keyword'>function</span> <span class='function'>handleClick</span>() {\n    <span class='function'>setCount</span>(count + <span class='number'>1</span>);\n    <span class='function'>setCount</span>(count + <span class='number'>1</span>);\n  }\n\n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      <span class='jsx-tag'>&lt;p&gt;</span>Clicked: {count}<span class='jsx-tag'>&lt;/p&gt;</span>\n      <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{handleClick}</span><span class='jsx-tag'>&gt;</span>Click me<span class='jsx-tag'>&lt;/button&gt;</span>\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}\n\n<span class='keyword'>export</span> <span class='keyword'>default</span> Counter;</pre></div>",
+      "options": [
+        "Clicked: 1",
+        "Clicked: 2",
+        "Clicked: 0",
+        "An error will occur"
+      ],
+      "answer": 0,
+      "explanation": "When the button is clicked, the displayed text will be <code>Clicked: 1</code>. This is because React's state updates are <strong>asynchronous</strong> and <strong>batched</strong>. Both calls to <code>setCount(count + 1)</code> are using the same value of <code>count</code> (which is 0 at the time of the click). So both calls effectively become <code>setCount(0 + 1)</code>, and React batches these into a single update.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>handleClick</span>() {\n  <span class='function'>setCount</span>(<span class='variable'>prevCount</span> =&gt; <span class='variable'>prevCount</span> + <span class='number'>1</span>);\n  <span class='function'>setCount</span>(<span class='variable'>prevCount</span> =&gt; <span class='variable'>prevCount</span> + <span class='number'>1</span>);\n}</pre></div>This functional update form guarantees that you're working with the most current state value, rather than a potentially stale closure value."
+    },
+    {
+      "id": 12,
+      "question": "What will be displayed when this component is first rendered?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>import</span> React, { useState } <span class='keyword'>from</span> <span class='string'>\"react\"</span>;\n\n<span class='keyword'>function</span> <span class='function'>Greeting</span>() {\n  <span class='keyword'>const</span> [name] = <span class='function'>useState</span>(<span class='string'>\"Alice\"</span>);\n\n  <span class='keyword'>return</span> <span class='jsx-tag'>&lt;h1&gt;</span>Hello, {name}<span class='jsx-tag'>&lt;/h1&gt;</span>;\n}\n\n<span class='keyword'>export</span> <span class='keyword'>default</span> Greeting;</pre></div>",
+      "options": [
+        "Hello, undefined",
+        "Hello, null",
+        "Hello, Alice",
+        "Error: name is not defined"
+      ],
+      "answer": 2,
+      "explanation": "The initial value passed to <code>useState</code> is used as the state’s default. Therefore, <code>name</code> is initialized with <code>\"Alice\"</code>, and the component renders <code>Hello, Alice</code>."
+    },
+    {
+      "id": 13,
+      "question": "Why is the dependency array important in useEffect?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>useEffect</span>(() =&gt; {\n  <span class='comment'>// Fetch API data</span>\n}, []);</pre></div>",
+      "options": [
+        "It prevents the component from rendering",
+        "It controls when the effect runs",
+        "It initializes state",
+        "It unmounts the component"
+      ],
+      "answer": 1,
+      "explanation": "The dependency array tells React when to re-run the effect. An empty array means the effect only runs once (on mount). Without it, the effect runs on every render."
+    },
+    {
+      "id": 14,
+      "question": "What will happen when this component renders?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>Logger</span>() {\n  <span class='function'>useEffect</span>(() =&gt; {\n    <span class='function'>console.log</span>(<span class='string'>\"Rendered\"</span>);\n  });\n\n  <span class='keyword'>return</span> <span class='jsx-tag'>&lt;p&gt;</span>Check console<span class='jsx-tag'>&lt;/p&gt;</span>;\n}</pre></div>",
+      "options": [
+        "Logs once when mounted",
+        "Logs on every render",
+        "Never logs anything",
+        "Throws an error"
+      ],
+      "answer": 1,
+      "explanation": "Without a dependency array, <code>useEffect</code> runs after every render. So this will log <code>Rendered</code> on every update."
+    },
+    {
+      "id": 15,
+      "question": "What is the correct way to update state based on previous state?",
+      "example": "<div class='quiz-code-dark'><pre><span class='function'>setCount</span>(count + 1); <span class='comment'>// Option A</span>\n<span class='function'>setCount</span>(prevCount =&gt; prevCount + 1); <span class='comment'>// Option B</span></pre></div>",
+      "options": [
+        "Option A is always correct",
+        "Option B is safer",
+        "Both are identical",
+        "Neither works"
+      ],
+      "answer": 1,
+      "explanation": "Option B is safer because it ensures you are working with the most recent state value, which is important when updates are batched."
+    },
+    {
+      "id": 16,
+      "question": "What will clicking the button display?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>Toggle</span>() {\n  <span class='keyword'>const</span> [on, setOn] = <span class='function'>useState</span>(<span class='boolean'>false</span>);\n\n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{() =&gt; setOn(!on)}</span><span class='jsx-tag'>&gt;</span>\n      {on ? <span class='string'>\"ON\"</span> : <span class='string'>\"OFF\"</span>}\n    <span class='jsx-tag'>&lt;/button&gt;</span>\n  );\n}</pre></div>",
+      "options": [
+        "Always shows OFF",
+        "Always shows ON",
+        "Toggles between ON and OFF",
+        "Throws an error"
+      ],
+      "answer": 2,
+      "explanation": "The state <code>on</code> is toggled between <code>true</code> and <code>false</code> on each click, so the button text switches between <code>ON</code> and <code>OFF</code>."
+    },
+    {
+      "id": 17,
+      "question": "What happens if you call useState inside a loop?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>for</span> (let i = 0; i &lt; 3; i++) {\n  <span class='function'>useState</span>(0);\n}</pre></div>",
+      "options": [
+        "It works fine",
+        "It throws an error",
+        "It initializes multiple states",
+        "It ignores the loop"
+      ],
+      "answer": 1,
+      "explanation": "Hooks must be called unconditionally, at the top level of the component. Calling <code>useState</code> in a loop violates the Rules of Hooks and will cause an error."
+    },
+    {
+      "id": 18,
+      "question": "What is returned by useState?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>const</span> [value, setValue] = <span class='function'>useState</span>(10);</pre></div>",
+      "options": [
+        "Only the value",
+        "Only the setter function",
+        "An array with value and setter",
+        "An object with value and setter"
+      ],
+      "answer": 2,
+      "explanation": "<code>useState</code> returns an array with two elements: the current state value and a function to update it."
+    },
+    {
+      "id": 19,
+      "question": "What is the purpose of useEffect cleanup?",
+      "example": "<div class='quiz-code-dark'><pre><span class='function'>useEffect</span>(() =&gt; {\n  <span class='keyword'>const</span> id = <span class='function'>setInterval</span>(() =&gt; console.log(<span class='string'>\"tick\"</span>), 1000);\n  <span class='keyword'>return</span> () =&gt; <span class='function'>clearInterval</span>(id);\n}, []);</pre></div>",
+      "options": [
+        "To initialize state",
+        "To stop memory leaks",
+        "To run extra logic",
+        "To prevent rendering"
+      ],
+      "answer": 1,
+      "explanation": "Cleanup functions prevent memory leaks by tearing down subscriptions, intervals, or event listeners when the component unmounts."
+    },
+    {
+      "id": 20,
+      "question": "What will be logged when the button is clicked?",
+      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>Logger</span>() {\n  <span class='keyword'>const</span> [value, setValue] = <span class='function'>useState</span>(0);\n\n  <span class='keyword'>return</span> <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{() =&gt; {\n    setValue(value + 1);\n    <span class='function'>console.log</span>(value);\n  }}</span><span class='jsx-tag'>&gt;</span>Click<span class='jsx-tag'>&lt;/button&gt;</span>;\n}</pre></div>",
+      "options": [
+        "Logs incremented value",
+        "Logs stale value",
+        "Logs undefined",
+        "Throws error"
+      ],
+      "answer": 1,
+      "explanation": "Since state updates are asynchronous, <code>console.log(value)</code> logs the old value (stale closure) instead of the updated one."
+    }
+  ]
+}

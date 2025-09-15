@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import './QuizResult.css';
 import './QuizStats.css';
+import './CodeStyles.css';
 import type { QuizData } from './types';
 import { saveQuizScore, fetchQuizStats, type QuizStats } from './scoreService';
 import { getTopicFromUrl } from './config';
+import { renderHTML, stripHtmlTags } from './utils';
 
 interface QuizResultProps {
   score: number;
@@ -33,7 +35,7 @@ const QuizResult = ({
   const [scoreSaved, setScoreSaved] = useState(false);
   
   // Generate share message
-  const shareMessage = `I scored ${score}/${totalQuestions} (${percentage}%) on the "${quizTitle}" quiz!`;
+  const shareMessage = `I scored ${score}/${totalQuestions} (${percentage}%) on the "${stripHtmlTags(quizTitle)}" quiz!`;
   
   // Get the quiz ID from the URL hash
   const quizId = window.location.hash.replace('#', '') || '';
@@ -84,8 +86,9 @@ const QuizResult = ({
     
     quizData.questions.forEach((question, index) => {
       const correctAnswer = question.options[question.answer];
-      cheatSheet += `Question ${index + 1}: ${question.question}\n`;
-      cheatSheet += `Answer: ${correctAnswer}\n\n`;
+      
+      cheatSheet += `Question ${index + 1}: ${stripHtmlTags(question.question)}\n`;
+      cheatSheet += `Answer: ${stripHtmlTags(correctAnswer)}\n\n`;
     });
     
     return cheatSheet;
@@ -102,6 +105,11 @@ const QuizResult = ({
   return (
     <div className="quiz-result">
       <h2>Quiz Completed!</h2>
+      
+      {quizData && quizData.title && (
+        <h3 className="quiz-title" dangerouslySetInnerHTML={renderHTML(quizData.title)} />
+      )}
+      
       <div className="score-container">
         <div className="score">{score} / {totalQuestions}</div>
         <div className="percentage">{percentage}%</div>
@@ -109,13 +117,13 @@ const QuizResult = ({
       
       <div className="feedback">
         {percentage >= 80 ? (
-          <p>Excellent! You've mastered this quiz!</p>
+          <p dangerouslySetInnerHTML={renderHTML("Excellent! You've <strong>mastered</strong> this quiz!")} />
         ) : percentage >= 60 ? (
-          <p>Good job! You're on the right track.</p>
+          <p dangerouslySetInnerHTML={renderHTML("Good job! You're on the <strong>right track</strong>.")} />
         ) : percentage >= 40 ? (
-          <p>Not bad, but there's room for improvement.</p>
+          <p dangerouslySetInnerHTML={renderHTML("Not bad, but there's <strong>room for improvement</strong>.")} />
         ) : (
-          <p>Keep practicing! You'll get better.</p>
+          <p dangerouslySetInnerHTML={renderHTML("Keep <strong>practicing</strong>! You'll get better.")} />
         )}
       </div>
       
