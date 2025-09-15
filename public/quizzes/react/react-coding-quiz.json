@@ -108,7 +108,7 @@
       "options": [
         "`<div><h2>Data</h2><pre>null</pre></div>`",
         "`<div>Loading...</div>`",
-        "`Nothing, because there's an error in the code`",
+        "Nothing, because there's an error in the code",
         "`<div><h2>Data</h2><pre>{}</pre></div>`"
       ],
       "answer": 1,
