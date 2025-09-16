@@ -6,11 +6,12 @@ import App from './App.tsx'
 // Get the root element
 const rootElement = document.getElementById('root')!;
 
-// Read topic from data attribute if available
+// Read topic and quiz from data attributes if available
 const topic = rootElement.getAttribute('data-topic') || undefined;
+const quiz = rootElement.getAttribute('data-quiz') || undefined;
 
 createRoot(rootElement).render(
   <StrictMode>
-    <App topic={topic} />
+    <App topic={topic} initialQuiz={quiz} />
   </StrictMode>,
 )
