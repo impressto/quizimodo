@@ -4,20 +4,6 @@
   "time": "15 minutes",
   "questions": [
     {
-      "id": 21,
-      "question": "When the button is clicked once, what will be displayed in the &lt;p&gt; element?",
-      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>import</span> React, { useState } <span class='keyword'>from</span> <span class='string'>\"react\"</span>;\n\n<span class='keyword'>function</span> <span class='function'>Counter</span>() {\n  <span class='keyword'>const</span> [count, setCount] = <span class='function'>useState</span>(<span class='number'>0</span>);\n\n  <span class='keyword'>function</span> <span class='function'>handleClick</span>() {\n    <span class='function'>setCount</span>(count + <span class='number'>1</span>);\n    <span class='function'>setCount</span>(count + <span class='number'>1</span>);\n  }\n\n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      <span class='jsx-tag'>&lt;p&gt;</span>Clicked: {count}<span class='jsx-tag'>&lt;/p&gt;</span>\n      <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{handleClick}</span><span class='jsx-tag'>&gt;</span>Click me<span class='jsx-tag'>&lt;/button&gt;</span>\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}\n\n<span class='keyword'>export</span> <span class='keyword'>default</span> Counter;</pre></div>",
-      "options": [
-        "Clicked: 1",
-        "Clicked: 2",
-        "Clicked: 0",
-        "An error will occur"
-      ],
-      "answer": 0,
-      "explanation": "When the button is clicked, the displayed text will be <code>Clicked: 1</code>. This is because React's state updates are <strong>asynchronous</strong> and <strong>batched</strong>. Both calls to <code>setCount(count + 1)</code> are using the same value of <code>count</code> (which is 0 at the time of the click). So both calls effectively become <code>setCount(0 + 1)</code>, and React batches these into a single update.",
-      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>handleClick</span>() {\n  <span class='function'>setCount</span>(<span class='variable'>prevCount</span> => <span class='variable'>prevCount</span> + <span class='number'>1</span>);\n  <span class='function'>setCount</span>(<span class='variable'>prevCount</span> => <span class='variable'>prevCount</span> + <span class='number'>1</span>);\n}</pre></div>This functional update form guarantees that you're working with the most current state value, rather than a potentially stale closure value."
-    },
-    {
       "id": 1,
       "question": "What is the main purpose of React Hooks?",
       "options": [

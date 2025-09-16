@@ -34,7 +34,9 @@ export const formatCodeBlocks = (text: string): string => {
   
   // Replace backtick-wrapped text with a code block
   return text.replace(codeRegex, (_, codeContent) => {
-    return `<code class="quiz-inline-code">${codeContent}</code>`;
+    // Escape HTML characters within the code content to prevent rendering as HTML
+    const escapedContent = escapeHtml(codeContent);
+    return `<code class="quiz-inline-code">${escapedContent}</code>`;
   });
 };
 

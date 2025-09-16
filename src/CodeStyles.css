@@ -49,6 +49,13 @@ code {
   display: inline-block;
 }
 
+/* Specific styling for inline code in question titles */
+h2 .quiz-inline-code {
+  background-color: #e0e0e0;
+  color: #000000;
+  border: 1px solid #cccccc;
+}
+
 /* Styling for code blocks representing HTML in options */
 pre code.quiz-code-block {
   background-color: #1e1e1e;

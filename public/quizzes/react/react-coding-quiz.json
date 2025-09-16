@@ -18,35 +18,35 @@
       "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>handleClick</span>() {\n  <span class='function'>setCount</span>(prevCount => {\n    <span class='keyword'>const</span> newCount = prevCount + <span class='number'>1</span>;\n    <span class='function'>console</span>.<span class='function'>log</span>(<span class='string'>`Clicked! Count: ${newCount}`</span>);\n    <span class='keyword'>return</span> newCount;\n  });\n}</pre></div>If you want to log the updated value immediately, you can use the functional form of setState and log inside the updater function where you have access to the new value."
     },
     {
-      "id": 3,
+      "id": 2,
       "question": "What will be rendered by this component?",
       "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>RenderExample</span>() {\n  <span class='keyword'>const</span> [items, setItems] = <span class='function'>useState</span>([<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>]);\n  <span class='keyword'>const</span> renderedItems = [];\n  \n  <span class='keyword'>for</span> (<span class='keyword'>let</span> i = <span class='number'>0</span>; i < items.length; i++) {\n    <span class='keyword'>if</span> (items[i] % <span class='number'>2</span> === <span class='number'>0</span>) {\n      renderedItems.<span class='function'>push</span>(<span class='jsx-tag'>&lt;span</span> <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{i}</span><span class='jsx-tag'>&gt;</span>Even: {items[i]}<span class='jsx-tag'>&lt;/span&gt;</span>);\n    } <span class='keyword'>else</span> <span class='keyword'>if</span> (items[i] % <span class='number'>2</span> === <span class='number'>1</span>) {\n      <span class='keyword'>continue</span>;\n    }\n  }\n  \n  <span class='keyword'>return</span> <span class='jsx-tag'>&lt;div&gt;</span>{renderedItems}<span class='jsx-tag'>&lt;/div&gt;</span>;\n}</pre></div>",
       "options": [
-        "<div>Even: 2</div>",
+        "`<div>Even: 2</div>`",
         "An error because you can't use loops in React components",
-        "An empty <div></div>",
-        "<div><span>Even: 1</span><span>Even: 2</span><span>Even: 3</span></div>"
+        "An empty `<div></div>`",
+        "`<div><span>Even: 1</span><span>Even: 2</span><span>Even: 3</span></div>`"
       ],
       "answer": 0,
       "explanation": "The component will render <code>&lt;div&gt;Even: 2&lt;/div&gt;</code>. The loop checks if each number is even (divisible by 2), and only pushes even numbers to the renderedItems array. For odd numbers, the continue statement skips to the next iteration. Since only 2 is even in the array [1, 2, 3], only 'Even: 2' will be rendered.",
       "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='comment'>// A more React-idiomatic approach would be:</span>\n<span class='keyword'>function</span> <span class='function'>RenderExample</span>() {\n  <span class='keyword'>const</span> [items, setItems] = <span class='function'>useState</span>([<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>]);\n  \n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      {items\n        .<span class='function'>filter</span>(item => item % <span class='number'>2</span> === <span class='number'>0</span>)\n        .<span class='function'>map</span>((item, index) => (\n          <span class='jsx-tag'>&lt;span</span> <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{index}</span><span class='jsx-tag'>&gt;</span>Even: {item}<span class='jsx-tag'>&lt;/span&gt;</span>\n        ))}\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}</pre></div>"
     },
     {
-      "id": 4,
-      "question": "What's the issue with this custom hook?",
-      "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>useWindowSize</span>() {\n  <span class='keyword'>const</span> [windowSize, setWindowSize] = <span class='function'>useState</span>({\n    width: window.innerWidth,\n    height: window.innerHeight,\n  });\n\n  <span class='keyword'>useEffect</span>(() => {\n    <span class='keyword'>function</span> <span class='function'>handleResize</span>() {\n      <span class='function'>setWindowSize</span>({\n        width: window.innerWidth,\n        height: window.innerHeight,\n      });\n    }\n\n    window.<span class='function'>addEventListener</span>(<span class='string'>'resize'</span>, handleResize);\n    <span class='keyword'>return</span> () => {\n      window.<span class='function'>removeEventListener</span>(<span class='string'>'resize'</span>, handleResize);\n    };\n  }, []);\n\n  <span class='keyword'>return</span> windowSize;\n}</pre></div>",
+      "id": 3,
+      "question": "What is the purpose of the 'key' prop when rendering lists in React?",
+      "example": "<div class='quiz-code-dark'><pre>{items.map(item => (\n  <li key={item.id}>{item.value}</li>\n))}</pre></div>",
       "options": [
-        "The useState hook doesn't have a proper default value",
-        "The event listener isn't properly removed in the cleanup function",
-        "The hook doesn't account for server-side rendering (window is undefined)",
-        "The useEffect dependency array should include windowSize"
+        "It makes each list item unique for CSS styling",
+        "It improves rendering performance by helping React track items",
+        "It prevents duplicate values from being displayed",
+        "It forces a re-render every time the list changes"
       ],
-      "answer": 2,
-      "explanation": "The hook doesn't account for server-side rendering, where <code>window</code> is undefined. When this hook is used in a component that's rendered on the server (e.g., in Next.js or Gatsby), it will throw an error because <code>window</code> doesn't exist in the Node.js environment.",
-      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>useWindowSize</span>() {\n  <span class='keyword'>const</span> [windowSize, setWindowSize] = <span class='function'>useState</span>({\n    width: <span class='keyword'>typeof</span> window !== <span class='string'>'undefined'</span> ? window.innerWidth : <span class='number'>0</span>,\n    height: <span class='keyword'>typeof</span> window !== <span class='string'>'undefined'</span> ? window.innerHeight : <span class='number'>0</span>,\n  });\n\n  <span class='keyword'>useEffect</span>(() => {\n    <span class='comment'>// Skip effect on server</span>\n    <span class='keyword'>if</span> (<span class='keyword'>typeof</span> window === <span class='string'>'undefined'</span>) <span class='keyword'>return</span>;\n    \n    <span class='keyword'>function</span> <span class='function'>handleResize</span>() {\n      <span class='function'>setWindowSize</span>({\n        width: window.innerWidth,\n        height: window.innerHeight,\n      });\n    }\n\n    window.<span class='function'>addEventListener</span>(<span class='string'>'resize'</span>, handleResize);\n    <span class='keyword'>return</span> () => {\n      window.<span class='function'>removeEventListener</span>(<span class='string'>'resize'</span>, handleResize);\n    };\n  }, []);\n\n  <span class='keyword'>return</span> windowSize;\n}</pre></div>"
+      "answer": 1,
+      "explanation": "Keys help React efficiently identify which items have changed, been added, or removed, optimizing list re-rendering.",
+      "exampleExplanation": "<div class='quiz-code-dark'><pre>// Bad: Using index as key can cause rendering issues\n{items.map((item, index) => (\n  <li key={index}>{item.value}</li>\n))}\n\n// Good: Use unique IDs\n{items.map(item => (\n  <li key={item.id}>{item.value}</li>\n))}</pre></div>"
     },
     {
-      "id": 2,
+      "id": 4,
       "question": "What's wrong with this component?",
       "example": "<div class='quiz-code-dark'><pre><span class='keyword'>function</span> <span class='function'>SearchResults</span>() {\n  <span class='keyword'>const</span> [query, setQuery] = <span class='function'>useState</span>(<span class='string'>\"\"</span>);\n  <span class='keyword'>const</span> [results, setResults] = <span class='function'>useState</span>([]);\n\n  <span class='keyword'>useEffect</span>(() => {\n    <span class='keyword'>const</span> fetchData = <span class='keyword'>async</span> () => {\n      <span class='keyword'>const</span> response = <span class='keyword'>await</span> <span class='function'>fetch</span>(\n        <span class='string'>`https://api.example.com/search?q=${query}`</span>\n      );\n      <span class='keyword'>const</span> data = <span class='keyword'>await</span> response.<span class='function'>json</span>();\n      <span class='function'>setResults</span>(data.results);\n    };\n\n    <span class='function'>fetchData</span>();\n  }, []);\n\n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      <span class='jsx-tag'>&lt;input</span>\n        <span class='jsx-attribute'>value</span>=<span class='jsx-expression'>{query}</span>\n        <span class='jsx-attribute'>onChange</span>=<span class='jsx-expression'>{e => <span class='function'>setQuery</span>(e.target.value)}</span>\n      <span class='jsx-tag'>/&gt;</span>\n      <span class='jsx-tag'>&lt;ul&gt;</span>\n        {results.<span class='function'>map</span>(item => (\n          <span class='jsx-tag'>&lt;li</span> <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{item.id}</span><span class='jsx-tag'>&gt;</span>{item.name}<span class='jsx-tag'>&lt;/li&gt;</span>\n        ))}\n      <span class='jsx-tag'>&lt;/ul&gt;</span>\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}</pre></div>",
       "options": [
@@ -145,7 +145,7 @@
     },
     {
       "id": 11,
-      "question": "When the button is clicked once, what will be displayed in the <p> element?",
+      "question": "When the button is clicked once, what will be displayed in the `<p>` element?",
       "example": "<div class='quiz-code-dark'><pre><span class='keyword'>import</span> React, { useState } <span class='keyword'>from</span> <span class='string'>\"react\"</span>;\n\n<span class='keyword'>function</span> <span class='function'>Counter</span>() {\n  <span class='keyword'>const</span> [count, setCount] = <span class='function'>useState</span>(<span class='number'>0</span>);\n\n  <span class='keyword'>function</span> <span class='function'>handleClick</span>() {\n    <span class='function'>setCount</span>(count + <span class='number'>1</span>);\n    <span class='function'>setCount</span>(count + <span class='number'>1</span>);\n  }\n\n  <span class='keyword'>return</span> (\n    <span class='jsx-tag'>&lt;div&gt;</span>\n      <span class='jsx-tag'>&lt;p&gt;</span>Clicked: {count}<span class='jsx-tag'>&lt;/p&gt;</span>\n      <span class='jsx-tag'>&lt;button</span> <span class='jsx-attribute'>onClick</span>=<span class='jsx-expression'>{handleClick}</span><span class='jsx-tag'>&gt;</span>Click me<span class='jsx-tag'>&lt;/button&gt;</span>\n    <span class='jsx-tag'>&lt;/div&gt;</span>\n  );\n}\n\n<span class='keyword'>export</span> <span class='keyword'>default</span> Counter;</pre></div>",
       "options": [
         "Clicked: 1",
