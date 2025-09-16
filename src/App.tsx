@@ -11,9 +11,10 @@ import { DEFAULT_TOPIC, getQuizzesBaseUrl } from './config';
 
 interface AppProps {
   topic?: string;
+  initialQuiz?: string;
 }
 
-function App({ topic = DEFAULT_TOPIC }: AppProps) {
+function App({ topic = DEFAULT_TOPIC, initialQuiz }: AppProps) {
   const [quizState, setQuizState] = useState<QuizState>({
     quizData: null,
     currentQuestionIndex: 0,
@@ -23,7 +24,7 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
     error: null
   });
 
-  const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
+  const [selectedQuizId, setSelectedQuizId] = useState<string | null>(initialQuiz || null);
   const [correctStreak, setCorrectStreak] = useState<number>(0);
   const [showCelebration, setShowCelebration] = useState<boolean>(false);
   const [celebrationType, setCelebrationType] = useState<'basic' | 'amazing' | 'mindblowing'>('basic');
@@ -40,10 +41,22 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
           const metaData = await metaResponse.json();
           const quizIds = metaData.quizzes ? metaData.quizzes.map((q: any) => q.id) : [];
           setAvailableQuizCount(quizIds.length);
-          // Hash-based selection
+          
+          // Priority order:
+          // 1. URL hash
+          // 2. Initial quiz from data attribute
+          // 3. No quiz selected (show quiz selection)
+          
           const hash = window.location.hash.replace('#', '');
+          
           if (hash && quizIds.includes(hash)) {
+            // URL hash takes precedence
             setSelectedQuizId(hash);
+          } else if (initialQuiz && quizIds.includes(initialQuiz) && !selectedQuizId) {
+            // If initialQuiz is valid and no quiz is already selected
+            setSelectedQuizId(initialQuiz);
+            // Update URL hash to match the selected quiz
+            window.location.hash = initialQuiz;
           }
         } else {
           setAvailableQuizCount(0);
@@ -53,7 +66,7 @@ function App({ topic = DEFAULT_TOPIC }: AppProps) {
       }
     };
     fetchQuizMeta();
-  }, [topic]);
+  }, [topic, initialQuiz, selectedQuizId]);
 
   useEffect(() => {
     if (!selectedQuizId) return;
