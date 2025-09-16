@@ -33,8 +33,8 @@
     },
     {
       "id": 3,
-      "question": "What is the purpose of the 'key' prop when rendering lists in React?",
-      "example": "<div class='quiz-code-dark'><pre>{items.map(item => (\n  <li key={item.id}>{item.value}</li>\n))}</pre></div>",
+      "question": "What is the purpose of the key prop when rendering lists in React?",
+      "example": "<div class='quiz-code-dark'><pre>{items.map(item => (\n  <span class='jsx-tag'>&lt;li</span> <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{item.id}</span><span class='jsx-tag'>&gt;</span>{item.value}<span class='jsx-tag'>&lt;/li&gt;</span>\n))}</pre></div>",
       "options": [
         "It makes each list item unique for CSS styling",
         "It improves rendering performance by helping React track items",
@@ -43,7 +43,7 @@
       ],
       "answer": 1,
       "explanation": "Keys help React efficiently identify which items have changed, been added, or removed, optimizing list re-rendering.",
-      "exampleExplanation": "<div class='quiz-code-dark'><pre>// Bad: Using index as key can cause rendering issues\n{items.map((item, index) => (\n  <li key={index}>{item.value}</li>\n))}\n\n// Good: Use unique IDs\n{items.map(item => (\n  <li key={item.id}>{item.value}</li>\n))}</pre></div>"
+      "exampleExplanation": "<div class='quiz-code-dark'><pre><span class='comment'>// Bad: Using index as key can cause rendering issues</span>\n{items.map((item, index) => (\n  <span class='jsx-tag'>&lt;li</span> <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{index}</span><span class='jsx-tag'>&gt;</span>{item.value}<span class='jsx-tag'>&lt;/li&gt;</span>\n))}\n\n<span class='comment'>// Good: Use unique IDs</span>\n{items.map(item => (\n  <span class='jsx-tag'>&lt;li</span> <span class='jsx-attribute'>key</span>=<span class='jsx-expression'>{item.id}</span><span class='jsx-tag'>&gt;</span>{item.value}<span class='jsx-tag'>&lt;/li&gt;</span>\n))}</pre></div>"
     },
     {
       "id": 4,
