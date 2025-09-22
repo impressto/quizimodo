@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:static": "cp .env.static .env && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

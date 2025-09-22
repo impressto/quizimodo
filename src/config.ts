@@ -3,6 +3,11 @@
 // Default topic if none is specified
 export const DEFAULT_TOPIC = 'react';
 
+// Function to determine if we're running in static mode
+export const isStaticMode = (): boolean => {
+  return import.meta.env.VITE_STATIC_MODE === 'true';
+};
+
 // Function to determine if we're running in production
 export const isProduction = (): boolean => {
   return window.location.hostname !== 'localhost' && 
