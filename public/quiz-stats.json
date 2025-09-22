@@ -1,0 +1,42 @@
+{
+  "react-coding-quiz": {
+    "quizId": "react-coding-quiz",
+    "totalAttempts": 127,
+    "averageScore": 72.4,
+    "highScore": 100,
+    "distribution": {
+      "0-20": 8,
+      "21-40": 15,
+      "41-60": 23,
+      "61-80": 45,
+      "81-100": 36
+    },
+    "recentScores": [
+      { "percentage": 85, "date": "2025-09-20" },
+      { "percentage": 92, "date": "2025-09-20" },
+      { "percentage": 68, "date": "2025-09-19" },
+      { "percentage": 76, "date": "2025-09-19" },
+      { "percentage": 88, "date": "2025-09-18" }
+    ]
+  },
+  "react-hook-basics": {
+    "quizId": "react-hook-basics",
+    "totalAttempts": 89,
+    "averageScore": 78.2,
+    "highScore": 100,
+    "distribution": {
+      "0-20": 4,
+      "21-40": 8,
+      "41-60": 18,
+      "61-80": 35,
+      "81-100": 24
+    },
+    "recentScores": [
+      { "percentage": 94, "date": "2025-09-20" },
+      { "percentage": 71, "date": "2025-09-20" },
+      { "percentage": 83, "date": "2025-09-19" },
+      { "percentage": 77, "date": "2025-09-19" },
+      { "percentage": 91, "date": "2025-09-18" }
+    ]
+  }
+}
