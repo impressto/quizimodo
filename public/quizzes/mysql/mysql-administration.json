@@ -1,0 +1,367 @@
+{
+  "title": "MySQL Management Quiz",
+  "description": "Test your MySQL knowledge for database management, including optimization, scaling, replication, and maintenance.",
+  "time": "30 minutes",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the main purpose of horizontal partitioning (sharding) in MySQL?",
+      "options": [
+        "To reduce storage costs by compressing data",
+        "To split large tables across multiple servers for scalability",
+        "To normalize database schemas",
+        "To create indexes automatically"
+      ],
+      "answer": 1,
+      "explanation": "Horizontal partitioning (sharding) distributes rows of a table across multiple servers to handle larger datasets and improve performance."
+    },
+    {
+      "id": 2,
+      "question": "Which is a key challenge with sharding?",
+      "options": [
+        "Simplified joins across shards",
+        "Automatic transaction support across multiple shards",
+        "Data consistency and rebalancing",
+        "Reduced storage requirements"
+      ],
+      "answer": 2,
+      "explanation": "Sharding complicates joins, transactions, and requires careful management of data distribution and consistency."
+    },
+    {
+      "id": 3,
+      "question": "Which type of index is best suited for columns used in range queries?",
+      "options": [
+        "FULLTEXT index",
+        "HASH index",
+        "BTREE index",
+        "SPATIAL index"
+      ],
+      "answer": 2,
+      "explanation": "BTREE indexes support range queries efficiently, making them the most common index type in MySQL."
+    },
+    {
+      "id": 4,
+      "question": "What is a covering index?",
+      "options": [
+        "An index that covers all rows in the database",
+        "An index that stores a copy of the entire table",
+        "An index that contains all columns required by a query",
+        "An index that covers only primary keys"
+      ],
+      "answer": 2,
+      "explanation": "A covering index contains all the columns needed for a query, avoiding additional table lookups and improving performance."
+    },
+    {
+      "id": 5,
+      "question": "Why is archiving old data a recommended practice in large databases?",
+      "options": [
+        "It prevents replication lag",
+        "It reduces the size of active tables, improving query performance",
+        "It automatically creates indexes",
+        "It eliminates the need for backups"
+      ],
+      "answer": 1,
+      "explanation": "Archiving removes rarely used data from active tables, reducing their size and improving query speed."
+    },
+    {
+      "id": 6,
+      "question": "Which approach is commonly used for archiving MySQL data?",
+      "options": [
+        "Export to flat files or CSV",
+        "Move rows to an archive table",
+        "Use partitioning with history partitions",
+        "All answers are correct"
+      ],
+      "answer": 3,
+      "explanation": "Archiving can be done by exporting, moving to archive tables, or using partitioning strategies."
+    },
+    {
+      "id": 7,
+      "question": "Which MySQL command helps identify slow queries for optimization?",
+      "options": [
+        "SHOW INDEXES",
+        "EXPLAIN",
+        "ANALYZE TABLE",
+        "SHOW CREATE TABLE"
+      ],
+      "answer": 1,
+      "explanation": "EXPLAIN shows the execution plan of queries, helping developers identify bottlenecks and optimize performance."
+    },
+    {
+      "id": 8,
+      "question": "What is a common technique for rewriting slow queries?",
+      "options": [
+        "Replace subqueries with joins",
+        "Always use SELECT *",
+        "Avoid using indexes",
+        "Use nested views"
+      ],
+      "answer": 0,
+      "explanation": "Subqueries can be inefficient; rewriting them as joins often improves performance."
+    },
+    {
+      "id": 9,
+      "question": "Normalization is mainly used to:",
+      "options": [
+        "Increase redundancy for faster queries",
+        "Reduce redundancy and improve data integrity",
+        "Improve replication speed",
+        "Enable automatic sharding"
+      ],
+      "answer": 1,
+      "explanation": "Normalization minimizes redundancy and maintains data integrity by organizing data into related tables."
+    },
+    {
+      "id": 10,
+      "question": "When might denormalization be useful?",
+      "options": [
+        "When query performance is more important than strict normalization",
+        "When enforcing referential integrity",
+        "When designing primary keys",
+        "When partitioning tables"
+      ],
+      "answer": 0,
+      "explanation": "Denormalization can speed up queries in read-heavy systems by reducing joins, at the cost of redundancy."
+    },
+    {
+      "id": 11,
+      "question": "Which scaling method involves upgrading the existing server with more CPU, RAM, or disk?",
+      "options": [
+        "Horizontal scaling",
+        "Vertical scaling",
+        "Sharding",
+        "Replication"
+      ],
+      "answer": 1,
+      "explanation": "Vertical scaling improves performance by adding resources to a single server."
+    },
+    {
+      "id": 12,
+      "question": "Which drawback is associated with vertical scaling?",
+      "options": [
+        "Limited by hardware maximums",
+        "Requires rebalancing data",
+        "Complex query routing",
+        "Difficult to maintain indexes"
+      ],
+      "answer": 0,
+      "explanation": "Vertical scaling is limited by hardware capacity and can become expensive at scale."
+    },
+    {
+      "id": 13,
+      "question": "What is the main purpose of replication in MySQL?",
+      "options": [
+        "To split queries across multiple databases",
+        "To increase availability and enable read scaling",
+        "To compress data for storage savings",
+        "To reduce normalization needs"
+      ],
+      "answer": 1,
+      "explanation": "Replication improves availability and scalability by copying data from a primary server to replicas."
+    },
+    {
+      "id": 14,
+      "question": "Which replication mode ensures no data loss at the cost of higher latency?",
+      "options": [
+        "Asynchronous replication",
+        "Semi-synchronous replication",
+        "Delayed replication",
+        "Circular replication"
+      ],
+      "answer": 1,
+      "explanation": "Semi-synchronous replication waits for at least one replica to acknowledge the transaction before committing."
+    },
+    {
+      "id": 15,
+      "question": "What is a common strategy for high availability in MySQL?",
+      "options": [
+        "Single master with no replicas",
+        "Master-slave replication with failover",
+        "Disabling binary logs",
+        "Using only vertical scaling"
+      ],
+      "answer": 1,
+      "explanation": "High availability setups often use master-slave replication and automated failover mechanisms."
+    },
+    {
+      "id": 16,
+      "question": "Which compression technique can reduce MySQL InnoDB table storage?",
+      "options": [
+        "gzip",
+        "InnoDB ROW_FORMAT=COMPRESSED",
+        "bzip2",
+        "tar"
+      ],
+      "answer": 1,
+      "explanation": "InnoDB supports ROW_FORMAT=COMPRESSED to reduce disk usage while maintaining functionality."
+    },
+    {
+      "id": 17,
+      "question": "What is the trade-off when using table compression?",
+      "options": [
+        "Faster writes but slower reads",
+        "Reduced storage but increased CPU usage",
+        "Automatic indexing",
+        "Eliminates replication lag"
+      ],
+      "answer": 1,
+      "explanation": "Compression reduces storage needs but increases CPU overhead for compression and decompression."
+    },
+    {
+      "id": 18,
+      "question": "Why is caching important in MySQL performance?",
+      "options": [
+        "It removes the need for indexes",
+        "It reduces repeated queries by storing results in memory",
+        "It replaces replication",
+        "It enforces data integrity"
+      ],
+      "answer": 1,
+      "explanation": "Caching stores frequently accessed data in memory, reducing load on the database."
+    },
+    {
+      "id": 19,
+      "question": "Which external system is commonly used with MySQL for caching query results?",
+      "options": [
+        "Redis",
+        "MongoDB",
+        "ElasticSearch",
+        "PostgreSQL"
+      ],
+      "answer": 0,
+      "explanation": "Redis is often used as an external cache layer for MySQL to reduce database load."
+    },
+    {
+      "id": 20,
+      "question": "Which MySQL feature allows splitting a table into multiple physical storage units?",
+      "options": [
+        "Sharding",
+        "Partitioned tables",
+        "Replication",
+        "Foreign keys"
+      ],
+      "answer": 1,
+      "explanation": "Partitioned tables divide data into smaller, more manageable units within a single server."
+    },
+    {
+      "id": 21,
+      "question": "What is a benefit of using partitioned tables?",
+      "options": [
+        "Improved query performance on large datasets",
+        "Automatic normalization",
+        "Eliminates the need for indexes",
+        "Simplifies replication"
+      ],
+      "answer": 0,
+      "explanation": "Partitioning can improve query performance by limiting the amount of data scanned."
+    },
+    {
+      "id": 22,
+      "question": "Which MySQL command is used to check the integrity of tables?",
+      "options": [
+        "CHECK TABLE",
+        "ANALYZE TABLE",
+        "OPTIMIZE TABLE",
+        "SHOW TABLE STATUS"
+      ],
+      "answer": 0,
+      "explanation": "CHECK TABLE verifies the integrity of tables and can identify corruption."
+    },
+    {
+      "id": 23,
+      "question": "What is the purpose of the MySQL binary log?",
+      "options": [
+        "To store query results",
+        "To log all changes to the database for replication and recovery",
+        "To index tables",
+        "To compress data"
+      ],
+      "answer": 1,
+      "explanation": "The binary log records all changes to the database, enabling replication and point-in-time recovery."
+    },
+    {
+      "id": 24,
+      "question": "What is the purpose of ANALYZE TABLE in MySQL?",
+      "options": [
+        "Rebuilds indexes and updates statistics",
+        "Compresses the table",
+        "Removes old data",
+        "Creates a backup"
+      ],
+      "answer": 0,
+      "explanation": "ANALYZE TABLE updates index statistics, helping the optimizer choose better query execution plans."
+    },
+    {
+      "id": 25,
+      "question": "What does OPTIMIZE TABLE do in MySQL?",
+      "options": [
+        "Backs up the table",
+        "Defragments and reclaims unused space",
+        "Runs EXPLAIN on all queries",
+        "Updates all foreign keys"
+      ],
+      "answer": 1,
+      "explanation": "OPTIMIZE TABLE defragments the table and reclaims unused space after deletions or updates."
+    },
+    {
+      "id": 26,
+      "question": "Why is monitoring replication lag important?",
+      "options": [
+        "Lag indicates delayed data synchronization on replicas",
+        "It ensures indexes are created",
+        "It enables vertical scaling",
+        "It triggers query caching"
+      ],
+      "answer": 0,
+      "explanation": "Replication lag means replicas are behind the primary, which can cause stale reads or failover issues."
+    },
+    {
+      "id": 27,
+      "question": "What is the purpose of the slow query log in MySQL?",
+      "options": [
+        "To record queries that take longer than a configured threshold",
+        "To log replication lag",
+        "To list all indexes",
+        "To back up queries"
+      ],
+      "answer": 0,
+      "explanation": "The slow query log helps identify queries that exceed a performance threshold for optimization."
+    },
+    {
+      "id": 28,
+      "question": "Which isolation level provides the strongest consistency guarantees in MySQL?",
+      "options": [
+        "READ UNCOMMITTED",
+        "READ COMMITTED",
+        "REPEATABLE READ",
+        "SERIALIZABLE"
+      ],
+      "answer": 3,
+      "explanation": "SERIALIZABLE is the strictest isolation level, preventing phantom reads and ensuring full transaction isolation."
+    },
+    {
+      "id": 29,
+      "question": "Which MySQL storage engine is best suited for high-concurrency transactional workloads?",
+      "options": [
+        "MyISAM",
+        "InnoDB",
+        "MEMORY",
+        "CSV"
+      ],
+      "answer": 1,
+      "explanation": "InnoDB is the default engine optimized for high-concurrency transactional workloads with ACID compliance."
+    },
+    {
+      "id": 30,
+      "question": "What does the MySQL query cache (deprecated in recent versions) do?",
+      "options": [
+        "Stores execution plans",
+        "Caches the full result sets of queries",
+        "Caches indexes",
+        "Replicates queries across servers"
+      ],
+      "answer": 1,
+      "explanation": "The query cache stored complete query results, but was removed in MySQL 8.0 due to contention and inefficiency."
+    }
+  ]
+}
