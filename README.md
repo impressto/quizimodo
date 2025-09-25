@@ -13,7 +13,8 @@ It includes interactive features such as **answer streaks, animations, and autom
 ## ✨ Features
 
 - 🎯 **Dynamic Quizzes** – Questions with multiple-choice answers.  
-- 🔥 **Streaks** – Encourages focus and motivation by rewarding consecutive correct answers.  
+- �️ **Visual Learning** – Support for both quiz-level and question-specific header images.
+- �🔥 **Streaks** – Encourages focus and motivation by rewarding consecutive correct answers.  
 - 📄 **Cheat Sheets** – Auto-generated review sheets based on user performance.  
 - 🎨 **Polished UI** – Animations and feedback for a more engaging learning experience.  
 - 🌐 **Extensible Back End** – Optional score-tracking API with examples in Node, PHP, and Python.  
@@ -158,6 +159,7 @@ Quizimodo uses a straightforward JSON format for defining quizzes. Each quiz is 
   "title": "Quiz Title",
   "description": "Short description of the quiz content",
   "time": "15 minutes",
+  "headerimage": "/topic/header.png", 
   "questions": [
     {
       "id": 1,
@@ -176,6 +178,34 @@ Quizimodo uses a straightforward JSON format for defining quizzes. Each quiz is 
 ```
 
 ### Advanced Quiz Features
+
+#### Header Images
+
+You can include header images at two levels:
+
+1. **Quiz-level header image**: Displayed at the top of the quiz for all questions:
+
+```json
+{
+  "title": "My Quiz",
+  "description": "Quiz description",
+  "headerimage": "/topic/header.png"
+}
+```
+
+2. **Question-specific header images**: Each question can have its own unique header image that overrides the quiz-level image:
+
+```json
+{
+  "id": 2,
+  "headerimage": "https://example.com/images/specific-question-image.jpg",
+  "question": "What is the question?",
+  "options": ["Option A", "Option B", "Option C", "Option D"],
+  "answer": 1
+}
+```
+
+When a question has its own `headerimage`, the quiz-level header image will not be displayed for that particular question. This allows for targeted visual aids that are specific to individual questions.
 
 #### Code Examples
 

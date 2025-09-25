@@ -306,8 +306,9 @@ function App({ topic = DEFAULT_TOPIC, initialQuiz }: AppProps) {
       <header>
         {quizState.quizData && !quizState.quizCompleted && (
           <div className="quiz-header">
-            {/* Show quiz theme image if available */}
-            {quizImagePath && (
+            {/* Show quiz theme image if available and the current question doesn't have its own headerimage */}
+            {quizImagePath && 
+             (!quizState.quizData.questions[quizState.currentQuestionIndex]?.headerimage) && (
               <img
                 src={quizImagePath}
                 alt="Quiz Theme"

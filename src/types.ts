@@ -6,6 +6,7 @@ export interface Question {
   answer: number; // index of the correct option
   explanation?: string; // Optional explanation to show after answering
   exampleExplanation?: string; // Optional HTML example for the explanation
+  headerimage?: string; // Optional question-specific header image
 }
 
 export interface QuizData {

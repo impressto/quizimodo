@@ -86,6 +86,17 @@ const QuizQuestion = ({ question, onAnswer, correctStreak = 0 }: QuizQuestionPro
           {correctStreak >= 3 && <span className="streak-fire">🔥</span>}
         </div>
       )}
+      
+      {question.headerimage && (
+        <div className="question-image-container">
+          <img 
+            src={question.headerimage} 
+            alt="Question illustration" 
+            className="question-image" 
+          />
+        </div>
+      )}
+      
       <h2 dangerouslySetInnerHTML={renderHTML(question.question)} />
       
       {question.example && (
