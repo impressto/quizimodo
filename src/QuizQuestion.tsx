@@ -90,9 +90,12 @@ const QuizQuestion = ({ question, onAnswer, correctStreak = 0 }: QuizQuestionPro
       {question.headerimage && (
         <div className="question-image-container">
           <img 
-            src={question.headerimage} 
+            src={question.headerimage.startsWith('http://') || question.headerimage.startsWith('https://') 
+              ? question.headerimage 
+              : (import.meta.env.VITE_IMAGE_BASE_URL || '').replace(/\/$/, '') + question.headerimage} 
             alt="Question illustration" 
             className="question-image" 
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
           />
         </div>
       )}
