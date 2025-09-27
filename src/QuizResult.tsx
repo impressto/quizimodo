@@ -67,7 +67,7 @@ const QuizResult = ({
     // Fetch quiz stats
     const getStats = async () => {
       setLoadingStats(true);
-      const stats = await fetchQuizStats(quizId);
+      const stats = await fetchQuizStats(quizId, topic);
       if (stats) {
         setQuizStats(stats);
       }

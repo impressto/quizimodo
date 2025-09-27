@@ -19,6 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Get the raw POST data
 $rawData = file_get_contents('php://input');
+
+// Check payload size (limit to 10KB to prevent data bombing)
+$maxPayloadSize = 10 * 1024; // 10KB
+if (strlen($rawData) > $maxPayloadSize) {
+    http_response_code(413); // Payload Too Large
+    echo json_encode(['error' => 'Payload too large. Maximum allowed size is ' . $maxPayloadSize . ' bytes.']);
+    exit;
+}
+
 $data = json_decode($rawData);
 
 // Validate the data
@@ -56,7 +65,8 @@ $scoreRecord = [
 
 // Define the storage directory and file
 $storageDir = __DIR__ . '/scores';
-$scoresFile = $storageDir . '/' . $quizId . '_scores.json';
+$topic = !empty($topic) ? $topic : 'default';
+$scoresFile = $storageDir . '/' . $topic . '_' . $quizId . '_scores.json';
 
 // Create directory if it doesn't exist
 if (!is_dir($storageDir)) {

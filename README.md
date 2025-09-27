@@ -91,8 +91,9 @@ chmod 755 public/api/scores
 2. Copy the example PHP files from `public/api_examples` to your server:
    - `save-score.php` - Handles saving quiz scores
    - `quiz-stats.php` - Provides quiz statistics
+   - `seed-scores.php` - Generates test data for development and testing
 
-See the [save-score.php](public/api_examples/save-score.php) and [quiz-stats.php](public/api_examples/quiz-stats.php) files for complete implementations.
+See the [save-score.php](public/api_examples/save-score.php) and [quiz-stats.php](public/api_examples/quiz-stats.php) files for complete implementations. There's also a helpful [seed-scores.php](public/api_examples/seed-scores.php) script for generating test data (see "Generating Test Data" section below).
 
 #### Node.js Implementation
 
@@ -130,6 +131,38 @@ pip install flask flask-cors
 ```bash
 python app.py
 ```
+
+### Generating Test Data
+
+Quizimodo includes a PHP script to generate test data for your quizzes. This is helpful for testing and developing the statistics display features without having to manually create many quiz attempts.
+
+1. Navigate to your API directory:
+
+```bash
+cd public/api_examples
+```
+
+2. Run the seeder script:
+
+```bash
+php seed-scores.php              # Generate scores for new quizzes only
+php seed-scores.php --force      # Generate scores for all quizzes, overwriting existing data
+```
+
+The script will:
+- Automatically detect your quizzes
+- Generate realistic-looking quiz scores with a bell curve distribution
+- Create statistics summary files
+- Create recent scores history
+- Properly separate statistics by both quiz ID and topic
+- Back up any existing files before overwriting them (when using --force)
+
+The generated files follow these naming conventions:
+- `{topic}_{quizId}_scores.json` - Complete score records
+- `{topic}_{quizId}_summary.json` - Summary statistics
+- `{topic}_{quizId}_recent.json` - Recent scores
+
+This ensures that quizzes with the same ID but in different topics will have separate statistics.
 
 ### Frontend Integration
 

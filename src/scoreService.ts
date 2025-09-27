@@ -131,7 +131,7 @@ export const saveQuizScore = async (
 };
 
 // Static mode: Fetch stats from localStorage and static file
-const fetchQuizStatsStatic = async (quizId: string): Promise<QuizStats | null> => {
+const fetchQuizStatsStatic = async (quizId: string, topic: string = 'default'): Promise<QuizStats | null> => {
   try {
     // First, try to load base stats from static file
     const baseUrl = getQuizzesBaseUrl();
@@ -141,7 +141,8 @@ const fetchQuizStatsStatic = async (quizId: string): Promise<QuizStats | null> =
       const response = await fetch(`${baseUrl}/../quiz-stats.json`);
       if (response.ok) {
         const allStats = await response.json();
-        baseStats = allStats[quizId];
+        // Try to find stats using combined topic_quizId key first, fall back to just quizId
+        baseStats = allStats[`${topic}_${quizId}`] || allStats[quizId];
       }
     } catch (error) {
       console.log('No static stats file found, using defaults');
@@ -222,12 +223,12 @@ const fetchQuizStatsStatic = async (quizId: string): Promise<QuizStats | null> =
 };
 
 // Server mode: Fetch stats from backend
-const fetchQuizStatsServer = async (quizId: string): Promise<QuizStats | null> => {
+const fetchQuizStatsServer = async (quizId: string, topic: string = 'default'): Promise<QuizStats | null> => {
   // Get base URL for API calls
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
   
   try {
-    const response = await fetch(`${apiBaseUrl}/quiz-stats.php?quizId=${encodeURIComponent(quizId)}`);
+    const response = await fetch(`${apiBaseUrl}/quiz-stats.php?quizId=${encodeURIComponent(quizId)}&topic=${encodeURIComponent(topic)}`);
     
     if (!response.ok) {
       console.error('Failed to fetch quiz statistics');
@@ -242,10 +243,11 @@ const fetchQuizStatsServer = async (quizId: string): Promise<QuizStats | null> =
 };
 
 // Main function to fetch quiz statistics (uses appropriate method based on mode)
-export const fetchQuizStats = async (quizId: string): Promise<QuizStats | null> => {
+export const fetchQuizStats = async (quizId: string, topic: string = 'default'): Promise<QuizStats | null> => {
   if (isStaticMode()) {
+    // Static mode doesn't support topic yet, but we could enhance this in the future
     return await fetchQuizStatsStatic(quizId);
   } else {
-    return await fetchQuizStatsServer(quizId);
+    return await fetchQuizStatsServer(quizId, topic);
   }
 };

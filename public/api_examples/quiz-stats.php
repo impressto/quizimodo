@@ -6,8 +6,9 @@ header('Content-Type: application/json');
 // Define the storage directory
 $storageDir = __DIR__ . '/scores';
 
-// Get quiz ID from query string
+// Get quiz ID and topic from query string
 $quizId = isset($_GET['quizId']) ? preg_replace('/[^a-zA-Z0-9\-_]/', '', $_GET['quizId']) : null;
+$topic = isset($_GET['topic']) ? preg_replace('/[^a-zA-Z0-9\-_]/', '', $_GET['topic']) : 'default';
 
 // If no quiz ID provided, return error
 if (!$quizId) {
@@ -16,8 +17,8 @@ if (!$quizId) {
     exit;
 }
 
-// Define the scores file
-$scoresFile = $storageDir . '/' . $quizId . '_scores.json';
+// Define the scores file with topic included
+$scoresFile = $storageDir . '/' . $topic . '_' . $quizId . '_scores.json';
 
 // Check if the file exists
 if (!file_exists($scoresFile)) {

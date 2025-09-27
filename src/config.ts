@@ -1,7 +1,7 @@
 // Configuration file to handle environment-specific settings
 
 // Default topic if none is specified
-export const DEFAULT_TOPIC = 'react';
+export const DEFAULT_TOPIC = 'default';
 
 // Function to determine if we're running in static mode
 export const isStaticMode = (): boolean => {
@@ -15,10 +15,33 @@ export const isProduction = (): boolean => {
          !window.location.hostname.includes('0.0.0.0');
 };
 
-// Read topic from URL query parameters (e.g., ?topic=react)
+// Read topic from data-topic attribute, URL query parameters, or infer from path
 export const getTopicFromUrl = (): string => {
+  // First check if data-topic is set on the root element
+  const rootElement = document.getElementById('root');
+  const dataTopic = rootElement?.getAttribute('data-topic');
+  if (dataTopic) {
+    return dataTopic;
+  }
+  
+  // Next check URL query parameter
   const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('topic') || DEFAULT_TOPIC;
+  const topicParam = urlParams.get('topic');
+  if (topicParam) {
+    return topicParam;
+  }
+  
+  // Try to infer from URL path
+  const pathname = window.location.pathname;
+  
+  // Check if URL contains /quizzes/[topic]/
+  const quizzesMatch = pathname.match(/\/quizzes\/([^\/]+)\//);
+  if (quizzesMatch && quizzesMatch[1]) {
+    return quizzesMatch[1];
+  }
+  
+  // Return default if no topic can be inferred
+  return DEFAULT_TOPIC;
 };
 
 // Function to get the base URL for quiz assets

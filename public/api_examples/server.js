@@ -38,8 +38,9 @@ app.post('/save-score', async (req, res) => {
       date: new Date().toISOString()
     };
     
-    // Get file path for this quiz's scores
-    const scoresFile = path.join(scoresDir, `${quizId}_scores.json`);
+    // Get file path for this quiz's scores - include topic for uniqueness
+    const topicSafe = topic || 'default';
+    const scoresFile = path.join(scoresDir, `${topicSafe}_${quizId}_scores.json`);
     
     // Load existing scores or create empty array
     let scores = [];
@@ -70,13 +71,13 @@ app.post('/save-score', async (req, res) => {
 // Get quiz stats endpoint
 app.get('/quiz-stats', async (req, res) => {
   try {
-    const { quizId } = req.query;
+    const { quizId, topic = 'default' } = req.query;
     
     if (!quizId) {
       return res.status(400).json({ error: 'Missing quizId parameter' });
     }
     
-    const scoresFile = path.join(scoresDir, `${quizId}_scores.json`);
+    const scoresFile = path.join(scoresDir, `${topic}_${quizId}_scores.json`);
     
     // Return empty stats if file doesn't exist
     if (!await fs.pathExists(scoresFile)) {

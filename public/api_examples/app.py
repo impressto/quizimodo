@@ -31,6 +31,8 @@ def save_score():
     
     # Optional fields
     topic = ''.join(c for c in data.get('topic', '') if c.isalnum() or c in '-_')
+    if not topic:
+        topic = 'default'
     quiz_title = data.get('quizTitle', '')[:100]
     
     # Anonymize user
@@ -49,8 +51,8 @@ def save_score():
         'date': datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
     }
     
-    # Get file path for this quiz's scores
-    scores_file = os.path.join(SCORES_DIR, f"{quiz_id}_scores.json")
+    # Get file path for this quiz's scores - include topic for uniqueness
+    scores_file = os.path.join(SCORES_DIR, f"{topic}_{quiz_id}_scores.json")
     
     # Load existing scores or create empty list
     scores = []
@@ -82,13 +84,15 @@ def save_score():
 @app.route('/quiz-stats', methods=['GET'])
 def quiz_stats():
     quiz_id = request.args.get('quizId')
+    topic = request.args.get('topic', 'default')
     
     if not quiz_id:
         return jsonify({'error': 'Missing quizId parameter'}), 400
     
-    # Sanitize quiz_id
+    # Sanitize quiz_id and topic
     quiz_id = ''.join(c for c in quiz_id if c.isalnum() or c in '-_')
-    scores_file = os.path.join(SCORES_DIR, f"{quiz_id}_scores.json")
+    topic = ''.join(c for c in topic if c.isalnum() or c in '-_')
+    scores_file = os.path.join(SCORES_DIR, f"{topic}_{quiz_id}_scores.json")
     
     # Return empty stats if file doesn't exist
     if not os.path.exists(scores_file):
