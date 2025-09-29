@@ -245,8 +245,8 @@ const fetchQuizStatsServer = async (quizId: string, topic: string = 'default'): 
 // Main function to fetch quiz statistics (uses appropriate method based on mode)
 export const fetchQuizStats = async (quizId: string, topic: string = 'default'): Promise<QuizStats | null> => {
   if (isStaticMode()) {
-    // Static mode doesn't support topic yet, but we could enhance this in the future
-    return await fetchQuizStatsStatic(quizId);
+    // Pass topic to fetchQuizStatsStatic
+    return await fetchQuizStatsStatic(quizId, topic);
   } else {
     return await fetchQuizStatsServer(quizId, topic);
   }

@@ -351,6 +351,7 @@ function App({ topic = DEFAULT_TOPIC, initialQuiz }: AppProps) {
             quizData={quizState.quizData}
             onRestart={restartQuiz}
             onChooseNewQuiz={availableQuizCount > 1 ? chooseNewQuiz : undefined}
+            topic={topic} // Pass the topic received from data-topic attribute
           />
         ) : quizState.quizData ? (
           <QuizQuestion 

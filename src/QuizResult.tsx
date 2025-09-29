@@ -16,6 +16,7 @@ interface QuizResultProps {
   onChooseNewQuiz?: () => void; // Optional callback to choose a new quiz
   onNextQuiz?: () => void; // Optional callback to go to next quiz
   nextQuizTitle?: string; // Optional title for next quiz
+  topic?: string; // Topic name from data-topic or other sources
 }
 
 const QuizResult = ({
@@ -26,7 +27,8 @@ const QuizResult = ({
   onRestart,
   onChooseNewQuiz,
   onNextQuiz,
-  nextQuizTitle
+  nextQuizTitle,
+  topic // Add the topic prop here
 }: QuizResultProps) => {
   const percentage = Math.round((score / totalQuestions) * 100);
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
@@ -44,18 +46,20 @@ const QuizResult = ({
   useEffect(() => {
     if (!quizData || !quizId) return;
     
-    // Get topic from URL or use default
-    const topic = getTopicFromUrl();
+    // Get topic from props or from URL or use default
+    const topicToUse = topic || getTopicFromUrl();
     
     // Submit score to backend
     const submitScore = async () => {
       if (scoreSaved) return;
       
+      console.log('Saving score with topic:', topicToUse); // Debug log
+      
       const success = await saveQuizScore(
         quizId,
         score,
         totalQuestions,
-        topic,
+        topicToUse,
         quizTitle
       );
       
@@ -67,7 +71,7 @@ const QuizResult = ({
     // Fetch quiz stats
     const getStats = async () => {
       setLoadingStats(true);
-      const stats = await fetchQuizStats(quizId, topic);
+      const stats = await fetchQuizStats(quizId, topicToUse);
       if (stats) {
         setQuizStats(stats);
       }
