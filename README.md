@@ -79,9 +79,9 @@ VITE_API_BASE_URL=https://your-domain.com/api  # Base URL for your API endpoints
 
 Example implementations for different backend technologies are provided in the `public/api_examples` directory:
 
-#### PHP Implementation
+#### PHP Implementation with SQLite
 
-1. Create a directory for storing scores:
+1. Create a directory for storing the SQLite database:
 
 ```bash
 mkdir -p public/api/scores
@@ -91,9 +91,41 @@ chmod 755 public/api/scores
 2. Copy the example PHP files from `public/api_examples` to your server:
    - `save-score.php` - Handles saving quiz scores
    - `quiz-stats.php` - Provides quiz statistics
+   - `db_helper.php` - Database helper functions for SQLite integration
    - `seed-scores.php` - Generates test data for development and testing
 
-See the [save-score.php](public/api_examples/save-score.php) and [quiz-stats.php](public/api_examples/quiz-stats.php) files for complete implementations. There's also a helpful [seed-scores.php](public/api_examples/seed-scores.php) script for generating test data (see "Generating Test Data" section below).
+See the [save-score.php](public/api_examples/save-score.php) and [quiz-stats.php](public/api_examples/quiz-stats.php) files for complete implementations. The system automatically falls back to file-based storage if SQLite is not available. There's also a helpful [seed-scores.php](public/api_examples/seed-scores.php) script for generating test data (see "Generating Test Data" section below).
+
+#### Database Requirements for SQLite
+
+The PHP implementation uses SQLite by default, but will fall back to flat files if SQLite is not available:
+
+1. Make sure PHP has the PDO SQLite extension enabled:
+
+```bash
+# Check if PDO SQLite is available
+php -m | grep sqlite
+php -m | grep pdo_sqlite
+```
+
+2. If it's not available, install it:
+
+```bash
+# On Ubuntu/Debian
+sudo apt-get install php-sqlite3
+
+# On CentOS/RHEL
+sudo yum install php-sqlite3
+
+# On macOS (using Homebrew)
+brew install php
+```
+
+3. Make sure the scores directory is writable:
+
+```bash
+chmod 755 public/api/scores
+```
 
 #### Node.js Implementation
 
@@ -103,7 +135,7 @@ See the [save-score.php](public/api_examples/save-score.php) and [quiz-stats.php
 mkdir -p api
 cd api
 npm init -y
-npm install express cors body-parser fs-extra
+npm install express cors body-parser better-sqlite3
 ```
 
 2. Copy the [server.js](public/api_examples/server.js) example from `public/api_examples` to your server.
@@ -121,7 +153,7 @@ node server.js
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install flask flask-cors
+pip install flask flask-cors sqlite3
 ```
 
 2. Copy the [app.py](public/api_examples/app.py) example from `public/api_examples` to your server.
@@ -152,17 +184,38 @@ php seed-scores.php --force      # Generate scores for all quizzes, overwriting 
 The script will:
 - Automatically detect your quizzes
 - Generate realistic-looking quiz scores with a bell curve distribution
-- Create statistics summary files
-- Create recent scores history
+- Store the scores in the SQLite database
 - Properly separate statistics by both quiz ID and topic
-- Back up any existing files before overwriting them (when using --force)
+- Manage existing data appropriately based on your options
 
-The generated files follow these naming conventions:
+When using SQLite (default), scores are stored in a single database file (`scores/quiz_scores.db`) with appropriate tables for quizzes and scores. If SQLite is not available, the system will automatically fall back to file-based storage with the following naming conventions:
 - `{topic}_{quizId}_scores.json` - Complete score records
 - `{topic}_{quizId}_summary.json` - Summary statistics
 - `{topic}_{quizId}_recent.json` - Recent scores
 
 This ensures that quizzes with the same ID but in different topics will have separate statistics.
+
+### SQLite Database Structure
+
+The SQLite database used for score tracking contains the following tables:
+
+1. `quizzes` table:
+   - `id` - Primary key
+   - `quiz_id` - Quiz identifier string 
+   - `topic` - Topic identifier string
+   - `title` - Quiz title
+
+2. `scores` table:
+   - `id` - Primary key
+   - `quiz_id` - Foreign key to quizzes table
+   - `user_id` - Anonymous user identifier
+   - `name` - Optional user name
+   - `email` - Optional user email
+   - `score` - Number of correct answers
+   - `correct` - Number of correct answers (same as score)
+   - `total` - Total number of questions
+   - `timestamp` - Unix timestamp when the score was recorded
+   - `date` - Formatted date and time
 
 ### Frontend Integration
 

@@ -1,4 +1,7 @@
 <?php
+// Include database helper
+require_once('db_helper.php');
+
 // Allow cross-origin requests from your domain
 header('Access-Control-Allow-Origin: *'); // Replace * with your domain in production
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -53,49 +56,20 @@ $userId = isset($data->anonymousId) ? $data->anonymousId : uniqid();
 // Prepare score record
 $scoreRecord = [
     'quizId' => $quizId,
-    'topic' => $topic,
+    'topic' => !empty($topic) ? $topic : 'default',
     'quizTitle' => $quizTitle,
     'score' => $score,
     'totalQuestions' => $totalQuestions,
-    'percentage' => ($totalQuestions > 0) ? round(($score / $totalQuestions) * 100) : 0,
     'userId' => $userId,
     'timestamp' => $timestamp,
     'date' => date('Y-m-d H:i:s', $timestamp)
 ];
 
-// Define the storage directory and file
-$storageDir = __DIR__ . '/scores';
-$topic = !empty($topic) ? $topic : 'default';
-$scoresFile = $storageDir . '/' . $topic . '_' . $quizId . '_scores.json';
-
-// Create directory if it doesn't exist
-if (!is_dir($storageDir)) {
-    mkdir($storageDir, 0755, true);
-}
-
-// Load existing scores
-$scores = [];
-if (file_exists($scoresFile)) {
-    $fileContent = file_get_contents($scoresFile);
-    if ($fileContent) {
-        $scores = json_decode($fileContent, true) ?: [];
-    }
-}
-
-// Append new score
-$scores[] = $scoreRecord;
-
-// Keep only the most recent scores to prevent file from growing too large
-$maxScores = 1000; // Adjust as needed
-if (count($scores) > $maxScores) {
-    $scores = array_slice($scores, -$maxScores);
-}
-
-// Save scores back to file
-if (file_put_contents($scoresFile, json_encode($scores, JSON_PRETTY_PRINT))) {
+// Save the score to the database
+if (saveScore($scoreRecord)) {
     http_response_code(200);
     echo json_encode(['success' => true]);
 } else {
     http_response_code(500);
-    echo json_encode(['error' => 'Failed to save score']);
+    echo json_encode(['error' => 'Failed to save score to database']);
 }
